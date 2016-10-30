@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+
+    <title>Hatch</title>
+
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,400italic|Work+Sans:300,400,500,600' rel='stylesheet' type='text/css'>
+    <link href="{{ url_for('static', filename='css/toolkit-startup.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/application-startup.css') }}" rel="stylesheet">
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}" rel="text/javascript"></script>
+    {% endblock %}
+</head>
+
+<body>
+    <div class="container">
+    {% block content %}
+
+    {% endblock %}
+    </div>
+    {% block footer %}
+      &copy; Copyright 2016 <a href="http://domain.invalid/">Hatch</a>.
+    {% endblock %}
+</body>
+</html>
