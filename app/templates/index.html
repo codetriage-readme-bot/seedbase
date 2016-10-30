@@ -1,4 +1,5 @@
 {% extends "layout.html" %}
+{% block content %}
 
 <div class="stage-shelf stage-shelf-right hidden" id="sidebar">
   <ul class="nav nav-bordered nav-stacked">
@@ -19,7 +20,7 @@
 
 <div class="stage" id="stage">
 
-	<div class="block block-inverse block-fill-height app-header" style="background-image: url({{ url_for('static', filename='img/startup-1.jpg') }});">
+	<div class="block block-inverse block-fill-height app-header" style="background-image: url({{ url_for('static', filename='img/cover.png') }});">
 
 		<nav class="navbar navbar-transparent navbar-fixed-top navbar-padded app-navbar p-t-md">
 			<div class="container">
@@ -31,7 +32,7 @@
 						<span class="icon-bar"></span>
 					</button>
 					<a class="navbar-brand" href="">
-						<strong style="background: #fff; padding: 12px; border-radius: 4px; color: #28669F; border: 1px solid;">Hatch</strong>
+						<strong style="padding: 12px; border-radius: 4px; color: #28669F; border: 1px solid;">Hatch</strong>
 					</a>
 				</div>
 				<div class="navbar-collapse collapse text-uppercase">
@@ -53,9 +54,9 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-10 col-md-6">
-						<h1 class="block-title m-b-sm">Analytics on demand.</h1>
-						<p class="lead m-b-md text-muted">Stop installing bloated scripts that all track the exact same things. Install one that does everything.</p>
-						<button class="btn btn-primary btn-lg">Try it now</button>
+						<h1 class="block-title m-b-sm">Never manually create testing data again.</h1>
+						<p class="lead m-b-md text-muted">Hatch is a data generation platform that emulates production data in a staging environment.</p>
+						<button class="btn btn-primary btn-lg">Get started</button>
 					</div>
 				</div>
 			</div>
@@ -140,11 +141,11 @@
 
 	<div class="block app-ribbon p-y-lg">
 		<div class="container text-center">
-			<img src="{{ url_for('static', filename='img/startup-4.jpg') }}">
-			<img src="{{ url_for('static', filename='img/startup-5.jpg') }}">
-			<img src="{{ url_for('static', filename='img/startup-6.jpg') }}">
-			<img src="{{ url_for('static', filename='img/startup-7.jpg') }}">
-			<img src="{{ url_for('static', filename='img/startup-8.jpg') }}">
+			<img src="{{ url_for('static', filename='img/startup-4.svg') }}">
+			<img src="{{ url_for('static', filename='img/startup-5.svg') }}">
+			<img src="{{ url_for('static', filename='img/startup-6.svg') }}">
+			<img src="{{ url_for('static', filename='img/startup-7.svg') }}">
+			<img src="{{ url_for('static', filename='img/startup-8.svg') }}">
 		</div>
 	</div>
 
@@ -160,30 +161,30 @@
 
 			<div class="row app-marketing-grid">
 				<div class="col-sm-4 p-x-md m-b-lg">
-					<img class="m-b" src="{{ url_for('static', filename='img/startup-9.jpg') }}">
+					<img class="m-b" src="{{ url_for('static', filename='img/startup-9.svg') }}">
 					<p><strong>24/7 support.</strong> We’re always here for you no matter what time of day.</p>
 				</div>
 				<div class="col-sm-4 p-x-md m-b-lg">
-					<img class="m-b" src="{{ url_for('static', filename='img/startup-10.jpg') }}">
+					<img class="m-b" src="{{ url_for('static', filename='img/startup-10.svg') }}">
 					<p><strong>E-commerce.</strong> We automatically handle all sales analytics.</p>
 				</div>
 				<div class="col-sm-4 p-x-md m-b-lg">
-					<img class="m-b" src="{{ url_for('static', filename='img/startup-11.jpg') }}">
+					<img class="m-b" src="{{ url_for('static', filename='img/startup-11.svg') }}">
 					<p><strong>Turnaround.</strong> Our data analysis is distributed, so it processes in seconds.</p>
 				</div>
 			</div>
 
 			<div class="row app-marketing-grid">
 				<div class="col-sm-4 p-x-md m-b-lg">
-					<img class="m-b" src="{{ url_for('static', filename='img/startup-12.jpg') }}">
+					<img class="m-b" src="{{ url_for('static', filename='img/startup-12.svg') }}">
 					<p><strong>Rich calculations.</strong> Limitless ways to splice and dice your data.</p>
 				</div>
 				<div class="col-sm-4 p-x-md m-b-lg">
-					<img class="m-b" src="{{ url_for('static', filename='img/startup-13.jpg') }}">
+					<img class="m-b" src="{{ url_for('static', filename='img/startup-13.svg') }}">
 					<p><strong>Mobile apps.</strong> iOS and Android apps available for monitoring.</p>
 				</div>
 				<div class="col-sm-4 p-x-md m-b-lg">
-					<img class="m-b" src="{{ url_for('static', filename='img/startup-14.jpg') }}">
+					<img class="m-b" src="{{ url_for('static', filename='img/startup-14.svg') }}">
 					<p><strong>Secure connections.</strong> Every single request is routed through HTTPS.</p>
 				</div>
 			</div>
@@ -204,7 +205,7 @@
 				<div class="col-sm-4 p-x m-b-lg">
 					<div class="p-x">
 						<h6 class="text-muted text-uppercase m-b">Personal</h6>
-						<img class="m-b" src="{{ url_for('static', filename='img/startup-15.jpg') }}">
+						<img class="m-b" src="{{ url_for('static', filename='img/startup-15.svg') }}">
 						<p>Plenty of processing power for any personal projects, big or small.</p>
 					</div>
 
@@ -222,7 +223,7 @@
 				<div class="col-sm-4 p-x m-b-lg">
 					<div class="p-x">
 						<h6 class="text-muted text-uppercase m-b">Business</h6>
-						<img class="m-b" src="{{ url_for('static', filename='img/startup-16.jpg') }}">
+						<img class="m-b" src="{{ url_for('static', filename='img/startup-16.svg') }}">
 						<p>The perfect sized plan for small businesses to get started.</p>
 					</div>
 
@@ -240,7 +241,7 @@
 				<div class="col-sm-4 p-x m-b-lg">
 					<div class="p-x">
 						<h6 class="text-muted text-uppercase m-b">Corporate</h6>
-						<img class="m-b" src="{{ url_for('static', filename='img/startup-17.jpg') }}">
+						<img class="m-b" src="{{ url_for('static', filename='img/startup-17.svg') }}">
 						<p>An unlimited plan that will scale infinitely to any size project.</p>
 					</div>
 
@@ -304,3 +305,5 @@
 
 <script src="{{ url_for('static', filename='js/toolkit.js') }}"></script>
 <script src="{{ url_for('static', filename='js/application.js') }}"></script>
+
+{% endblock %}
