@@ -3,5 +3,5 @@ from __future__ import unicode_literals
 from django.apps import AppConfig
 
 
-class LandingPageConfig(AppConfig):
-    name = 'landing_page'
+class HomeConfig(AppConfig):
+    name = 'home'
