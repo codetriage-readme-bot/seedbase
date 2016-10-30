@@ -84,6 +84,9 @@
 
 
 /* marketing grid block */
+.app-block-marketing-grid {
+  background-color: #34495e;
+}
 .app-block-marketing-grid .container {
   margin-bottom: -60px;
 }
