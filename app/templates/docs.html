@@ -9,7 +9,20 @@
     <meta name="author" content="">
 
     <title>Hatch | Documentation</title>
-
+    <link rel="apple-touch-icon" sizes="57x57" href="{{ url_for('static', filename='img/favicon/apple-icon-57x57.png') }}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{{ url_for('static', filename='img/favicon/apple-icon-60x60.png') }}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{{ url_for('static', filename='img/favicon/apple-icon-72x72.png') }}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{{ url_for('static', filename='img/favicon/apple-icon-76x76.png') }}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{{ url_for('static', filename='img/favicon/apple-icon-114x114.png') }}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{{ url_for('static', filename='img/favicon/apple-icon-120x120.png') }}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{{ url_for('static', filename='img/favicon/apple-icon-144x144.png') }}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{{ url_for('static', filename='img/favicon/apple-icon-152x152.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='img/favicon/apple-icon-180x180.png') }}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ url_for('static', filename='img/favicon/android-icon-192x192.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='img/favicon/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{{ url_for('static', filename='img/favicon/favicon-96x96.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='img/favicon/favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ url_for('static', filename='img/favicon/manifest.json') }}">
     <link href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/generator-toolkit.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/docs.css') }}" rel="stylesheet">
@@ -28,7 +41,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand navbar-brand-emphasized" href="/home">
+        <a class="navbar-brand navbar-brand-emphasized" href="/">
           <span class="navbar-brand-icon"><img style="margin-bottom: 2px;" src="{{ url_for('static', filename='img/logo-navbar.png') }}" /></span>Hatch
         </a>
       </div>
@@ -41,43 +54,40 @@
     </div>
   </nav>
 
-    <div class="docs-header" id="content">
-      <div class="container">
-        <h1>Documentation</h1>
-        <p>Unleash the power of data with the Hatch API.</p>
-      </div>
+  <div class="docs-header" id="content">
+    <div class="container">
+      <h1>Documentation</h1>
+      <p>Unleash the power of data with the Hatch API.</p>
     </div>
-    <div class="container docs-content">
+  </div>
+  <div class="container docs-content">
 
-      <h1 id="contents">Contents</h1>
+    <h1 id="contents">Contents</h1>
 
-      <ul id="markdown-toc">
-        <li><a href="#contents" id="markdown-toc-contents">Contents</a></li>
-        <li><a href="#intro" id="markdown-toc-intro">Intro</a></li>
-        <li><a href="#getting-started" id="markdown-toc-getting-started">Getting started</a></li>
-      </ul>
+    <ul id="markdown-toc">
+      <li><a href="#contents" id="markdown-toc-contents">Contents</a></li>
+      <li><a href="#intro" id="markdown-toc-intro">Intro</a></li>
+      <li><a href="#getting-started" id="markdown-toc-getting-started">Getting started</a></li>
+    </ul>
 
-      <h1 id="intro">Intro</h1>
+    <h1 id="intro">Intro</h1>
 
-      <p>Hey there! Welcome to the Hatch documentation. Let’s dive in.</p>
+    <p>Hey there! Welcome to the Hatch documentation. Let’s dive in.</p>
 
-      <h1 id="getting-started">Getting Started</h1>
+    <h1 id="getting-started">Getting Started</h1>
 
-      <p>Getting started...</p>
+    <p>Getting started...</p>
 
-      <a class="docs-top" style="display: none" href="#">Back to top</a>
-    </div>
-  
+    <a class="docs-top" style="display: none" href="#">Back to top</a>
+  </div>
 
-    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/chart.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/tableSorter.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/toolkit.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/generator.js') }}"></script>
-    <script>
-      // execute/clear BS loaders for docs
-      $(function(){while(window.BS&&window.BS.loader&&window.BS.loader.length){(window.BS.loader.pop())()}})
-    </script>
-  </body>
-</html>
 
+  <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/chart.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/tableSorter.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/toolkit.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/generator.js') }}"></script>
+  <script>
+    // execute/clear BS loaders for docs
+    $(function(){while(window.BS&&window.BS.loader&&window.BS.loader.length){(window.BS.loader.pop())()}})
+  </script>
