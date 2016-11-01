@@ -96,28 +96,28 @@
 			<div class="row app-align-center">
 				<div class="col-sm-5 col-sm-push-7">
 					<pre class="app-code">
-	<span>1</span> <span class="hidden-xs">Hatch</span> “who are the latest 3 users?”
-	<span>2</span>
-	<span>3</span>  {
-	<span>4</span>    "Dave": {
-	<span>5</span>      "fullName": "Dave Gämache",
-	<span>6</span>      "twitterHandle": "@dhg",
-	<span>7</span>    }
-	<span>8</span>    "Mark": {
-	<span>9</span>      "fullName": "Mark Øtto",
-	<span>10</span>      "twitterHandle": "@mdo",
-	<span>11</span>    }
-	<span>12</span>    "Jacob": {
-	<span>13</span>      "fullName": "Jacob Thornton",
-	<span>14</span>      "twitterHandle": "@fat",
-	<span>15</span>    }
-	<span>16</span>  }</pre>
+	<span>1</span> "user": {
+	<span>2</span>   "name": "Dave Gämache",
+	<span>3</span>   "email": "dhg@acme.com",
+	<span>4</span>   "twitterHandle": "@dhg",
+	<span>5</span>   "contact": {
+	<span>6</span>     "phone": 5417543010,
+	<span>7</span>     "country": "GR"
+	<span>8</span>   },
+	<span>9</span>   "language": "German"
+	<span>10</span> }
+	<span></span>
+	<span class="hidden-xs">'Full Name',
+	'Email',
+	'Twitter Handle',
+	'Object': {'Domestic Phone Number', 'Country Code'},
+	'Language'</span></pre>
 				</div>
 
 				<div class="col-sm-6 col-sm-pull-5">
-					<h6 class="text-muted text-uppercase">Easy development</h6>
-					<h3 class="m-t-0">Natural language queries make mining data easy for anyone.</h3>
-					<p class="lead m-b-md text-muted">Rather than force everyone at your company to learn incredibly difficult terminal commands, we allow anyone to query the data with natural language to return data.</p>
+					<h6 class="text-muted text-uppercase">Automatic Inference</h6>
+					<h3 class="m-t-0">A faster way to generate data.</h3>
+					<p class="lead m-b-md text-muted">Paste a JSON payload snippet and Hatch will infer the data type and format for you.</p>
 					<a href="/docs" class="btn btn-default btn-lg btn-borderless">Read our docs</a>
 				</div>
 			</div>
