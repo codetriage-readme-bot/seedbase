@@ -1,0 +1,16 @@
+{
+  "name": "hatch",
+  "description": "Describes the environment and add-ons required to run Hatch on Heroku",
+  "scripts": {
+  },
+  "env": {
+  },
+  "formation": {
+  },
+  "addons": [
+
+  ],
+  "buildpacks": [
+
+  ]
+}
