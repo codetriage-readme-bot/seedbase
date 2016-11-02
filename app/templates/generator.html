@@ -21,94 +21,75 @@
     <link href="{{ url_for('static', filename='css/generator.css') }}" rel="stylesheet">
   </head>
 
-<body class="with-top-navbar m-t-md" ng-controller="generatorController">
-  <nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand navbar-brand-emphasized" href="/">
-          <span class="navbar-brand-icon"><img style="margin-bottom: 2px;" src="{{ url_for('static', filename='img/logo-navbar.png') }}" /></span>
-          Hatch
-        </a>
-      </div>
-      <div id="navbar" class="navbar-collapse collapse">
-        <ul class="nav navbar-nav">
-          <li class="active"><a href="/generator">Generator</a></li>
-          <li><a href="/docs">Documentation</a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-3 sidebar">
-        <nav class="sidebar-nav">
-          <div class="collapse nav-toggleable-sm" id="nav-toggleable-sm">
-            <ul class="nav nav-pills nav-stacked">
-              <li class="nav-header">Hatch Generator</li>
-              <li class="active">
-                <a href="/generator">Schema</a>
-              </li>
-            </ul>
-            <hr class="visible-xs m-t">
-          </div>
-        </nav>
-      </div>
-      <div class="col-sm-9 content">
-        <div class="dashhead">
-          <div class="dashhead-titles">
-            <h6 class="dashhead-subtitle">Generator</h6>
-            <h2 class="dashhead-title">Schema</h2>
-          </div>
-        </div>
-        <hr class="m-t">
-
-        <div class="list-group">
-          <h4 class="list-group-header">
-            Model name
-          </h4>
-
-          <a class="list-group-item" href="#">
-            <span class="pull-right text-muted">Type</span>
-            Field
+  <body class="with-top-navbar m-t-md" ng-controller="generatorController">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand navbar-brand-emphasized" href="/">
+            <span class="navbar-brand-icon"><img style="margin-bottom: 2px;" src="{{ url_for('static', filename='img/logo-navbar.png') }}" /></span>
+            Hatch
           </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="/generator">Generator</a></li>
+            <li><a href="/docs">Documentation</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
 
-          <a class="list-group-item" href="#">
-            <span class="pull-right text-muted">Type</span>
-            Field
-          </a>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-3 sidebar">
+          <nav class="sidebar-nav">
+            <div class="collapse nav-toggleable-sm" id="nav-toggleable-sm">
+              <ul class="nav nav-pills nav-stacked">
+                <li class="nav-header">Hatch Generator</li>
+                <li class="active">
+                  <a href="/generator">Schema</a>
+                </li>
+              </ul>
+              <hr class="visible-xs m-t">
+            </div>
+          </nav>
+        </div>
+        <div class="col-sm-9 content">
+          <div class="dashhead">
+            <div class="dashhead-titles">
+              <h6 class="dashhead-subtitle">Generator</h6>
+              <h2 class="dashhead-title">Schema</h2>
+            </div>
+          </div>
+          <hr class="m-t">
+
+          <div class="list-group">
+            <h4 class="list-group-header">
+              Model name
+            </h4>
+
+            <a class="list-group-item" href="#">
+              <span class="pull-right text-muted">Type</span>
+              Field
+            </a>
+
+            <a class="list-group-item" href="#">
+              <span class="pull-right text-muted">Type</span>
+              Field
+            </a>
+
+          </div>
+          <a href="#" class="btn btn-primary-outline p-x">Continue</a>
 
         </div>
-        <a href="#" class="btn btn-primary-outline p-x">Continue</a>
-
       </div>
     </div>
-  </div>
-
-  <div id="docsModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog">
-    <div class="modal-content">
-
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Example modal</h4>
-      </div>
-      <div class="modal-body">
-        <p>You're looking at an example modal in the dashboard theme.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Cool, got it!</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 
     <script src="{{ url_for('static', filename='js/vendor/jquery.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/vendor/angular.min.js') }}"></script>
