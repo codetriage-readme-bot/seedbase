@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="generator">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,7 +21,7 @@
     <link href="{{ url_for('static', filename='css/generator.css') }}" rel="stylesheet">
   </head>
 
-<body class="with-top-navbar m-t-md">
+<body class="with-top-navbar m-t-md" ng-controller="generatorController">
   <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
       <div class="navbar-header">
@@ -112,8 +112,6 @@
 
     <script src="{{ url_for('static', filename='js/vendor/jquery.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/vendor/angular.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/chart.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/tableSorter.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/toolkit.js') }}"></script>
     <script src="{{ url_for('static', filename='js/generator.js') }}"></script>
     <script>
