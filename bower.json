@@ -1,0 +1,20 @@
+{
+  "name": "hatch",
+  "homepage": "https://github.com/rosendin/hatch",
+  "authors": [
+    "Matthew Rosendin <matthew.rosendin@gmail.com>"
+  ],
+  "description": "A placeholder data generation platform",
+  "main": "run.py",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "react": "^15.3.2",
+    "babel": "^5.8.38"
+  }
+}
