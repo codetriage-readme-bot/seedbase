@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="Generator">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="API documentation for generating placeholder data">
-    <meta name="keywords" content="generate mock placeholder data api hatch docs">
+    <meta name="description" content="Generate placeholder data with Hatch Data Generator">
+    <meta name="keywords" content="generate mock placeholder data rest api">
 
-    <title>Hatch | Documentation</title>
+    <title>Hatch | Data Generator</title>
     <link rel="apple-touch-icon" sizes="152x152" href="{{ url_for('static', filename='img/favicon/apple-touch-icon.png') }}">
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/favicon/favicon-32x32.png') }}">
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/favicon/favicon-16x16.png') }}">
@@ -18,12 +18,10 @@
     <meta name="theme-color" content="#ffffff">
     <link href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/generator-toolkit.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static', filename='css/docs.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/generator.css') }}" rel="stylesheet">
   </head>
 
-  <body class="with-top-navbar">
-
+  <body class="with-top-navbar m-t-md" ng-controller="generatorController">
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -34,66 +32,47 @@
             <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand navbar-brand-emphasized" href="/">
-            <span class="navbar-brand-icon"><img style="margin-bottom: 2px;" src="{{ url_for('static', filename='img/logo-navbar.png') }}" /></span>Hatch
+            <span class="navbar-brand-icon"><img style="margin-bottom: 2px;" src="{{ url_for('static', filename='img/logo-navbar.png') }}" /></span>
+            Hatch
           </a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="/generator">Generator</a></li>
-            <li class="active"><a href="/docs">Documentation</a></li>
+            <li class="active"><a href="/generator/schema">Generator</a></li>
+            <li><a href="/docs">Documentation</a></li>
           </ul>
         </div>
       </div>
     </nav>
 
-    <div class="docs-header" id="content">
-      <div class="container">
-        <h1>Documentation</h1>
-        <p>Unleash the power of data with the Hatch API.</p>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-3 sidebar">
+          <nav class="sidebar-nav">
+            <div class="collapse nav-toggleable-sm" id="nav-toggleable-sm">
+              <ul class="nav nav-pills nav-stacked">
+                <li class="nav-header">Hatch Generator</li>
+                <li {%- if request.path == "/generator/data-types" %} class="active"{% endif %}>
+                  <a href="/generator/data-types">Custom Data Types</a>
+                </li>
+                <li {%- if request.path == "/generator/schema" %} class="active"{% endif %}>
+                  <a href="/generator/schema">Schema</a>
+                </li>
+              </ul>
+              <hr class="visible-xs m-t">
+            </div>
+          </nav>
+        </div>
+        <div class="col-sm-9">
+          {% block content %}{% endblock %}
+        </div>
       </div>
     </div>
-    <div class="container docs-content">
-
-      <h1 id="contents">Contents</h1>
-
-      <ul id="markdown-toc">
-        <li><a href="#contents" id="markdown-toc-contents">Contents</a></li>
-        <li><a href="#introduction" id="markdown-toc-intro">Introduction</a>
-          <ul>
-            <li><a href="#authentication" id="markdown-toc-authentication">Authentication</a></li>
-            <li><a href="#rate-limits" id="markdown-toc-rate-limits">Rate Limits</a></li>
-            <li><a href="#request-format" id="markdown-toc-request-format">Request Format</a></li>
-            <li><a href="#response-format" id="markdown-toc-response-format">Response Format</a></li>
-          </ul>
-        </li>
-        <li><a href="#generate" id="markdown-toc-generate">Generate</a></li>
-      </ul>
-
-      <h1 id="intro">Introduction</h1>
-
-      <p>Hey there! Welcome to the Hatch documentation. Let’s dive in.</p>
-
-      <h2 id="authentication">Authentication</h2>
-
-      <p>Basic authentication is supported with an email address and an API token.</p>
-
-      <h2 id="rate-limits">Rate Limits</h2>
-
-      <h2 id="request-format">Request Format</h2>
-
-      <h2 id="response-format">Response Format</h2>
-
-      <h1 id="generate">Generate</h1>
-
-      <p><code class="highlighter-rouge">POST https://hatch-data.io/api/generate</code></p>
-
-      <a class="docs-top" style="display: none" href="#">Back to top</a>
-    </div>
-
 
     <script src="{{ url_for('static', filename='js/vendor/jquery.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/documentation.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/vendor/angular.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/toolkit.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/generator.js') }}"></script>
     <script>
       // execute/clear BS loaders for docs
       $(function(){while(window.BS&&window.BS.loader&&window.BS.loader.length){(window.BS.loader.pop())()}})

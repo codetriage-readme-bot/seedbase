@@ -1,0 +1,45 @@
+{% extends "generator/layout.html" %}
+{% block content %}
+<!-- Dashhead -->
+<div class="row">
+  <div class="col-sm-12">
+    <div class="dashhead">
+      <div class="dashhead-titles">
+        <h6 class="dashhead-subtitle">Generator</h6>
+        <h2 class="dashhead-title">Schema</h2>
+      </div>
+    </div>
+    <hr class="m-t">
+  </div>
+</div>
+<!-- Fields -->
+<div class="row">
+  <div class="col-sm-3">
+    <div class="form-group">
+      <input type="text" class="form-control" placeholder="field" />
+    </div>
+  </div>
+  <div class="col-sm-3">
+    <div class="form-group">
+      <select class="form-control">
+        <option>Boolean</option>
+        <option>City</option>
+        <option>Company Name</option>
+        <option>Email</option>
+        <option>Date</option>
+        <option>None</option>
+        <option>Phone Number</option>
+      </select>
+    </div>
+  </div>
+</div>
+<!-- Buttons -->
+<div class="row">
+  <div class="col-sm-9">
+    <a href="#" class="btn btn-primary-outline p-x m-t m-r">
+      <span class="icon icon-plus"></span> Add Field
+    </a>
+    <a href="#" class="btn btn-primary-outline p-x m-t pull-right">Continue</a>
+  </div>
+</div>
+{% endblock %}
