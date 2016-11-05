@@ -18,10 +18,7 @@
   "homepage": "https://github.com/rosendin/hatch#readme",
   "devDependencies": {
     "bower": "^1.7.9",
-    "del": "^2.2.2",
     "gulp": "^3.9.1",
-    "gulp-browser": "^3.0.2",
-    "gulp-size": "^2.1.0",
-    "reactify": "^1.1.1"
+    "gulp-sass": "^2.3.2"
   }
 }
