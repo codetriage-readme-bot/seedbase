@@ -4,7 +4,7 @@
   "authors": [
     "Matthew Rosendin <matthew.rosendin@gmail.com>"
   ],
-  "description": "A placeholder data generation platform",
+  "description": "Describes configuration for the Bower package manager",
   "main": "run.py",
   "ignore": [
     "**/.*",
