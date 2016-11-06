@@ -29,7 +29,11 @@ var FieldList = React.createClass({
       <div id="collapseOne" className="panel-collapse collapse in" role="tabpanel">
         <div className="panel-body">
           {this.state.fields}
-          <AddFieldButton onClick={this.addField} />
+          <div className="form-group">
+            <button onClick={this.addField} className="btn btn-primary-outline">
+              <span className="icon icon-plus"></span> Add Field
+            </button>
+          </div>
         </div>
       </div>
     );
@@ -54,21 +58,6 @@ var Type = React.createClass({
 });
 
 /**
- * Button to add a field
- */
-var AddFieldButton = React.createClass({
-  render: function() {
-    return (
-      <div className="form-group">
-        <button onClick={this.props.onClick} className="btn btn-primary-outline">
-          <span className="icon icon-plus"></span> Add Field
-        </button>
-      </div>
-    );
-  }
-});
-
-/**
  * The field component
  */
 var Field = React.createClass({
@@ -85,22 +74,11 @@ var Field = React.createClass({
           </div>
         </div>
         <Type />
-        <RemoveFieldButton clickHandler={this.removeField} />
-      </div>
-    );
-  }
-});
-
-/**
- * The field actions component
- */
-var RemoveFieldButton = React.createClass({
-  render: function() {
-    return (
-      <div className="col-xs-3">
-        <button className="btn btn-default-outline" onClick={this.props.clickHandler}>
-          <span className="icon icon-erase"></span>
-        </button>
+        <div className="col-xs-3">
+          <button className="btn btn-default-outline" onClick={() => {this.props.removeField(this.props.index)}}>
+            <span className="icon icon-erase"></span>
+          </button>
+        </div>
       </div>
     );
   }
