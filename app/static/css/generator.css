@@ -26,3 +26,9 @@ hr {
 .navbar-static-top {
   border-bottom: 0;
 }
+
+.panel-title .form-control {
+  background-color: #fff;
+  color: #888;
+  border: none;
+}
