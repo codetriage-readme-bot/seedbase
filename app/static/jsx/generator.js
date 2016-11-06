@@ -4,19 +4,17 @@
 var FieldList = React.createClass({
   getInitialState: function() {
     return {
-      fields: []
+      fields: [0]
     };
   },
 
   addField: function() {
-    this.props.count += 1;
-    this.forceUpdate();
+    this.setState({fields: this.state.fields.concat(this.state.fields.length)});
   },
 
   removeField: function(index) {
-    this.state.fields.splice(index);
-    this.props.count -= 1;
-    this.forceUpdate();
+    this.state.fields.splice(index, 1);
+    this.setState({fields: this.state.fields});
   },
 
   render: function() {
@@ -28,7 +26,7 @@ var FieldList = React.createClass({
     return (
       <div id="collapseOne" className="panel-collapse collapse in" role="tabpanel">
         <div className="panel-body">
-          {this.state.fields}
+          {this.state.fields.map(field => <Field index={field} onRemove={this.removeField} />)}
           <div className="form-group">
             <button onClick={this.addField} className="btn btn-primary-outline">
               <span className="icon icon-plus"></span> Add Field
@@ -75,7 +73,7 @@ var Field = React.createClass({
         </div>
         <Type />
         <div className="col-xs-3">
-          <button className="btn btn-default-outline" onClick={() => {this.props.removeField(this.props.index)}}>
+          <button className="btn btn-default-outline" onClick={() => {this.props.onRemove(this.props.index)}}>
             <span className="icon icon-erase"></span>
           </button>
         </div>
@@ -90,8 +88,7 @@ var Field = React.createClass({
 var Model = React.createClass({
   getInitialState: function() {
     return {
-      collapsed: false,
-      fieldCount: 1
+      collapsed: false
     };
   },
 
@@ -121,7 +118,7 @@ var Model = React.createClass({
                   </div>
                 </h4>
               </div>
-              <FieldList count={this.state.fieldCount} />
+              <FieldList />
             </div>
           </div>
         </div>
