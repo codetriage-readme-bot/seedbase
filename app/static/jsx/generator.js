@@ -1,15 +1,44 @@
+/**
+ * Collapsible component
+ */
 var FieldList = React.createClass({
+  getInitialState: function() {
+    return {
+      fields: []
+    };
+  },
+
+  addField: function() {
+    this.props.count += 1;
+    this.forceUpdate();
+  },
+
+  removeField: function(index) {
+    this.state.fields.splice(index);
+    this.props.count -= 1;
+    this.forceUpdate();
+  },
+
   render: function() {
+
+    for (var index = 0; index < this.props.count; index++) {
+      this.state.fields.push(<Field key={index} removeField={this.removeField} />);
+    }
+
     return (
       <div id="collapseOne" className="panel-collapse collapse in" role="tabpanel">
         <div className="panel-body">
-          <Field />
+          {this.state.fields}
+          <AddFieldButton onClick={this.addField} />
         </div>
       </div>
     );
   }
 });
 
+/**
+ * Select dropdown for type
+ */
 var Type = React.createClass({
   render: function() {
     return (
@@ -24,37 +53,76 @@ var Type = React.createClass({
   }
 });
 
-var AddField = React.createClass({
+/**
+ * Button to add a field
+ */
+var AddFieldButton = React.createClass({
   render: function() {
     return (
       <div className="form-group">
-        <a href="#" className="btn btn-primary-outline">
+        <button onClick={this.props.onClick} className="btn btn-primary-outline">
           <span className="icon icon-plus"></span> Add Field
-        </a>
+        </button>
       </div>
     );
   }
 });
 
+/**
+ * The field component
+ */
 var Field = React.createClass({
+  removeField: function() {
+    this.props.removeField(this.props.key);
+  },
+
   render: function() {
     return (
-      <div>
-        <div className="row">
-          <div className="col-xs-6">
-            <div className="form-group">
-              <input type="text" className="form-control" placeholder="field" />
-            </div>
+      <div className="row">
+        <div className="col-xs-6">
+          <div className="form-group">
+            <input type="text" className="form-control" placeholder="field" />
           </div>
-          <Type />
         </div>
-        <AddField />
+        <Type />
+        <RemoveFieldButton clickHandler={this.removeField} />
       </div>
     );
   }
 });
 
+/**
+ * The field actions component
+ */
+var RemoveFieldButton = React.createClass({
+  render: function() {
+    return (
+      <div className="col-xs-3">
+        <button className="btn btn-default-outline">
+          <span className="icon icon-erase" onClick={this.props.clickHandler}></span>
+        </button>
+      </div>
+    );
+  }
+});
+
+/**
+ * The model component
+ */
 var Model = React.createClass({
+  getInitialState: function() {
+    return {
+      collapsed: false,
+      fieldCount: 1
+    };
+  },
+
+  handleClick: function() {
+    this.setState({
+      collapsed: !this.state.collapsed
+    });
+  },
+
   render: function() {
     return (
       <div className="row">
@@ -63,12 +131,19 @@ var Model = React.createClass({
             <div className="panel panel-default">
               <div className="panel-heading" role="tab">
                 <h4 className="panel-title">
-                  <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                    Model
-                  </a>
+                  <div className="row">
+                    <div className="col-xs-4">
+                      <input placeholder="Model" className="form-control" type="text" autoFocus />
+                    </div>
+                    <div className="col-xs-8">
+                      <button onClick={this.handleClick} className="pull-right btn btn-default" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                        <span className={"icon " + (this.state.collapsed ? "icon-squared-plus" : "icon-squared-minus")}></span>
+                      </button>
+                    </div>
+                  </div>
                 </h4>
               </div>
-              <FieldList />
+              <FieldList count={this.state.fieldCount} />
             </div>
           </div>
         </div>
@@ -81,141 +156,3 @@ ReactDOM.render(
   <Model />,
   document.getElementById('schema')
 );
-
-/*
-var Comment = React.createClass({
-  rawMarkup: function() {
-    var md = new Remarkable();
-    var rawMarkup = md.render(this.props.children.toString());
-    return { __html: rawMarkup };
-  },
-
-  render: function() {
-    return (
-      <div className="comment">
-        <h2 className="commentAuthor">
-          {this.props.author}
-        </h2>
-        <span dangerouslySetInnerHTML={this.rawMarkup()} />
-      </div>
-    );
-  }
-});
-
-var CommentBox = React.createClass({
-  loadCommentsFromServer: function() {
-    $.ajax({
-      url: this.props.url,
-      dataType: 'json',
-      cache: false,
-      success: function(data) {
-        this.setState({data: data});
-      }.bind(this),
-      error: function(xhr, status, err) {
-        console.error(this.props.url, status, err.toString());
-      }.bind(this)
-    });
-  },
-  handleCommentSubmit: function(comment) {
-    var comments = this.state.data;
-    // Optimistically set an id on the new comment. It will be replaced by an
-    // id generated by the server. In a production application you would likely
-    // not use Date.now() for this and would have a more robust system in place.
-    comment.id = Date.now();
-    var newComments = comments.concat([comment]);
-    this.setState({data: newComments});
-    $.ajax({
-      url: this.props.url,
-      dataType: 'json',
-      type: 'POST',
-      data: comment,
-      success: function(data) {
-        this.setState({data: data});
-      }.bind(this),
-      error: function(xhr, status, err) {
-        this.setState({data: comments});
-        console.error(this.props.url, status, err.toString());
-      }.bind(this)
-    });
-  },
-  getInitialState: function() {
-    return {data: []};
-  },
-  componentDidMount: function() {
-    this.loadCommentsFromServer();
-    setInterval(this.loadCommentsFromServer, this.props.pollInterval);
-  },
-  render: function() {
-    return (
-      <div className="commentBox">
-        <h1>Comments</h1>
-        <CommentList data={this.state.data} />
-        <CommentForm onCommentSubmit={this.handleCommentSubmit} />
-      </div>
-    );
-  }
-});
-
-var CommentList = React.createClass({
-  render: function() {
-    var commentNodes = this.props.data.map(function(comment) {
-      return (
-        <Comment author={comment.author} key={comment.id}>
-          {comment.text}
-        </Comment>
-      );
-    });
-    return (
-      <div className="commentList">
-        {commentNodes}
-      </div>
-    );
-  }
-});
-
-var CommentForm = React.createClass({
-  getInitialState: function() {
-    return {author: '', text: ''};
-  },
-  handleAuthorChange: function(e) {
-    this.setState({author: e.target.value});
-  },
-  handleTextChange: function(e) {
-    this.setState({text: e.target.value});
-  },
-  handleSubmit: function(e) {
-    e.preventDefault();
-    var author = this.state.author.trim();
-    var text = this.state.text.trim();
-    if (!text || !author) {
-      return;
-    }
-    this.props.onCommentSubmit({author: author, text: text});
-    this.setState({author: '', text: ''});
-  },
-  render: function() {
-    return (
-      <form className="commentForm" onSubmit={this.handleSubmit}>
-        <input
-          type="text"
-          placeholder="Your name"
-          value={this.state.author}
-          onChange={this.handleAuthorChange}
-        />
-        <input
-          type="text"
-          placeholder="Say something..."
-          value={this.state.text}
-          onChange={this.handleTextChange}
-        />
-        <input type="submit" value="Post" />
-      </form>
-    );
-  }
-});
-
-ReactDOM.render(
-  <CommentBox url="/api/comments" pollInterval={2000} />,
-  document.getElementById('content')
-);
-*/
