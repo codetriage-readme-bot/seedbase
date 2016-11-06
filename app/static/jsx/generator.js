@@ -98,8 +98,8 @@ var RemoveFieldButton = React.createClass({
   render: function() {
     return (
       <div className="col-xs-3">
-        <button className="btn btn-default-outline">
-          <span className="icon icon-erase" onClick={this.props.clickHandler}></span>
+        <button className="btn btn-default-outline" onClick={this.props.clickHandler}>
+          <span className="icon icon-erase"></span>
         </button>
       </div>
     );
