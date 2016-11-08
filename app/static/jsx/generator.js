@@ -4,29 +4,30 @@
 var FieldList = React.createClass({
   getInitialState: function() {
     return {
-      fields: [0]
+      fields: [0],
+      counter: 1
     };
   },
 
   addField: function() {
-    this.setState({fields: this.state.fields.concat(this.state.fields.length)});
+    this.setState({
+      fields: this.state.fields.concat(this.state.counter),
+      counter: this.state.counter + 1
+    });
   },
 
-  removeField: function(index) {
-    this.state.fields.splice(index, 1);
+  removeField: function(key) {
+    var i = this.state.fields.indexOf(key);
+    this.state.fields.splice(i, 1);
     this.setState({fields: this.state.fields});
   },
 
   render: function() {
-
-    for (var index = 0; index < this.props.count; index++) {
-      this.state.fields.push(<Field key={index} removeField={this.removeField} />);
-    }
-
+    let fields = this.state.fields.map((field) => <Field key={field.toString()} onRemove={this.removeField.bind(null, field)} />)
     return (
       <div id="collapseOne" className="panel-collapse collapse in" role="tabpanel">
         <div className="panel-body">
-          {this.state.fields.map(field => <Field index={field} onRemove={this.removeField} />)}
+          {fields}
           <div className="form-group">
             <button onClick={this.addField} className="btn btn-primary-outline">
               <span className="icon icon-plus"></span> Add Field
@@ -59,10 +60,6 @@ var Type = React.createClass({
  * The field component
  */
 var Field = React.createClass({
-  removeField: function() {
-    this.props.removeField(this.props.key);
-  },
-
   render: function() {
     return (
       <div className="row">
@@ -73,7 +70,7 @@ var Field = React.createClass({
         </div>
         <Type />
         <div className="col-xs-3">
-          <button className="btn btn-default-outline" onClick={() => {this.props.onRemove(this.props.index)}}>
+          <button className="btn btn-default-outline" onClick={this.props.onRemove}>
             <span className="icon icon-erase"></span>
           </button>
         </div>

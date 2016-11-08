@@ -28,7 +28,12 @@ hr {
 }
 
 .panel-title .form-control {
-  background-color: #fff;
+  background-color: #F5F5F5;
   color: #888;
   border: none;
+}
+
+.panel-body .form-control:focus {
+  background-color: #434857;
+  color: #fff;
 }
