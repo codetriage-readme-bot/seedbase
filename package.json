@@ -16,6 +16,9 @@
     "url": "https://github.com/rosendin/hatch/issues"
   },
   "homepage": "https://github.com/rosendin/hatch#readme",
+  "dependencies": {
+    "bower": "^1.7.9"
+  },
   "devDependencies": {
     "bower": "^1.7.9",
     "gulp": "^3.9.1",
