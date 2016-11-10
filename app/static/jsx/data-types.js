@@ -9,7 +9,8 @@ var FieldList = React.createClass({
     };
   },
 
-  addField: function() {
+  addField: function(e) {
+    e.preventDefault();
     this.setState({
       fields: this.state.fields.concat(this.state.counter),
       counter: this.state.counter + 1
@@ -89,7 +90,8 @@ var Model = React.createClass({
     };
   },
 
-  handleCollapse: function() {
+  handleCollapse: function(e) {
+    e.preventDefault();
     this.setState({
       collapsed: !this.state.collapsed
     });
@@ -111,7 +113,7 @@ var Model = React.createClass({
                       <button onClick={this.props.onRemove} className="btn btn-default">
                       <span className="icon icon-squared-cross"></span>
                       </button>
-                      <button onClick={this.props.handleCollapse} className="pull-right btn btn-default" data-toggle="collapse" data-target={"#collapse-" + this.props.index}>
+                      <button onClick={this.handleCollapse} className="pull-right btn btn-default" data-toggle="collapse" data-target={"#collapse-" + this.props.index}>
                         <span className={"icon " + (this.state.collapsed ? "icon-squared-plus" : "icon-squared-minus")}></span>
                       </button>
                     </div>
@@ -139,7 +141,8 @@ var ModelList = React.createClass({
     };
   },
 
-  addModel: function() {
+  addModel: function(e) {
+    e.preventDefault();
     this.setState({
       models: this.state.models.concat(this.state.counter),
       counter: this.state.counter + 1
@@ -172,5 +175,5 @@ var ModelList = React.createClass({
 
 ReactDOM.render(
   <ModelList />,
-  document.getElementById('schema')
+  document.getElementById('data-types')
 );
