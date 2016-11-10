@@ -25,14 +25,12 @@ var FieldList = React.createClass({
   render: function() {
     let fields = this.state.fields.map((field) => <Field key={field.toString()} onRemove={this.removeField.bind(null, field)} />)
     return (
-      <div id="collapseOne" className="panel-collapse collapse in" role="tabpanel">
-        <div className="panel-body">
-          {fields}
-          <div className="form-group">
-            <button onClick={this.addField} className="btn btn-primary-outline">
-              <span className="icon icon-plus"></span> Add Field
-            </button>
-          </div>
+      <div>
+        {fields}
+        <div className="form-group">
+          <button onClick={this.addField} className="btn btn-primary-outline">
+            <span className="icon icon-plus"></span> Add Field
+          </button>
         </div>
       </div>
     );
@@ -49,6 +47,8 @@ var Type = React.createClass({
         <div className="form-group">
           <select className="form-control">
             <option>Boolean</option>
+            <option>Random Number</option>
+            <option>Random String</option>
           </select>
         </div>
       </div>
@@ -89,7 +89,7 @@ var Model = React.createClass({
     };
   },
 
-  handleClick: function() {
+  handleCollapse: function() {
     this.setState({
       collapsed: !this.state.collapsed
     });
@@ -99,7 +99,7 @@ var Model = React.createClass({
     return (
       <div className="row">
         <div className="col-sm-12">
-          <div className="panel-group" id="accordion" role="tablist">
+          <div className="panel-group" id={"accordion-" + this.props.index} role="tablist">
             <div className="panel panel-default">
               <div className="panel-heading" role="tab">
                 <h4 className="panel-title">
@@ -108,14 +108,21 @@ var Model = React.createClass({
                       <input placeholder="Model" className="form-control" type="text" autoFocus />
                     </div>
                     <div className="col-xs-8">
-                      <button onClick={this.handleClick} className="pull-right btn btn-default" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                      <button onClick={this.props.onRemove} className="btn btn-default">
+                      <span className="icon icon-squared-cross"></span>
+                      </button>
+                      <button onClick={this.props.handleCollapse} className="pull-right btn btn-default" data-toggle="collapse" data-target={"#collapse-" + this.props.index}>
                         <span className={"icon " + (this.state.collapsed ? "icon-squared-plus" : "icon-squared-minus")}></span>
                       </button>
                     </div>
                   </div>
                 </h4>
               </div>
-              <FieldList />
+              <div id={"collapse-" + this.props.index} className="panel-collapse collapse in" role="tabpanel">
+                <div className="panel-body">
+                  <FieldList />
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -124,7 +131,46 @@ var Model = React.createClass({
   }
 });
 
+var ModelList = React.createClass({
+  getInitialState: function() {
+    return {
+      models: [0],
+      counter: 1
+    };
+  },
+
+  addModel: function() {
+    this.setState({
+      models: this.state.models.concat(this.state.counter),
+      counter: this.state.counter + 1
+    });
+  },
+
+  removeModel: function(key) {
+    var i = this.state.models.indexOf(key);
+    this.state.models.splice(i, 1);
+    this.setState({models: this.state.models});
+  },
+
+  render: function() {
+    let models = this.state.models.map((model) => <Model key={model.toString()} index={model} onRemove={this.removeModel.bind(null, model)} />)
+    return (
+      <div>
+        {models}
+        <div class="row">
+          <div class="col-sm-9">
+            <button onClick={this.addModel} className="btn btn-primary-outline p-x m-t m-r">
+              <span class="icon icon-plus"></span> Add Model
+            </button>
+            <button className="btn btn-success-outline p-x m-t pull-right" disabled={!models.length}>Continue</button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+});
+
 ReactDOM.render(
-  <Model />,
+  <ModelList />,
   document.getElementById('schema')
 );
