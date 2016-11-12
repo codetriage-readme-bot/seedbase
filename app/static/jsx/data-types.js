@@ -69,7 +69,7 @@ var Condition = React.createClass({
         </div>
         <Type />
         <div className="col-xs-3">
-          <button className="pull-right btn btn-default-outline" onClick={this.props.onRemove}>
+          <button className="btn btn-default-outline" onClick={this.props.onRemove}>
             <span className="icon icon-erase"></span>
           </button>
         </div>
