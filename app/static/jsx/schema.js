@@ -107,7 +107,7 @@ var Model = React.createClass({
                 <h4 className="panel-title">
                   <div className="row">
                     <div className="col-xs-4">
-                      <input placeholder="Model" className="form-control" type="text" autoFocus />
+                      <input placeholder="Name" className="form-control" type="text" autoFocus />
                     </div>
                     <div className="col-xs-8">
                       <button onClick={this.props.onRemove} className="pull-right btn btn-default">

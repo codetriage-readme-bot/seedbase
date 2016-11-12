@@ -1,36 +1,36 @@
 /**
  * Collapsible component
  */
-var FieldList = React.createClass({
+var ConditionList = React.createClass({
   getInitialState: function() {
     return {
-      fields: [0],
+      conditions: [0],
       counter: 1
     };
   },
 
-  addField: function(e) {
+  addCondition: function(e) {
     e.preventDefault();
     this.setState({
-      fields: this.state.fields.concat(this.state.counter),
+      conditions: this.state.conditions.concat(this.state.counter),
       counter: this.state.counter + 1
     });
   },
 
-  removeField: function(key) {
-    var i = this.state.fields.indexOf(key);
-    this.state.fields.splice(i, 1);
-    this.setState({fields: this.state.fields});
+  removeCondition: function(key) {
+    var i = this.state.conditions.indexOf(key);
+    this.state.conditions.splice(i, 1);
+    this.setState({conditions: this.state.conditions});
   },
 
   render: function() {
-    let fields = this.state.fields.map((field) => <Field key={field.toString()} onRemove={this.removeField.bind(null, field)} />)
+    let conditions = this.state.conditions.map((condition) => <Condition key={condition.toString()} onRemove={this.removeCondition.bind(null, condition)} />)
     return (
       <div>
-        {fields}
+        {conditions}
         <div className="form-group">
-          <button onClick={this.addField} className="btn btn-primary-outline">
-            <span className="icon icon-plus"></span> Add Field
+          <button onClick={this.addCondition} className="btn btn-primary-outline">
+            <span className="icon icon-plus"></span> Add Condition
           </button>
         </div>
       </div>
@@ -47,9 +47,7 @@ var Type = React.createClass({
       <div className="col-xs-3">
         <div className="form-group">
           <select className="form-control">
-            <option>Boolean</option>
-            <option>Random Number</option>
-            <option>Random String</option>
+            <option>Regular Expression</option>
           </select>
         </div>
       </div>
@@ -58,20 +56,20 @@ var Type = React.createClass({
 });
 
 /**
- * The field component
+ * The condition component
  */
-var Field = React.createClass({
+var Condition = React.createClass({
   render: function() {
     return (
       <div className="row">
         <div className="col-xs-6">
           <div className="form-group">
-            <input type="text" className="form-control" placeholder="field" />
+            <input type="text" className="form-control" placeholder="condition" />
           </div>
         </div>
         <Type />
         <div className="col-xs-3">
-          <button className="btn btn-default-outline" onClick={this.props.onRemove}>
+          <button className="pull-right btn btn-default-outline" onClick={this.props.onRemove}>
             <span className="icon icon-erase"></span>
           </button>
         </div>
@@ -81,9 +79,9 @@ var Field = React.createClass({
 });
 
 /**
- * The model component
+ * The custom data type component
  */
-var Model = React.createClass({
+var CustomDataType = React.createClass({
   getInitialState: function() {
     return {
       collapsed: false
@@ -107,10 +105,10 @@ var Model = React.createClass({
                 <h4 className="panel-title">
                   <div className="row">
                     <div className="col-xs-4">
-                      <input placeholder="Model" className="form-control" type="text" autoFocus />
+                      <input placeholder="Name" className="form-control" type="text" autoFocus />
                     </div>
                     <div className="col-xs-8">
-                      <button onClick={this.props.onRemove} className="btn btn-default">
+                      <button onClick={this.props.onRemove} className="pull-right btn btn-default">
                       <span className="icon icon-squared-cross"></span>
                       </button>
                       <button onClick={this.handleCollapse} className="pull-right btn btn-default" data-toggle="collapse" data-target={"#collapse-" + this.props.index}>
@@ -122,7 +120,7 @@ var Model = React.createClass({
               </div>
               <div id={"collapse-" + this.props.index} className="panel-collapse collapse in" role="tabpanel">
                 <div className="panel-body">
-                  <FieldList />
+                  <ConditionList />
                 </div>
               </div>
             </div>
@@ -133,39 +131,39 @@ var Model = React.createClass({
   }
 });
 
-var ModelList = React.createClass({
+var CustomDataTypeList = React.createClass({
   getInitialState: function() {
     return {
-      models: [0],
+      customDataTypes: [0],
       counter: 1
     };
   },
 
-  addModel: function(e) {
+  addCustomDataType: function(e) {
     e.preventDefault();
     this.setState({
-      models: this.state.models.concat(this.state.counter),
+      customDataType: this.state.customDataType.concat(this.state.counter),
       counter: this.state.counter + 1
     });
   },
 
-  removeModel: function(key) {
-    var i = this.state.models.indexOf(key);
-    this.state.models.splice(i, 1);
-    this.setState({models: this.state.models});
+  removeCustomDataType: function(key) {
+    var i = this.state.customDataTypes.indexOf(key);
+    this.state.customDataTypes.splice(i, 1);
+    this.setState({customDataTypes: this.state.customDataTypes});
   },
 
   render: function() {
-    let models = this.state.models.map((model) => <Model key={model.toString()} index={model} onRemove={this.removeModel.bind(null, model)} />)
+    let customDataTypes = this.state.customDataTypes.map((cdt) => <CustomDataType key={cdt.toString()} index={cdt} onRemove={this.removeCustomDataType.bind(null, cdt)} />)
     return (
       <div>
-        {models}
+        {customDataTypes}
         <div class="row">
           <div class="col-sm-9">
-            <button onClick={this.addModel} className="btn btn-primary-outline p-x m-t m-r">
-              <span class="icon icon-plus"></span> Add Model
+            <button onClick={this.addCustomDataType} className="btn btn-primary-outline p-x m-t m-r">
+              <span class="icon icon-plus"></span> Add Custom Data Type
             </button>
-            <button className="btn btn-success-outline p-x m-t pull-right" disabled={!models.length}>Continue</button>
+            <button className="btn btn-success-outline p-x m-t pull-right" disabled={!customDataTypes.length}>Continue</button>
           </div>
         </div>
       </div>
@@ -174,6 +172,6 @@ var ModelList = React.createClass({
 });
 
 ReactDOM.render(
-  <ModelList />,
+  <CustomDataTypeList />,
   document.getElementById('data-types')
 );
