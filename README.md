@@ -41,7 +41,8 @@ Run the gulpfile:
 (env) $ gulp gulpfile
 ```
 
-Finally, start Flask:
+Export the `FLASK_APP` environment variable and run the application:
 ```
+$ export FLASK_APP=run.py
 $ python run.py
 ```
