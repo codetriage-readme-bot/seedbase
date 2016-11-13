@@ -2,9 +2,11 @@
 
 A data generation platform for emulating production data.
 
-### Development
+## Development
 
 The Hatch tech stack consists of a Python back-end on the Flask microframework and a ReactJS front-end.
+
+### Getting Started
 
 Clone the repository:
 ```
@@ -43,6 +45,13 @@ Run the gulpfile:
 
 Export the `FLASK_APP` environment variable and run the application:
 ```
-$ export FLASK_APP=run.py
-$ python run.py
+(env) $ export FLASK_APP=run.py
+(env) $ python run.py
+```
+
+### Database Migrations
+
+```
+(env) $ flask db migrate
+(env) $ flask db upgrade
 ```
