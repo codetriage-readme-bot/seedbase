@@ -1,4 +1,4 @@
-from flask import jsonify, make_response
+from flask import jsonify, make_response, g
 from flask.ext.httpauth import HTTPBasicAuth
 from flask_restful import reqparse, abort, Resource
 
@@ -9,12 +9,13 @@ models = {
 
 auth = HTTPBasicAuth()
 
-@auth.get_password
-def get_password(email):
-  # To do: check the user table for given the email
-  if email == 'joe@example.com':
-    return 'password'
-  return None
+@auth.verify_password
+def verify_password(email, password):
+  user = User.query.filter_by(email=email).first()
+  if not user or not user.verify_password(password):
+    return False
+  g.user = user
+  return True
 
 @auth.error_handler
 def unauthorized():
