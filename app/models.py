@@ -1,11 +1,13 @@
 from app import db
 from datetime import datetime
+from passlib.apps import custom_app_context as pwd_context
 
 class User(db.Model):
-  id          = db.Column(db.Integer, primary_key=True)
-  name        = db.Column(db.String(80))
-  email       = db.Column(db.String(120), unique=True)
-  created_at  = db.Column(db.DateTime)
+  id            = db.Column(db.Integer, primary_key=True)
+  name          = db.Column(db.String(80))
+  email         = db.Column(db.String(120), unique=True, index=True)
+  password_hash = db.Column(db.String(128))
+  created_at    = db.Column(db.DateTime)
 
   def __init__(self, name, email, created_at=None):
     self.name = name
@@ -15,6 +17,12 @@ class User(db.Model):
 
   def __repr__(self):
     return '<User %r>' % self.name
+
+  def hash_password(self, password):
+    self.password_hash = pwd_context.encrypt(password)
+
+  def verify_password(self, password):
+    return pwd_context.verify(password, self.password_hash)
 
 class Model(db.Model):
   id          = db.Column(db.Integer, primary_key=True)
