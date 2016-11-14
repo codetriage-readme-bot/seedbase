@@ -20,7 +20,7 @@ class Model(db.Model):
   id          = db.Column(db.Integer, primary_key=True)
   name        = db.Column(db.String(20))
   user_id     = db.Column(db.Integer, db.ForeignKey('user.id'))
-  user        = db.relationship('User', backref=db.backref('users', lazy='dynamic'))
+  user        = db.relationship('User', backref=db.backref('models', lazy='dynamic'))
   created_at  = db.Column(db.DateTime)
 
   def __init__(self, name, user, created_at=None):
@@ -36,7 +36,7 @@ class CustomDataType(db.Model):
   id          = db.Column(db.Integer, primary_key=True)
   name        = db.Column(db.String(20))
   user_id     = db.Column(db.Integer, db.ForeignKey('user.id'))
-  user        = db.relationship('User', backref=db.backref('users', lazy='dynamic'))
+  user        = db.relationship('User', backref=db.backref('custom_data_types', lazy='dynamic'))
   created_at  = db.Column(db.DateTime)
 
   def __init__(self, name, user, created_at=None):
