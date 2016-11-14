@@ -1,4 +1,5 @@
-from flask import jsonify
+from flask import jsonify, make_response
+from flask.ext.httpauth import HTTPBasicAuth
 from flask_restful import reqparse, abort, Resource
 
 models = {
@@ -6,21 +7,38 @@ models = {
   'example_model_2': {'name': 'organizations'}
 }
 
-class Model(Resource):
-  def get(self, model_id):
-    return jsonify(models[model_id])
+auth = HTTPBasicAuth()
 
-  def put(self, model_id):
+@auth.get_password
+def get_password(email):
+  # To do: check the user table for given the email
+  if email == 'joe@example.com':
+    return 'password'
+  return None
+
+@auth.error_handler
+def unauthorized():
+  return make_response(jsonify({'error': 'Unauthorized access'}), 401)
+
+class Model(Resource):
+  decorators = [auth.login_required]
+
+  def get(self, id):
+    return jsonify(models['id'])
+
+  def put(self, id):
     args = parser.parse_args()
     model = {'name': args['name']}
-    models[model_id] = model
+    models['id'] = model
     return jsonify(model)
 
-  def delete(self, model_id):
-    del models[model_id]
+  def delete(self, id):
+    del models['id']
     return jsonify({})
 
 class ModelList(Resource):
+  decorators = [auth.login_required]
+
   def get(self):
     return jsonify(models)
 

@@ -15,6 +15,6 @@ app.config.from_envvar('HATCH_CONFIG', silent=True)
 def initialize_api(app):
   from api import Model, ModelList
   api = Api(app, prefix='/api')
-  api.add_resource(ModelList, '/models')
-  api.add_resource(Model, '/models/<model_id>')
+  api.add_resource(ModelList, '/models', endpoint='models')
+  api.add_resource(Model, '/models/<int:id>', endpoint='model')
   return api
