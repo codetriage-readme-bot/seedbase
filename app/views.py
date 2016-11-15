@@ -1,4 +1,4 @@
-from flask import render_template, url_for
+from flask import render_template, url_for, request, flash, redirect
 from flask_restful import abort
 from app import app, db
 from app.models import User
@@ -28,6 +28,24 @@ def get_user(id):
     if not user:
         abort(400)
     return jsonify({ 'email': user.email })
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.form:
+        # To do: validate form data
+        form_data = request.form.items()
+        user = User.query.filter_by(email=form_data['email'])
+        # To do: verify user password!
+        login_user(user)
+
+        flash('Logged in successfully.')
+
+        next = request.args.get('next')
+        if not next_is_valid(next):
+            return flask.abort(400)
+
+        return redirect(next or url_for('home'))
+    return render_template('/user/login.html', form=request.form)
 
 @app.route('/generator/data-types')
 def data_types():
