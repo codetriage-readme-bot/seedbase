@@ -4,10 +4,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="API documentation for generating placeholder data">
-    <meta name="keywords" content="generate mock placeholder data api hatch docs">
+    <meta name="description" content="Generate placeholder data with Hatch Data Generator">
+    <meta name="keywords" content="generate mock placeholder data rest api">
 
-    <title>Hatch | Documentation</title>
+    <title>Hatch</title>
     <link rel="apple-touch-icon" sizes="152x152" href="{{ url_for('static', filename='img/favicon/apple-touch-icon.png') }}">
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/favicon/favicon-32x32.png') }}">
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/favicon/favicon-16x16.png') }}">
@@ -18,12 +18,10 @@
     <meta name="theme-color" content="#ffffff">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/generator-toolkit.min.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static', filename='css/docs.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static', filename='css/generator.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/global.css') }}" rel="stylesheet">
   </head>
 
-  <body class="with-top-navbar">
-
+  <body class="with-top-navbar m-t-md">
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -34,30 +32,27 @@
             <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand navbar-brand-emphasized" href="/">
-            <span class="navbar-brand-icon"><img style="margin-bottom: 2px;" src="{{ url_for('static', filename='img/logo-navbar.png') }}" /></span>Hatch
+            <span class="navbar-brand-icon"><img class="logo-navbar" src="{{ url_for('static', filename='img/logo-navbar.png') }}" /></span>
+            Hatch
           </a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             <li><a href="/generator/schema">Generator</a></li>
-            <li class="active"><a href="/docs">Documentation</a></li>
+            <li><a href="/docs">Documentation</a></li>
           </ul>
           <ul class="nav navbar-nav pull-right">
-            <li><a href="/signup">Create Account</a></li>
-            <li><a href="/login">Login</a></li>
+            <li {%- if request.path == "/signup" %} class="active"{% endif %}><a href="/signup">Create Account</a></li>
+            <li {%- if request.path == "/login" %} class="active"{% endif %}><a href="/login">Login</a></li>
           </ul>
         </div>
       </div>
     </nav>
 
-    {% block content %}{% endblock %}
+    <div class="container">
+      {% block content %}{% endblock %}
+    </div>
 
-    <script src="{{ url_for('static', filename='js/vendor/jquery.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/documentation.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/toolkit.js') }}"></script>
-    <script>
-      // execute/clear BS loaders for docs
-      $(function(){while(window.BS&&window.BS.loader&&window.BS.loader.length){(window.BS.loader.pop())()}})
-    </script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/vendor/jquery.min.js') }}"></script>
   </body>
 </html>

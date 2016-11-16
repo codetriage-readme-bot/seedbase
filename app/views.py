@@ -47,6 +47,10 @@ def login():
         return redirect(next or url_for('home'))
     return render_template('/user/login.html', form=request.form)
 
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    return render_template('/user/signup.html', form=request.form)
+
 @app.route('/generator/data-types')
 def data_types():
     return render_template('generator/data-types.html')
