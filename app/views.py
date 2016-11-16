@@ -51,13 +51,17 @@ def login():
 def signup():
     return render_template('/user/signup.html', form=request.form)
 
-@app.route('/generator/data-types')
+@app.route('/generator/data-types', methods=['GET', 'POST'])
 def data_types():
     return render_template('generator/data-types.html')
 
-@app.route('/generator/schema')
+@app.route('/generator/schema', methods=['GET', 'POST'])
 def schema():
     return render_template('generator/schema.html')
+
+@app.route('/generator/connector', methods=['GET', 'POST'])
+def connector():
+    return render_template('generator/connector.html')
 
 @app.route('/docs')
 def docs():
