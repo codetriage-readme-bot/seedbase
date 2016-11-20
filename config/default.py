@@ -10,6 +10,10 @@ load_dotenv(dotenv_path)
 
 DEBUG=True
 
+SECRET_KEY= os.envioron.get("SECRET_KEY")
+
+TEMPLATES_AUTO_RELOAD = True
+
 MYSQL_USERNAME = os.environ.get("MYSQL_USERNAME")
 MYSQL_PASSWORD = os.environ.get("MYSQL_PASSWORD")
 MYSQL_DATABASE = os.environ.get("MYSQL_DATABASE")

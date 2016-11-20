@@ -2,11 +2,6 @@ from flask import jsonify, make_response, g
 from flask.ext.httpauth import HTTPBasicAuth
 from flask_restful import reqparse, abort, Resource
 
-models = {
-  'example_model_1': {'name': 'users'},
-  'example_model_2': {'name': 'organizations'}
-}
-
 auth = HTTPBasicAuth()
 
 @auth.verify_password

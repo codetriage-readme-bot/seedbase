@@ -2,6 +2,7 @@ from flask import Flask
 from flask_restful import Resource, Api
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from flask_login import LoginManager
 
 app = Flask(__name__)
 db = SQLAlchemy(app)
@@ -18,3 +19,6 @@ def initialize_api(app):
   api.add_resource(ModelList, '/models', endpoint='models')
   api.add_resource(Model, '/models/<int:id>', endpoint='model')
   return api
+
+def initialize_login(app):
+    LoginManager().init_app(app)

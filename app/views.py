@@ -32,19 +32,7 @@ def get_user(id):
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.form:
-        # To do: validate form data
-        form_data = request.form.items()
-        user = User.query.filter_by(email=form_data['email'])
-        # To do: verify user password!
-        login_user(user)
-
-        flash('Logged in successfully.')
-
-        next = request.args.get('next')
-        if not next_is_valid(next):
-            return flask.abort(400)
-
-        return redirect(next or url_for('home'))
+        print(request.form)
     return render_template('/user/login.html', form=request.form)
 
 @app.route('/signup', methods=['GET', 'POST'])
