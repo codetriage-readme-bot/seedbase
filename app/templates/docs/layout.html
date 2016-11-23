@@ -43,8 +43,12 @@
             <li class="active"><a href="/docs">Documentation</a></li>
           </ul>
           <ul class="nav navbar-nav pull-right">
-            <li><a href="/signup">Create Account</a></li>
-            <li><a href="/login">Login</a></li>
+            {% if not current_user.is_authenticated %}
+              <li {%- if request.path == "/signup" %} class="active"{% endif %}><a href="/signup">Create Account</a></li>
+              <li {%- if request.path == "/login" %} class="active"{% endif %}><a href="/login">Login</a></li>
+            {% else %}
+              <li><a href="/logout">Logout</a></li>
+            {% endif %}
           </ul>
         </div>
       </div>

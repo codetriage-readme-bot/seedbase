@@ -1,14 +1,14 @@
 from flask import render_template, url_for, request, flash, redirect
 from flask_restful import abort
-from flask_login import login_user
+from flask_login import login_user, login_required
 from forms import SignupForm, LoginForm, flash_errors
 from urlparse import urlparse, urljoin
 from app import app, db, login_manager
 from app.models import User
 
 @login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(user_id)
+def load_user(email):
+  return User.query.filter_by(email=email).first()
 
 def is_safe_url(target):
   ref_url = urlparse(request.host_url)
@@ -52,6 +52,7 @@ def signup():
     if not User.query.filter_by(email=user.email).count():
       db.session.add(user)
       db.session.commit()
+      login_user(user)
       flash("You've successfully signed up!", category="success")
 
       next = request.args.get('next')
@@ -65,6 +66,13 @@ def signup():
   else:
     flash_errors(form)
   return render_template('/user/signup.html', form=form)
+
+@app.route("/logout")
+@login_required
+def logout():
+  logout_user()
+  flash("You've been logged out.", category="info")
+  return redirect(url_for('schema'))
 
 @app.route('/generator/data-types', methods=['GET', 'POST'])
 def data_types():
