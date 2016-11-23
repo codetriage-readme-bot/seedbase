@@ -21,7 +21,16 @@ def login():
 def signup():
   form = SignupForm()
   if request.method == 'POST' and form.validate_on_submit():
-    flash("Form looks good!", category="success")
+    user = User(form.name.data, form.email.data)
+    user.hash_password(form.password.data)
+
+    if not User.query.filter_by(email=user.email).count():
+      db.session.add(user)
+      db.session.commit()
+      flash("You've successfully signed up!", category="success")
+      return redirect(url_for('schema'))
+    else:
+      flash("That email is already taken by another user.", category="danger")
   else:
     flash_errors(form)
   return render_template('/user/signup.html', form=form)
