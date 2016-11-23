@@ -1,6 +1,6 @@
 from flask import render_template, url_for, request, flash, redirect
 from flask_restful import abort
-from flask_login import login_user, login_required
+from flask_login import login_user, login_required, logout_user
 from forms import SignupForm, LoginForm, flash_errors
 from urlparse import urlparse, urljoin
 from app import app, db, login_manager
