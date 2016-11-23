@@ -175,5 +175,5 @@ var ModelList = React.createClass({
 
 ReactDOM.render(
   <ModelList />,
-  document.getElementById('schema')
+  document.getElementById('models')
 );

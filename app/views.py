@@ -35,7 +35,7 @@ def login():
       if not is_safe_url(next):
         return abort(400)
 
-      return redirect(next or url_for('schema'))
+      return redirect(next or url_for('models'))
     else:
       flash("The username or password you have entered is invalid.", category="danger")
   else:
@@ -60,7 +60,7 @@ def signup():
       if not is_safe_url(next):
         return abort(400)
 
-      return redirect(next or url_for('schema'))
+      return redirect(next or url_for('models'))
     else:
       flash("That email is already taken by another user.", category="danger")
   else:
@@ -72,15 +72,15 @@ def signup():
 def logout():
   logout_user()
   flash("You've been logged out.", category="info")
-  return redirect(url_for('schema'))
+  return redirect(url_for('models'))
 
 @app.route('/generator/data-types', methods=['GET', 'POST'])
 def data_types():
   return render_template('generator/data-types.html')
 
-@app.route('/generator/schema', methods=['GET', 'POST'])
-def schema():
-  return render_template('generator/schema.html')
+@app.route('/generator/models', methods=['GET', 'POST'])
+def models():
+  return render_template('generator/models.html')
 
 @app.route('/generator/connector', methods=['GET', 'POST'])
 def connector():
