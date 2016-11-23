@@ -10,7 +10,7 @@ migrate = Migrate(app, db)
 
 from app import models, views
 
-app.config.from_object('config')
+app.config.from_object('config.default')
 app.config.from_envvar('HATCH_CONFIG', silent=True)
 
 def initialize_api(app):

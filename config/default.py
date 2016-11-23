@@ -2,15 +2,14 @@
 
 # Define the application directory
 import os
-from dotenv import load_dotenv
+from dotenv import load_dotenv, find_dotenv
 
 # Load dotenv for environment variables
-dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
-load_dotenv(dotenv_path)
+load_dotenv(find_dotenv())
 
-DEBUG=True
+DEBUG = True
 
-SECRET_KEY= os.envioron.get("SECRET_KEY")
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 TEMPLATES_AUTO_RELOAD = True
 

@@ -1,3 +1,7 @@
 .navbar-logo {
 	margin-bottom: 2px;
 }
+
+ul.flashes {
+	list-style: none !important;
+}
