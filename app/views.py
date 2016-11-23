@@ -12,7 +12,13 @@ def home():
 def login():
   form = LoginForm()
   if request.method == 'POST' and form.validate_on_submit():
-    flash("Form looks good!", category="success")
+    user = User.query.filter_by(email=form.email.data).first()
+
+    if user and user.verify_password(form.password.data):
+      flash("Welcome back, %s." % user.name, category="success")
+      return redirect(url_for('schema'))
+    else:
+      flash("The username or password you have entered is invalid.", category="danger")
   else:
     flash_errors(form)
   return render_template('/user/login.html', form=form)
