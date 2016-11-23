@@ -8,17 +8,10 @@ app = Flask(__name__)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
-from app import models, views
-
 app.config.from_object('config.default')
 app.config.from_envvar('HATCH_CONFIG', silent=True)
 
-def initialize_api(app):
-  from api import Model, ModelList
-  api = Api(app, prefix='/api')
-  api.add_resource(ModelList, '/models', endpoint='models')
-  api.add_resource(Model, '/models/<int:id>', endpoint='model')
-  return api
+login_manager = LoginManager()
+login_manager.init_app(app)
 
-def initialize_login(app):
-    LoginManager().init_app(app)
+from app import models, views

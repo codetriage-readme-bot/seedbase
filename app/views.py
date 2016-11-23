@@ -1,8 +1,20 @@
 from flask import render_template, url_for, request, flash, redirect
 from flask_restful import abort
+from flask_login import login_user
 from forms import SignupForm, LoginForm, flash_errors
-from app import app, db
+from urlparse import urlparse, urljoin
+from app import app, db, login_manager
 from app.models import User
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(user_id)
+
+def is_safe_url(target):
+  ref_url = urlparse(request.host_url)
+  test_url = urlparse(urljoin(request.host_url, target))
+  return test_url.scheme in ('http', 'https') and \
+    ref_url.netloc == test_url.netloc
 
 @app.route('/')
 def home():
@@ -15,8 +27,15 @@ def login():
     user = User.query.filter_by(email=form.email.data).first()
 
     if user and user.verify_password(form.password.data):
-      flash("Welcome back, %s." % user.name, category="success")
-      return redirect(url_for('schema'))
+      login_user(user)
+      flash('Welcome back, %s.' % user.name, category='success')
+
+      next = request.args.get('next')
+
+      if not is_safe_url(next):
+        return abort(400)
+
+      return redirect(next or url_for('schema'))
     else:
       flash("The username or password you have entered is invalid.", category="danger")
   else:
@@ -34,7 +53,13 @@ def signup():
       db.session.add(user)
       db.session.commit()
       flash("You've successfully signed up!", category="success")
-      return redirect(url_for('schema'))
+
+      next = request.args.get('next')
+
+      if not is_safe_url(next):
+        return abort(400)
+
+      return redirect(next or url_for('schema'))
     else:
       flash("That email is already taken by another user.", category="danger")
   else:
