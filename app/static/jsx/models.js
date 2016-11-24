@@ -5,8 +5,11 @@ var FieldList = React.createClass({
   getInitialState: function() {
     return {
       fields: [0],
-      counter: 1
+      counter: 1,
+      objects: []
     };
+
+    this.handleUserInput = this.handleUserInput.bind(this);
   },
 
   addField: function(e) {
@@ -23,8 +26,26 @@ var FieldList = React.createClass({
     this.setState({fields: this.state.fields});
   },
 
+  handleUserInput: function(key, value, name) {
+    var objects;
+
+    if (value == "JSON Object") {
+      objects = this.state.objects;
+      objects.push({name: name, key: key});
+      this.setState({ objects: objects });
+    } else {
+      objects = this.state.objects;
+      let i = objects.indexOf({name: name, key: key});
+      objects.splice(i, 1);
+      this.setState({ objects: objects });
+    }
+  },
+
   render: function() {
-    let fields = this.state.fields.map((field) => <Field key={field.toString()} onRemove={this.removeField.bind(null, field)} />)
+    let fields = this.state.fields.map((field) => <Field key={field.toString()}
+                                                         onRemove={this.removeField.bind(null, field)}
+                                                         onUserInput={this.handleUserInput.bind(null, field)}
+                                                         data={this.state.objects} />)
     return (
       <div>
         {fields}
@@ -39,38 +60,65 @@ var FieldList = React.createClass({
 });
 
 /**
- * Select dropdown for type
- */
-var Type = React.createClass({
-  render: function() {
-    return (
-      <div className="col-xs-3">
-        <div className="form-group">
-          <select className="form-control">
-            <option>Boolean</option>
-            <option>Random Number</option>
-            <option>Random String</option>
-          </select>
-        </div>
-      </div>
-    );
-  }
-});
-
-/**
  * The field component
  */
 var Field = React.createClass({
+  getInitialState: function() {
+    return {
+      name: null
+    };
+  },
+
+  showOptionsModal: function(e) {
+    e.preventDefault();
+    console.log("Show options modal...");
+  },
+
+  handleFieldNameChange: function(e) {
+    this.setState({name: e.target.value});
+    this.props.onUserInput(this.dataTypeInput.value, this.state.name);
+  },
+
+  handleDataTypeChange: function() {
+    this.props.onUserInput(this.dataTypeInput.value, this.state.name);
+  },
+
   render: function() {
     return (
       <div className="row">
-        <div className="col-xs-6">
+        <div className="col-xs-3">
           <div className="form-group">
-            <input type="text" className="form-control" placeholder="field" />
+            <input type="text" className="form-control" value={this.state.name} placeholder="field name" onChange={this.handleFieldNameChange} />
           </div>
         </div>
-        <Type />
         <div className="col-xs-3">
+          <div className="form-group">
+            <select className="form-control" onChange={this.handleDataTypeChange} ref={(input) => this.dataTypeInput = input}>
+              <option>Boolean</option>
+              <option>Random Number</option>
+              <option>Random String</option>
+              <option>JSON Object</option>
+              <option>JSON Array</option>
+              <option>Array</option>
+            </select>
+          </div>
+        </div>
+        <div className="col-xs-3">
+          <div className="form-group">
+            <select className="form-control">
+              {this.props.data.map(function(field) {
+                console.log(field)
+                return <option key={field.key} value={field.name}>{field.name}</option>;
+              })}
+            </select>
+          </div>
+        </div>
+        <div className="col-xs-1">
+          <button className="btn btn-default-outline" onClick={this.showOptionsModal}>
+            <span className="icon icon-tools"></span>
+          </button>
+        </div>
+        <div className="col-xs-1">
           <button className="btn btn-default-outline" onClick={this.props.onRemove}>
             <span className="icon icon-erase"></span>
           </button>
