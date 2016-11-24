@@ -42,7 +42,7 @@
             <li><a href="/generator/models">Generator</a></li>
             <li class="active"><a href="/docs">Documentation</a></li>
           </ul>
-          <ul class="nav navbar-nav pull-right">
+          <ul class="nav navbar-nav navbar-right">
             {% if not current_user.is_authenticated %}
               <li {%- if request.path == "/signup" %} class="active"{% endif %}><a href="/signup">Create Account</a></li>
               <li {%- if request.path == "/login" %} class="active"{% endif %}><a href="/login">Login</a></li>
