@@ -88,12 +88,12 @@ var Field = React.createClass({
       <div className="row">
         <div className="col-xs-3">
           <div className="form-group">
-            <input type="text" className="form-control" value={this.state.name} placeholder="field name" onChange={this.handleFieldNameChange} />
+            <input type="text" className="form-control" value={this.state.name} placeholder="field name" onChange={this.handleFieldNameChange} required />
           </div>
         </div>
         <div className="col-xs-3">
           <div className="form-group">
-            <select className="form-control" onChange={this.handleDataTypeChange} ref={(input) => this.dataTypeInput = input}>
+            <select className="form-control" onChange={this.handleDataTypeChange} ref={(input) => this.dataTypeInput = input} required>
               <option>Boolean</option>
               <option>Random Number</option>
               <option>Random String</option>
@@ -155,7 +155,7 @@ var Model = React.createClass({
                 <h4 className="panel-title">
                   <div className="row">
                     <div className="col-xs-4">
-                      <input placeholder="Name" className="form-control" type="text" autoFocus />
+                      <input placeholder="Name" className="form-control" type="text" autoFocus required />
                     </div>
                     <div className="col-xs-8">
                       <button onClick={this.props.onRemove} className="pull-right btn btn-default">
@@ -203,20 +203,24 @@ var ModelList = React.createClass({
     this.setState({models: this.state.models});
   },
 
+  handleSubmit: function(event) {
+    event.preventDefault();
+  },
+
   render: function() {
     let models = this.state.models.map((model) => <Model key={model.toString()} index={model} onRemove={this.removeModel.bind(null, model)} />)
     return (
-      <div>
+      <form onSubmit={this.handleSubmit}>
         {models}
         <div class="row">
           <div class="col-sm-9">
             <button onClick={this.addModel} className="btn btn-primary-outline p-x m-t m-r">
               <span class="icon icon-plus"></span> Add Model
             </button>
-            <button className="btn btn-success-outline p-x m-t pull-right" disabled={!models.length}>Continue</button>
+            <button type="submit" className="btn btn-success-outline p-x m-t pull-right" disabled={!models.length}>Continue</button>
           </div>
         </div>
-      </div>
+      </form>
     );
   }
 });
