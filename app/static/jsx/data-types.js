@@ -62,13 +62,18 @@ var Condition = React.createClass({
   render: function() {
     return (
       <div className="row">
-        <div className="col-xs-6">
+        <div className="col-xs-3">
           <div className="form-group">
             <input type="text" className="form-control" placeholder="condition" />
           </div>
         </div>
         <Type />
-        <div className="col-xs-3">
+        <div className="col-md-1 col-xs-2">
+          <button className="btn btn-default-outline" onClick={this.showOptionsModal}>
+            <span className="icon icon-tools"></span>
+          </button>
+        </div>
+        <div className="col-md-1 col-xs-2">
           <button className="btn btn-default-outline" onClick={this.props.onRemove}>
             <span className="icon icon-erase"></span>
           </button>

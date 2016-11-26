@@ -205,6 +205,42 @@ var ModelList = React.createClass({
 
   handleSubmit: function(event) {
     event.preventDefault();
+
+    let data = {
+      models: [
+        {
+          model_name: 'model_name',
+          fields: [
+            {
+              field_name: 'parent_node',
+              data_type: 'json_object',
+              parent_node: null,
+              options: {}
+            },
+            {
+              field_name: 'child_node',
+              data_type: 'boolean',
+              parent_node: 'parent_node',
+              options: {}
+            }
+          ]
+        }
+      ]
+    };
+
+    $.ajax({
+      url: '/generator/models',
+      type: 'POST',
+      dataType: 'json',
+      contentType: 'application/json',
+      data: JSON.stringify(data),
+      success: function(data) {
+        console.log(data);
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(status, err);
+      }.bind(this)
+    });
   },
 
   render: function() {

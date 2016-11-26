@@ -1,6 +1,6 @@
 from flask import flash
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField
+from wtforms import StringField, PasswordField, SelectField
 from wtforms.validators import Length, Email, InputRequired, EqualTo
 
 def flash_errors(form):
@@ -17,3 +17,14 @@ class SignupForm(FlaskForm):
   email = StringField('email', [Email()])
   password = PasswordField('password', [Length(min=6, max=35)])
   confirmation = PasswordField('confirmation', [InputRequired(), EqualTo('password', message='Passwords must match.')])
+
+class CustomDataTypeForm(FlaskForm):
+  condition = StringField('condition')
+  # regular expression
+  # options
+
+class ModelForm(FlaskForm):
+  model_name = StringField('model_name')
+  field_name = StringField('field_name')
+  data_type = SelectField('data_type')
+  # options

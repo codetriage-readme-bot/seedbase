@@ -1,10 +1,11 @@
-from flask import render_template, url_for, request, flash, redirect
+from flask import render_template, url_for, request, flash, redirect, jsonify, make_response
 from flask_restful import abort
 from flask_login import login_user, login_required, logout_user
-from forms import SignupForm, LoginForm, flash_errors
+from forms import SignupForm, LoginForm, CustomDataTypeForm, ModelForm, flash_errors
 from urlparse import urlparse, urljoin
 from app import app, db, login_manager
 from app.models import User
+import json
 
 @login_manager.user_loader
 def load_user(email):
@@ -80,6 +81,9 @@ def data_types():
 
 @app.route('/generator/models', methods=['GET', 'POST'])
 def models():
+  if request.method == 'POST':
+    print(request.get_json())
+    return jsonify(request.get_json()), 200
   return render_template('generator/models.html')
 
 @app.route('/generator/connector', methods=['GET', 'POST'])
