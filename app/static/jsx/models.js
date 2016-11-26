@@ -6,7 +6,8 @@ var FieldList = React.createClass({
     return {
       fields: [0],
       counter: 1,
-      objects: []
+      objects: [],
+      fieldNames: {"0": ""}
     };
 
     this.handleUserInput = this.handleUserInput.bind(this);
@@ -26,25 +27,39 @@ var FieldList = React.createClass({
     this.setState({fields: this.state.fields});
   },
 
-  handleUserInput: function(key, value, name) {
+  handleDataTypeChange: function(key, value, name) {
     var objects;
 
     if (value == "JSON Object") {
-      objects = this.state.objects;
-      objects.push({name: name, key: key});
-      this.setState({ objects: objects });
+      var field = {};
+      field[key.toString()] = name;
+      console.log(field)
+      this.setState({ objects: this.state.objects.push(field) });
     } else {
       objects = this.state.objects;
-      let i = objects.indexOf({name: name, key: key});
-      objects.splice(i, 1);
+      objects.splice(objects.indexOf(key), 1);
       this.setState({ objects: objects });
     }
   },
 
+  /* Update the state object that holds field names
+   * with key as key of field and value as field name
+   * E.G. {"0": "field_name_1", "1": "field_name_2"}
+   */
+  handleFieldNameChange: function(key, value) {
+    console.log("Changing field name");
+    for (var fieldName in this.state.fieldNames) {
+      let fieldNames = this.state.fieldNames;
+      fieldNames[key.toString()] = value;
+      this.setState({ fieldNames: fieldNames });
+    }
+  },
+
   render: function() {
-    let fields = this.state.fields.map((field) => <Field key={field.toString()}
+    let fields = this.state.fields.map((field) => <Field key={field}
                                                          onRemove={this.removeField.bind(null, field)}
-                                                         onUserInput={this.handleUserInput.bind(null, field)}
+                                                         onDataTypeChanged={this.handleDataTypeChange.bind(null, field)}
+                                                         onFieldNameChanged={this.handleFieldNameChange.bind(null, field)}
                                                          data={this.state.objects} />)
     return (
       <div>
@@ -75,12 +90,12 @@ var Field = React.createClass({
   },
 
   handleFieldNameChange: function(e) {
-    this.setState({name: e.target.value});
-    this.props.onUserInput(this.dataTypeInput.value, this.state.name);
+    this.setState({ name: e.target.value });
+    this.props.onFieldNameChanged(e.target.value);
   },
 
   handleDataTypeChange: function() {
-    this.props.onUserInput(this.dataTypeInput.value, this.state.name);
+    this.props.onDataTypeChanged(this.dataTypeInput.value, this.state.name);
   },
 
   render: function() {
@@ -107,7 +122,6 @@ var Field = React.createClass({
           <div className="form-group">
             <select className="form-control">
               {this.props.data.map(function(field) {
-                console.log(field)
                 return <option key={field.key} value={field.name}>{field.name}</option>;
               })}
             </select>
