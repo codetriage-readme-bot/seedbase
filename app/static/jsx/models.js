@@ -31,10 +31,9 @@ var FieldList = React.createClass({
     var objects;
 
     if (value == "JSON Object") {
-      var field = {};
-      field[key.toString()] = name;
-      console.log(field)
-      this.setState({ objects: this.state.objects.push(field) });
+      objects = this.state.objects;
+      objects.push(key);
+      this.setState({ objects: objects });
     } else {
       objects = this.state.objects;
       objects.splice(objects.indexOf(key), 1);
@@ -47,7 +46,6 @@ var FieldList = React.createClass({
    * E.G. {"0": "field_name_1", "1": "field_name_2"}
    */
   handleFieldNameChange: function(key, value) {
-    console.log("Changing field name");
     for (var fieldName in this.state.fieldNames) {
       let fieldNames = this.state.fieldNames;
       fieldNames[key.toString()] = value;
@@ -60,7 +58,8 @@ var FieldList = React.createClass({
                                                          onRemove={this.removeField.bind(null, field)}
                                                          onDataTypeChanged={this.handleDataTypeChange.bind(null, field)}
                                                          onFieldNameChanged={this.handleFieldNameChange.bind(null, field)}
-                                                         data={this.state.objects} />)
+                                                         objects={this.state.objects}
+                                                         names={this.state.fieldNames} />)
     return (
       <div>
         {fields}
@@ -100,42 +99,49 @@ var Field = React.createClass({
 
   render: function() {
     return (
-      <div className="row">
-        <div className="col-xs-3">
-          <div className="form-group">
-            <input type="text" className="form-control" value={this.state.name} placeholder="field name" onChange={this.handleFieldNameChange} required />
+      <div>
+        <div className="row">
+          <div className="col-xs-3">Field Name</div>
+          <div className="col-xs-3">Data Type</div>
+          <div className="col-xs-3">Parent Node</div>
+        </div>
+        <div className="row">
+          <div className="col-xs-3">
+            <div className="form-group">
+              <input type="text" className="form-control" value={this.state.name} placeholder="name" onChange={this.handleFieldNameChange} required />
+            </div>
           </div>
-        </div>
-        <div className="col-xs-3">
-          <div className="form-group">
-            <select className="form-control" onChange={this.handleDataTypeChange} ref={(input) => this.dataTypeInput = input} required>
-              <option>Boolean</option>
-              <option>Random Number</option>
-              <option>Random String</option>
-              <option>JSON Object</option>
-              <option>JSON Array</option>
-              <option>Array</option>
-            </select>
+          <div className="col-xs-3">
+            <div className="form-group">
+              <select className="form-control" onChange={this.handleDataTypeChange} ref={(input) => this.dataTypeInput = input} required>
+                <option>Boolean</option>
+                <option>Random Number</option>
+                <option>Random String</option>
+                <option>JSON Object</option>
+                <option>JSON Array</option>
+                <option>Array</option>
+              </select>
+            </div>
           </div>
-        </div>
-        <div className="col-xs-3">
-          <div className="form-group">
-            <select className="form-control">
-              {this.props.data.map(function(field) {
-                return <option key={field.key} value={field.name}>{field.name}</option>;
-              })}
-            </select>
+          <div className="col-xs-3">
+            <div className="form-group">
+              <select className="form-control">
+                {this.props.objects.map(function(field) {
+                  return <option key={field} value={this.props.names[field.toString()]}>{this.props.names[field.toString()]}</option>;
+                }.bind(this))}
+              </select>
+            </div>
           </div>
-        </div>
-        <div className="col-xs-1">
-          <button className="btn btn-default-outline" onClick={this.showOptionsModal}>
-            <span className="icon icon-tools"></span>
-          </button>
-        </div>
-        <div className="col-xs-1">
-          <button className="btn btn-default-outline" onClick={this.props.onRemove}>
-            <span className="icon icon-erase"></span>
-          </button>
+          <div className="col-xs-1">
+            <button className="btn btn-default-outline" onClick={this.showOptionsModal}>
+              <span className="icon icon-tools"></span>
+            </button>
+          </div>
+          <div className="col-xs-1">
+            <button className="btn btn-default-outline" onClick={this.props.onRemove}>
+              <span className="icon icon-erase"></span>
+            </button>
+          </div>
         </div>
       </div>
     );
