@@ -14,25 +14,49 @@
 </div>
 <!-- Connector -->
 <p>The connector hooks into another API to create data.</p>
-<form action="/generator/connector" method="post">
-  <div class="form-group">
-    <label>Email</label>
-    <input class="form-control" />
+<form action="/generator/connector" method="POST">
+  <div class="row well">
+    <h6>Basic Authentication</h6>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>Email</label>
+        <input class="form-control" type="email" />
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>Password</label>
+        <input class="form-control" type="password" />
+      </div>
+    </div>
   </div>
-  <div class="form-group">
-    <label>Password</label>
-    <input class="form-control" />
-  </div>
-  <div class="form-group">
-    <label>Endpoint</label>
-    <input class="form-control" placeholder="https://domain.com/api/v2/endpoint.json" />
-  </div>
-  <div class="form-group">
-    <label>Model</label>
-    <select class="form-control">
-      <option></option>
-      <option></option>
-    </select>
+  <div class="row">
+    <div class="col-md-5">
+      <div class="form-group">
+        <label>Endpoint</label>
+        <input class="form-control" placeholder="https://domain.com/api/v2/endpoint.json" />
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <label>Model</label>
+        <select class="form-control">
+          <option></option>
+          <option></option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="form-group">
+        <label>Amount</label>
+        <input class="form-control" type="number" max="100" min="0" />
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="form-group">
+        <button class="btn btn-primary btn-block" style="margin-top: 25px;">POST</button>
+      </div>
+    </div>
   </div>
 </form>
 {% endblock %}
