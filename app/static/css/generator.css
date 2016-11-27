@@ -37,3 +37,13 @@ hr {
   background-color: #434857;
   color: #fff;
 }
+
+.col-xs-1 {
+  width: 10%;
+}
+
+@media (max-width: 520px) {
+  .col-xs-1, .col-xs-3 {
+    padding: 5px;
+  }
+}

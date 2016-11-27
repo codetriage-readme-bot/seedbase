@@ -62,6 +62,11 @@ var FieldList = React.createClass({
                                                          names={this.state.fieldNames} />)
     return (
       <div>
+        <div className="row">
+          <div className="col-xs-3">Field Name</div>
+          <div className="col-xs-3">Data Type</div>
+          <div className="col-xs-3">Parent Node</div>
+        </div>
         {fields}
         <div className="form-group">
           <button onClick={this.addField} className="btn btn-primary-outline">
@@ -89,8 +94,9 @@ var Field = React.createClass({
   },
 
   handleFieldNameChange: function(e) {
-    this.setState({ name: e.target.value });
-    this.props.onFieldNameChanged(e.target.value);
+    let value = e.target.value.replace(" ", "_");
+    this.setState({ name: value });
+    this.props.onFieldNameChanged(value);
   },
 
   handleDataTypeChange: function() {
@@ -99,49 +105,45 @@ var Field = React.createClass({
 
   render: function() {
     return (
-      <div>
-        <div className="row">
-          <div className="col-xs-3">Field Name</div>
-          <div className="col-xs-3">Data Type</div>
-          <div className="col-xs-3">Parent Node</div>
+      <div className="row">
+        <div className="col-xs-3">
+          <div className="form-group">
+            <input type="text" className="form-control" value={this.state.name} placeholder="name" onChange={this.handleFieldNameChange} required />
+          </div>
         </div>
-        <div className="row">
-          <div className="col-xs-3">
-            <div className="form-group">
-              <input type="text" className="form-control" value={this.state.name} placeholder="name" onChange={this.handleFieldNameChange} required />
-            </div>
+        <div className="col-xs-3">
+          <div className="form-group">
+            <select className="form-control" onChange={this.handleDataTypeChange} ref={(input) => this.dataTypeInput = input} required>
+              <option>Boolean</option>
+              <option>Random Number</option>
+              <option>Random String</option>
+              <option>JSON Object</option>
+              <option>JSON Array</option>
+              <option>Array</option>
+            </select>
           </div>
-          <div className="col-xs-3">
-            <div className="form-group">
-              <select className="form-control" onChange={this.handleDataTypeChange} ref={(input) => this.dataTypeInput = input} required>
-                <option>Boolean</option>
-                <option>Random Number</option>
-                <option>Random String</option>
-                <option>JSON Object</option>
-                <option>JSON Array</option>
-                <option>Array</option>
-              </select>
-            </div>
-          </div>
-          <div className="col-xs-3">
-            <div className="form-group">
-              <select className="form-control">
-                {this.props.objects.map(function(field) {
+        </div>
+        <div className="col-xs-3">
+          <div className="form-group">
+            <select className="form-control">
+              <option></option>
+              {this.props.objects.map(function(field) {
+                if (this.state.name != this.props.names[field.toString()]) {
                   return <option key={field} value={this.props.names[field.toString()]}>{this.props.names[field.toString()]}</option>;
-                }.bind(this))}
-              </select>
-            </div>
+                }
+              }.bind(this))}
+            </select>
           </div>
-          <div className="col-xs-1">
-            <button className="btn btn-default-outline" onClick={this.showOptionsModal}>
-              <span className="icon icon-tools"></span>
-            </button>
-          </div>
-          <div className="col-xs-1">
-            <button className="btn btn-default-outline" onClick={this.props.onRemove}>
-              <span className="icon icon-erase"></span>
-            </button>
-          </div>
+        </div>
+        <div className="col-xs-1">
+          <button className="btn btn-default-outline" onClick={this.showOptionsModal}>
+            <span className="icon icon-tools"></span>
+          </button>
+        </div>
+        <div className="col-xs-1">
+          <button className="btn btn-default-outline" onClick={this.props.onRemove}>
+            <span className="icon icon-erase"></span>
+          </button>
         </div>
       </div>
     );
