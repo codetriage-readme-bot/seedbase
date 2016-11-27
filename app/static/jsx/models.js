@@ -36,8 +36,12 @@ var FieldList = React.createClass({
       this.setState({ objects: objects });
     } else {
       objects = this.state.objects;
-      objects.splice(objects.indexOf(key), 1);
-      this.setState({ objects: objects });
+      for (var index = 0; index < objects.length; index++) {
+        if (objects[index] == key) {
+          objects.splice(index, 1);
+          this.setState({ objects: objects });
+        }
+      }
     }
   },
 
