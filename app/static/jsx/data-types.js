@@ -136,9 +136,10 @@ var CustomDataTypeList = React.createClass({
   addCustomDataType: function(e) {
     e.preventDefault();
     this.setState({
-      customDataType: this.state.customDataType.concat(this.state.counter),
+      customDataTypes: this.state.customDataTypes.concat(this.state.counter),
       counter: this.state.counter + 1
     });
+    console.log(this.state.customDataTypes)
   },
 
   removeCustomDataType: function(key) {
