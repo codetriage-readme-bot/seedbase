@@ -1,6 +1,6 @@
 # Hatch
 
-A data generation platform for emulating production data.
+A data generation platform for emulating production data. Follow the [Trello Board](https://trello.com/b/8zS0QPeR/hatch) for the product roadmap and visit the [wiki](https://github.com/rosendin/hatch/wiki) for further reading.
 
 ## Development
 
