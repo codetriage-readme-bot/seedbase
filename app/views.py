@@ -1,11 +1,10 @@
-from flask import render_template, url_for, request, flash, redirect, jsonify, make_response
+from flask import render_template, url_for, request, flash, redirect, jsonify
 from flask_restful import abort
-from flask_login import login_user, login_required, logout_user
-from forms import SignupForm, LoginForm, CustomDataTypeForm, ModelForm, flash_errors
+from flask_login import login_user, login_required, logout_user, current_user
+from forms import SignupForm, LoginForm, flash_errors
 from urlparse import urlparse, urljoin
-from app import app, db, login_manager
+from app import app, db, login_manager, api
 from app.models import User
-import json
 
 @login_manager.user_loader
 def load_user(email):
@@ -83,6 +82,7 @@ def data_types():
 def models():
   if request.method == 'POST':
     print(request.get_json())
+    print(current_user.is_anonymous())
     return jsonify(request.get_json()), 200
   return render_template('generator/models.html')
 
