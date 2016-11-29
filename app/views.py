@@ -4,7 +4,6 @@ from forms import SignupForm, LoginForm, flash_errors
 from urlparse import urlparse, urljoin
 from app import app, db, login_manager, api
 from app.models import User
-import requests
 
 @login_manager.user_loader
 def load_user(email):
