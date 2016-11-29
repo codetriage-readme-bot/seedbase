@@ -7,17 +7,31 @@ from app.models import User, Model, CustomDataType, ModelSchema, CustomDataTypeS
 
 @app.route('/api/models', methods=['GET'])
 def get_models():
-  models = Model.query.filter_by(user = current_user).all()
-  return jsonify(ModelSchema().dump(models).data), 200
+  if current_user.is_anonymous:
+    return jsonify({'message': 'API support for anonymous users is not available yet.'}), 200
+  else:
+    models = Model.query.filter_by(user = current_user).all()
+    return jsonify(ModelSchema().dump(models).data), 200
 
 @app.route('/api/models/<int:model_id>', methods=['GET'])
 def get_model(model_id):
-  model = Model.query.get(model_id)
-  return jsonify(ModelSchema().dump(model).data), 200
+  if current_user.is_anonymous:
+    return jsonify({'message': 'API support for anonymous users is not available yet.'}), 200
+  else:
+    user = User.query.get(current_user.id)
+    model = user.models.filter(Model.id == model_id)
+    return jsonify(ModelSchema().dump(model).data), 200
 
 @app.route('/api/models', methods=['POST'])
 def create_model():
-  pass
+  if current_user.is_anonymous:
+    return jsonify({'message': 'API support for anonymous users is not available yet.'}), 200
+  else:
+    # TO DO: finish POST model
+    print(request.get_json())
+    model = ModelSchema.load(request.get_json()).data
+    print(model)
+    return jsonify({}), 201
 
 @app.route('/api/models/<int:model_id>', methods=['PUT'])
 def update_model(model_id):

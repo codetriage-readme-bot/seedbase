@@ -15,16 +15,22 @@ from passlib.apps import custom_app_context as pwd_context
 
 class User(db.Model):
   """ A basic user model that meets the criteria for use with Flask-Login """
-  __tablename__ = 'user'
-  id            = db.Column(db.Integer, primary_key=True)
-  name          = db.Column(db.String(80))
-  email         = db.Column(db.String(120), unique=True, index=True)
-  password_hash = db.Column(db.String(128))
-  created_at    = db.Column(db.DateTime)
+  __tablename__    = 'user'
+  id               = db.Column(db.Integer, primary_key=True)
+  name             = db.Column(db.String(80))
+  email            = db.Column(db.String(120), unique=True, index=True)
+  password_hash    = db.Column(db.String(128))
+  is_authenticated = db.Column(db.Boolean)
+  is_active        = db.Column(db.Boolean)
+  is_anonymous     = db.Column(db.Boolean)
+  created_at       = db.Column(db.DateTime)
 
   def __init__(self, name, email, created_at=None):
     self.name = name
     self.email = email
+    self.is_authenticated = True
+    self.is_active = True
+    self.is_anonymous = False
     self.updated_at = datetime.utcnow()
     if created_at is None:
       created_at = datetime.utcnow()
@@ -40,15 +46,6 @@ class User(db.Model):
 
   def get_id(self):
     return self.email
-
-  def is_authenticated(self):
-    return True
-
-  def is_active(self):
-    return True
-
-  def is_anonymous(self):
-    return False
 
 class Model(db.Model):
   """ A representation of a model that a user can construct in a JSON format """

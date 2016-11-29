@@ -51,7 +51,23 @@ Export the `FLASK_APP` environment variable and run the application:
 
 ### Database Migrations
 
+#### Locally
+
 ```
 (env) $ flask db migrate
 (env) $ flask db upgrade
+```
+
+#### Heroku
+
+```
+(env) $ heroku run python app/__init__.py db migrate
+(env) $ heroku run python app/__init__.py db upgrade
+```
+
+### Other Useful Commands
+
+SSH into Heroku
+```
+(env) $ heroku run bash
 ```
