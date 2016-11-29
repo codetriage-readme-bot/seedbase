@@ -1,17 +1,19 @@
 from flask import jsonify
 from flask_login import login_required, current_user
 from app import app, db
-from app.models import User
+from app.models import User, Model, CustomDataType, ModelSchema, CustomDataTypeSchema
 
 # MODELS ============================================================
 
 @app.route('/api/models', methods=['GET'])
 def get_models():
-  pass
+  models = Model.query.filter_by(user = current_user).all()
+  return jsonify(ModelSchema().dump(models).data), 200
 
 @app.route('/api/models/<int:model_id>', methods=['GET'])
 def get_model(model_id):
-  pass
+  model = Model.query.get(model_id)
+  return jsonify(ModelSchema().dump(model).data), 200
 
 @app.route('/api/models', methods=['POST'])
 def create_model():

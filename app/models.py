@@ -7,8 +7,9 @@ This file lists all models for the Hatch web application. Some references that m
 :copyright: 2016 by Hatch
 """
 
-from app import db
+from app import db, ma
 from datetime import datetime
+from marshmallow_sqlalchemy import ModelSchema
 from passlib.apps import custom_app_context as pwd_context
 
 
@@ -70,6 +71,11 @@ class Model(db.Model):
   def __repr__(self):
     return '<Model %r>' % self.name
 
+class ModelSchema(ma.ModelSchema):
+  """ Define Model output with marshmallow """
+  class Meta:
+    model = Model
+
 class Field(db.Model):
   """ A representation of a JSON key/value pair """
 
@@ -129,3 +135,8 @@ class CustomDataType(NativeDataType):
 
   def __repr__(self):
     return '<CustomDataType %r>' % self.name
+
+class CustomDataTypeSchema(ma.ModelSchema):
+  """ Define Custom Data Type output with marshmallow """
+  class Meta:
+    model = CustomDataType
