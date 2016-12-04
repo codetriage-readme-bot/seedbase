@@ -23,17 +23,16 @@ class User(db.Model):
   is_authenticated = db.Column(db.Boolean)
   is_active        = db.Column(db.Boolean)
   is_anonymous     = db.Column(db.Boolean)
-  created_at       = db.Column(db.DateTime)
+  created_at       = db.Column(db.DateTime, default=datetime.utcnow)
+  updated_at       = db.Column(db.DateTime)
 
-  def __init__(self, name, email, created_at=None):
+  def __init__(self, name, email):
     self.name = name
     self.email = email
     self.is_authenticated = True
     self.is_active = True
     self.is_anonymous = False
     self.updated_at = datetime.utcnow()
-    if created_at is None:
-      created_at = datetime.utcnow()
 
   def __repr__(self):
     return '<User %r>' % self.name
@@ -55,15 +54,13 @@ class Model(db.Model):
   name          = db.Column(db.String(50))
   user_id       = db.Column(db.Integer, db.ForeignKey('user.id'))
   user          = db.relationship('User', backref=db.backref('models', lazy='dynamic'))
-  created_at    = db.Column(db.DateTime)
+  created_at    = db.Column(db.DateTime, default=datetime.utcnow)
   updated_at    = db.Column(db.DateTime)
 
-  def __init__(self, name, user, created_at=None):
+  def __init__(self, name, user):
     self.name = name
     self.user = user
     self.updated_at = datetime.utcnow()
-    if created_at is None:
-      created_at = datetime.utcnow()
 
   def __repr__(self):
     return '<Model %r>' % self.name
@@ -83,16 +80,14 @@ class Field(db.Model):
   model         = db.relationship('Model', backref=db.backref('fields', lazy='dynamic'))
   data_type_id  = db.Column(db.Integer, db.ForeignKey('native_data_type.id'))
   data_type     = db.relationship('NativeDataType', backref=db.backref('fields', lazy='dynamic'))
-  created_at    = db.Column(db.DateTime)
+  created_at    = db.Column(db.DateTime, default=datetime.utcnow)
   updated_at    = db.Column(db.DateTime)
 
-  def __init__(self, name, model, data_type, created_at=None):
+  def __init__(self, name, model, data_type):
     self.name = name
     self.model = model
     self.data_type = data_type
     self.updated_at = datetime.utcnow()
-    if created_at is None:
-      created_at = datetime.utcnow()
 
   def __repr__(self):
     return '<Field %r>' % self.name
@@ -120,15 +115,13 @@ class CustomDataType(NativeDataType):
   name                  = db.Column(db.String(50))
   user_id               = db.Column(db.Integer, db.ForeignKey('user.id'))
   user                  = db.relationship('User', backref=db.backref('custom_data_types', lazy='dynamic'))
-  created_at            = db.Column(db.DateTime)
+  created_at            = db.Column(db.DateTime, default=datetime.utcnow)
   updated_at            = db.Column(db.DateTime)
 
-  def __init__(self, name, user, created_at=None, updated_at=None):
+  def __init__(self, name, user):
     self.name = name
     self.user = user
     self.updated_at = datetime.utcnow()
-    if created_at is None:
-      created_at = datetime.utcnow()
 
   def __repr__(self):
     return '<CustomDataType %r>' % self.name
