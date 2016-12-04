@@ -3,6 +3,7 @@ from functools import wraps
 from flask_login import login_required, current_user
 from app import app, db
 from app.models import User, Model, CustomDataType, ModelSchema, CustomDataTypeSchema
+import sqlalchemy.exc
 
 def requires_auth(f):
   """This is a decorator for API routes to check authentication
@@ -59,45 +60,98 @@ def get_model(model_id):
 @requires_auth
 def create_model():
   user = get_user(request)
-  model = Model(name=request.get_json()['name'], user=user)
-  db.session.add(model)
-  db.session.commit()
-  query = Model.query.get(model.id)
-  return jsonify(ModelSchema().dump(query).data), 201
+  try:
+    model = Model(name=request.get_json()['name'], user=user)
+    db.session.add(model)
+    db.session.commit()
+    query = Model.query.get(model.id)
+    return jsonify(ModelSchema().dump(query).data), 201
+  except sqlalchemy.exc.SQLAlchemyError as e:
+    db.session.rollback()
+    return jsonify({"error": str(e)}), 401
 
 @app.route('/api/models/<int:model_id>', methods=['PUT'])
 @requires_auth
 def update_model(model_id):
-  pass
+  user = get_user(request)
+  try:
+    model = user.models.filter(Model.id == model_id).first()
+    for key, value in request.get_json().items():
+      setattr(model, key, value)
+    db.session.add(model)
+    db.session.commit()
+    return jsonify(ModelSchema().dump(model).data, 200)
+  except sqlalchemy.exc.SQLAlchemyError as e:
+    db.session.rollback()
+    return jsonify({"error": str(e)}), 401
 
 @app.route('/api/models/<int:model_id>', methods=['DELETE'])
 @requires_auth
 def delete_model(model_id):
-  pass
+  user = get_user(request)
+  try:
+    model = user.models.filter(Model.id == model_id).first()
+    db.session.delete(model)
+    db.session.commit()
+    return jsonify({}), 204
+  except sqlalchemy.exc.SQLAlchemyError as e:
+    db.session.rollback()
+    return jsonify({"error": str(e)}), 401
 
 # CUSTOM DATA TYPES =================================================
 
-@app.route('/api/custom_data_types', methods=['GET'])
+@app.route('/api/custom-data-types', methods=['GET'])
 @requires_auth
 def get_custom_data_types():
-  pass
+  user = get_user(request)
+  cdts = CustomDataType.query.filter_by(user = user).all()
+  return jsonify(CustomDataTypeSchema().dump(cdts, many=True).data), 200
 
-@app.route('/api/custom_data_types/<int:custom_data_type_id>', methods=['GET'])
+@app.route('/api/custom-data-types/<int:custom_data_type_id>', methods=['GET'])
 @requires_auth
 def get_custom_data_type(custom_data_type_id):
-  pass
+  user = get_user(request)
+  cdt = user.custom_data_types.filter(CustomDataType.id == custom_data_type_id)
+  return jsonify(CustomDataTypeSchema().dump(cdt).data), 200
 
-@app.route('/api/custom_data_types', methods=['POST'])
+@app.route('/api/custom-data-types', methods=['POST'])
 @requires_auth
 def create_custom_data_type():
-  pass
+  user = get_user(request)
+  try:
+    cdt = CustomDataType(name=request.get_json()['name'], user=user)
+    db.session.add(cdt)
+    db.session.commit()
+    query = CustomDataType.query.get(cdt.id)
+    return jsonify(CustomDataTypeSchema().dump(query).data), 201
+  except sqlalchemy.exc.SQLAlchemyError as e:
+    db.session.rollback()
+    return jsonify({"error": str(e)}), 401
 
-@app.route('/api/custom_data_types/<int:custom_data_type_id>', methods=['PUT'])
+@app.route('/api/custom-data-types/<int:custom_data_type_id>', methods=['PUT'])
 @requires_auth
 def update_custom_data_type(custom_data_type_id):
-  pass
+  user = get_user(request)
+  try:
+    cdt = user.custom_data_types.filter(CustomDataType.id == custom_data_type_id).first()
+    for key, value in request.get_json().items():
+      setattr(cdt, key, value)
+    db.session.add(cdt)
+    db.session.commit()
+    return jsonify(CustomDataTypeSchema().dump(cdt).data, 200)
+  except sqlalchemy.exc.SQLAlchemyError as e:
+    db.session.rollback()
+    return jsonify({"error": str(e)}), 401
 
-@app.route('/api/custom_data_types/<int:custom_data_type_id>', methods=['DELETE'])
+@app.route('/api/custom-data-types/<int:custom_data_type_id>', methods=['DELETE'])
 @requires_auth
 def delete_custom_data_type(custom_data_type_id):
-  pass
+  user = get_user(request)
+  try:
+    cdt = user.custom_data_types.filter(CustomDataType.id == custom_data_type_id).first()
+    db.session.delete(cdt)
+    db.session.commit()
+    return jsonify({}), 204
+  except sqlalchemy.exc.SQLAlchemyError as e:
+    db.session.rollback()
+    return jsonify({"error": str(e)}), 401

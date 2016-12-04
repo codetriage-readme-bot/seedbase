@@ -47,7 +47,7 @@
   <p>Hey there! Welcome to the Hatch documentation. Let’s dive in.</p>
   <h2 id="the-api">The API</h2>
   <p>The API is a JSON API and XML is not supported. Endpoints are documented with the HTTP method for the request and a partial resource identifier. Curly braces, <code class="highlighter-rouge">{}</code>, indicate values you have to supply. For example:
-  <figure class="highlight"><pre><code class="language-bash" data-lang="bash">GET https://hatch-data.io/api/models/{model_id}.json</code></pre></figure>
+  <figure class="highlight"><pre><code class="language-bash" data-lang="bash">GET https://hatch-data.io/api/models/{id}.json</code></pre></figure>
   The examples in the documentation are cURL statements. You can run the statements on a command line to try out different API requests. To learn more, see <a href="https://curl.haxx.se/" target="_blank">the cURL website</a>.</p>
   <h2 id="authentication">Authentication</h2>
   <p>Basic authentication is supported with an email address and an API token. You don't need to supply authentication credentials for most endpoints, but doing so will increase your rate limit.</p>
@@ -61,7 +61,7 @@
     <table class="table">
       <tr>
         <th>Plan</th>
-        <th>Requests per minute</th>
+        <th>Requests per month</th>
       </tr>
       <tr>
         <td>No Plan</td>
@@ -101,27 +101,27 @@
 
   <h1 id="custom-data-types">Custom Data Types</h1>
   <h2 id="list-custom-data-types">List Custom Data Types</h2>
-  <p><code class="highlighter-rouge">GET https://hatch-data.io/api/custom_data_types</code></p>
+  <p><code class="highlighter-rouge">GET https://hatch-data.io/api/custom-data-types</code></p>
   <h2 id="show-custom-data-type">Show Custom Data Type</h2>
-  <p><code class="highlighter-rouge">GET https://hatch-data.io/api/custom_data_type/{custom_data_type_id}</code></p>
+  <p><code class="highlighter-rouge">GET https://hatch-data.io/api/custom-data-type/{id}</code></p>
   <h2 id="create-custom-data-type">Create Custom Data Type</h2>
-  <p><code class="highlighter-rouge">POST https://hatch-data.io/api/custom_data_types</code></p>
+  <p><code class="highlighter-rouge">POST https://hatch-data.io/api/custom-data-types</code></p>
   <h2 id="update-custom-data-type">Update Custom Data Type</h2>
-  <p><code class="highlighter-rouge">PUT https://hatch-data.io/api/custom_data_type/{custom_data_type_id}</code></p>
+  <p><code class="highlighter-rouge">PUT https://hatch-data.io/api/custom-data-type/{id}</code></p>
   <h2 id="delete-custom-data-type">Delete Custom Data Type</h2>
-  <p><code class="highlighter-rouge">DELETE https://hatch-data.io/api/custom_data_type/{custom_data_type_id}</code></p>
+  <p><code class="highlighter-rouge">DELETE https://hatch-data.io/api/custom-data-type/{id}</code></p>
 
   <h1 id="models">Models</h1>
   <h2 id="list-models">List Models</h2>
   <p><code class="highlighter-rouge">GET https://hatch-data.io/api/models</code></p>
   <h2 id="show-model">Show Model</h2>
-  <p><code class="highlighter-rouge">GET https://hatch-data.io/api/models/{model_id}</code></p>
+  <p><code class="highlighter-rouge">GET https://hatch-data.io/api/models/{id}</code></p>
   <h2 id="create-model">Create Model</h2>
   <p><code class="highlighter-rouge">POST https://hatch-data.io/api/models</code></p>
   <h2 id="update-model">Update Model</h2>
-  <p><code class="highlighter-rouge">PUT https://hatch-data.io/api/models/{model_id}</code></p>
+  <p><code class="highlighter-rouge">PUT https://hatch-data.io/api/models/{id}</code></p>
   <h2 id="delete-model">Delete Model</h2>
-  <p><code class="highlighter-rouge">DELETE https://hatch-data.io/api/models/{model_id}</code></p>
+  <p><code class="highlighter-rouge">DELETE https://hatch-data.io/api/models/{id}</code></p>
 
   <a class="docs-top" style="display: none" href="#">Back to top</a>
 </div>
