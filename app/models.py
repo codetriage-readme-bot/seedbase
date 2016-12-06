@@ -10,6 +10,7 @@ This file lists all models for the Hatch web application. Some references that m
 from app import db, ma
 from datetime import datetime
 from marshmallow_sqlalchemy import ModelSchema
+from marshmallow import fields
 from passlib.apps import custom_app_context as pwd_context
 
 
@@ -65,11 +66,6 @@ class Model(db.Model):
   def __repr__(self):
     return '<Model %r>' % self.name
 
-class ModelSchema(ma.ModelSchema):
-  """ Define Model output with marshmallow """
-  class Meta:
-    model = Model
-
 class Field(db.Model):
   """ A representation of a JSON key/value pair """
 
@@ -78,8 +74,7 @@ class Field(db.Model):
   name          = db.Column(db.String(50))
   model_id      = db.Column(db.Integer, db.ForeignKey('model.id'))
   model         = db.relationship('Model', backref=db.backref('fields', lazy='dynamic'))
-  data_type_id  = db.Column(db.Integer, db.ForeignKey('native_data_type.id'))
-  data_type     = db.relationship('NativeDataType', backref=db.backref('fields', lazy='dynamic'))
+  data_type     = db.Column(db.String(32))
   created_at    = db.Column(db.DateTime, default=datetime.utcnow)
   updated_at    = db.Column(db.DateTime)
 
@@ -125,6 +120,18 @@ class CustomDataType(NativeDataType):
 
   def __repr__(self):
     return '<CustomDataType %r>' % self.name
+
+class FieldSchema(ma.ModelSchema):
+  """ Define Field output with marshmallow """
+  class Meta:
+    model = Field
+
+class ModelSchema(ma.ModelSchema):
+  """ Define Model output with marshmallow """
+  fields = fields.Nested(FieldSchema, many=True)
+
+  class Meta:
+    model = Model
 
 class CustomDataTypeSchema(ma.ModelSchema):
   """ Define Custom Data Type output with marshmallow """

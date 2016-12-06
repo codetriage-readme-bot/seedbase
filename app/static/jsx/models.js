@@ -11,13 +11,15 @@ var ModelContainer = React.createClass({
   addModel: function(e) {
     e.preventDefault();
     this.setState({
-      models: this.state.models.concat(model),
+      models: this.state.models.concat({}),
     });
   },
 
-  removeModel: function(key) {
-    // do something
-    this.setState({models: this.state.models});
+  removeModel: function(model) {
+    var models = $.grep(this.state.models, (m) => {
+      return m.id != model.id;
+    });
+    this.setState({models: models});
   },
 
   componentDidMount() {
@@ -205,7 +207,8 @@ var Field = React.createClass({
 var Model = React.createClass({
   getInitialState: function() {
     return {
-      collapsed: false
+      collapsed: false,
+      name: this.props.name
     };
   },
 
@@ -214,6 +217,13 @@ var Model = React.createClass({
     this.setState({
       collapsed: !this.state.collapsed
     });
+  },
+
+  handleModelNameChange: function(e) {
+    let value = e.target.value.replace(" ", "_").replace(/\b[a-z]/g, (letter) => {
+      return letter.toUpperCase();
+    });
+    this.setState({ name: value });
   },
 
   render: function() {
@@ -226,7 +236,7 @@ var Model = React.createClass({
                 <h4 className="panel-title">
                   <div className="row">
                     <div className="col-xs-4">
-                      <input placeholder="Name" className="form-control" value={this.props.name} type="text" autoFocus required />
+                      <input placeholder="Name" className="form-control" value={this.props.name} onChange={this.handleModelNameChange} type="text" autoFocus required />
                     </div>
                     <div className="col-xs-8">
                       <button onClick={this.props.onRemove} className="pull-right btn btn-default">
