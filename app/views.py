@@ -1,4 +1,4 @@
-from flask import render_template, url_for, request, flash, redirect, jsonify, abort
+from flask import render_template, url_for, request, flash, redirect, jsonify, abort, g
 from flask_login import login_user, login_required, logout_user, current_user
 from forms import SignupForm, LoginForm, flash_errors
 from urlparse import urlparse, urljoin

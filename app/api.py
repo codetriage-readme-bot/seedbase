@@ -1,4 +1,4 @@
-from flask import jsonify, request
+from flask import jsonify, request, g
 from functools import wraps
 from flask_login import login_required, current_user
 from app import app, db
@@ -8,18 +8,24 @@ import sqlalchemy.exc
 def requires_auth(f):
   """This is a decorator for API routes to check authentication
 
-  The decorator wraps around an API route and runs the verify_request_authorization
+  The decorator wraps around an API route and runs the decorated
   method. If the user has provided a correct basic auth header or the user is already
   logged in, the API route will run. Else, the user is asked to authenticate.
   """
   @wraps(f)
-  def verify_request_authorization(*args, **kwargs):
+  def decorated(*args, **kwargs):
     auth = request.authorization
-    if not auth or not check_auth(auth.username, auth.password):
-      if not current_user.is_authenticated:
+    if not auth:
+      if current_user.is_authenticated:
+        g.user = current_user
+        return f(*args, **kwargs)
+      else:
         return needs_authentication()
+    if user is None or user.password is not user.verify_password(auth.password):
+      return needs_authentication()
+    g.user = user
     return f(*args, **kwargs)
-  return verify_request_authorization
+  return decorated
 
 def needs_authentication():
   """Sends a 401 response"""

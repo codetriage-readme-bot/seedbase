@@ -1,4 +1,49 @@
 /**
+ * Container component for Model
+ */
+var ModelContainer = React.createClass({
+  getInitialState: function() {
+    return {
+      models: []
+    };
+  },
+
+  addModel: function(e) {
+    e.preventDefault();
+    this.setState({
+      models: this.state.models.concat(model),
+    });
+  },
+
+  removeModel: function(key) {
+    // do something
+    this.setState({models: this.state.models});
+  },
+
+  componentDidMount() {
+    $.ajax({
+      type: 'GET',
+      url: '/api/models',
+      success: (data, textStatus, jqXHR) => {
+        console.log(data);
+        this.setState({ models: data });
+      },
+      error: (jqXHR, textStatus, errorThrown) => {
+        console.log("jqXHR: ", jqXHR);
+        console.log("textStatus: ", textStatus);
+        console.log("errorThrown: ", errorThrown);
+      }
+    });
+  },
+
+  render() {
+    return(
+      <ModelList models={this.state.models} handleRemove={this.removeModel} handleAdd={this.addModel} />
+    );
+  }
+});
+
+/**
  * Collapsible component
  */
 var FieldList = React.createClass({
@@ -181,7 +226,7 @@ var Model = React.createClass({
                 <h4 className="panel-title">
                   <div className="row">
                     <div className="col-xs-4">
-                      <input placeholder="Name" className="form-control" type="text" autoFocus required />
+                      <input placeholder="Name" className="form-control" value={this.props.name} type="text" autoFocus required />
                     </div>
                     <div className="col-xs-8">
                       <button onClick={this.props.onRemove} className="pull-right btn btn-default">
@@ -208,75 +253,18 @@ var Model = React.createClass({
 });
 
 var ModelList = React.createClass({
-  getInitialState: function() {
-    return {
-      models: [0],
-      counter: 1
-    };
-  },
-
-  addModel: function(e) {
-    e.preventDefault();
-    this.setState({
-      models: this.state.models.concat(this.state.counter),
-      counter: this.state.counter + 1
-    });
-  },
-
-  removeModel: function(key) {
-    var i = this.state.models.indexOf(key);
-    this.state.models.splice(i, 1);
-    this.setState({models: this.state.models});
-  },
-
   handleSubmit: function(event) {
     event.preventDefault();
-
-    let data = {
-      models: [
-        {
-          model_name: 'model_name',
-          fields: [
-            {
-              field_name: 'parent_node',
-              data_type: 'json_object',
-              parent_node: null,
-              options: {}
-            },
-            {
-              field_name: 'child_node',
-              data_type: 'boolean',
-              parent_node: 'parent_node',
-              options: {}
-            }
-          ]
-        }
-      ]
-    };
-
-    $.ajax({
-      url: '/generator/models',
-      type: 'POST',
-      dataType: 'json',
-      contentType: 'application/json',
-      data: JSON.stringify(data),
-      success: function(data) {
-        console.log(data);
-      }.bind(this),
-      error: function(xhr, status, err) {
-        console.error(status, err);
-      }.bind(this)
-    });
   },
 
   render: function() {
-    let models = this.state.models.map((model) => <Model key={model.toString()} index={model} onRemove={this.removeModel.bind(null, model)} />)
+    let models = this.props.models.map((model, index) => <Model name={model.name} key={model.id} index={model.id} onRemove={this.props.handleRemove.bind(null, model)} />)
     return (
       <form onSubmit={this.handleSubmit}>
         {models}
         <div class="row">
           <div class="col-sm-9">
-            <button onClick={this.addModel} className="btn btn-primary-outline p-x m-t m-r">
+            <button onClick={this.props.handleAdd} className="btn btn-primary-outline p-x m-t m-r">
               <span class="icon icon-plus"></span> Add Model
             </button>
             <button type="submit" className="btn btn-success-outline p-x m-t pull-right" disabled={!models.length}>Continue</button>
@@ -288,6 +276,6 @@ var ModelList = React.createClass({
 });
 
 ReactDOM.render(
-  <ModelList />,
+  <ModelContainer />,
   document.getElementById('models')
 );
