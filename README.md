@@ -1,4 +1,5 @@
-# Hatch
+Hatch
+=====
 
 A data generation platform for emulating production data. Follow the [Trello Board](https://trello.com/b/8zS0QPeR/hatch) for the product roadmap and visit the [wiki](https://github.com/rosendin/hatch/wiki) for further reading.
 
@@ -61,8 +62,7 @@ Export the `FLASK_APP` environment variable and run the application:
 #### Heroku
 
 ```
-(env) $ heroku run python app/__init__.py db migrate
-(env) $ heroku run python app/__init__.py db upgrade
+(env) $ heroku run flask db upgrade
 ```
 
 ### Other Useful Commands
