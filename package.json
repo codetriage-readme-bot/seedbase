@@ -20,7 +20,8 @@
   "homepage": "https://github.com/rosendin/hatch#readme",
   "dependencies": {
     "react": "^15.0.0",
-    "react-dom": "^15.0.0"
+    "react-dom": "^15.0.0",
+    "webpack": "~1.12.*"
   },
   "devDependencies": {
     "babel-core": "~6.7.*",
@@ -29,7 +30,6 @@
     "babel-preset-react": "~6.5.*",
     "gulp": "^3.9.1",
     "gulp-sass": "^2.3.2",
-    "webpack": "~1.12.*",
     "webpack-dev-server": "~1.14.*"
   }
 }
