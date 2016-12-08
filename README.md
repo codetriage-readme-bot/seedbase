@@ -34,16 +34,6 @@ Install NPM development modules:
 (env) $ npm install
 ```
 
-Install ReactJS with bower:
-```
-(env) $ bower install
-```
-
-Run the gulpfile:
-```
-(env) $ gulp gulpfile
-```
-
 Export the `FLASK_APP` environment variable and run the application:
 ```
 (env) $ export FLASK_APP=run.py
