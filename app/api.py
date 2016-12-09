@@ -2,7 +2,7 @@ from flask import jsonify, request, g
 from functools import wraps
 from flask_login import login_required, current_user
 from app import app, db
-from app.models import User, Model, CustomDataType, ModelSchema, CustomDataTypeSchema
+from app.models import User, Model, Field, CustomDataType, ModelSchema, FieldSchema, CustomDataTypeSchema
 import sqlalchemy.exc
 
 def requires_auth(f):
@@ -98,6 +98,65 @@ def delete_model(model_id):
   try:
     model = user.models.filter(Model.id == model_id).first()
     db.session.delete(model)
+    db.session.commit()
+    return jsonify({}), 204
+  except sqlalchemy.exc.SQLAlchemyError as e:
+    db.session.rollback()
+    return jsonify({"error": str(e)}), 401
+
+# FIELDS ============================================================
+
+@app.route('/api/models/<int:model_id>/fields', methods=['GET'])
+@requires_auth
+def get_model_fields(model_id):
+  user = get_user(request)
+  fields = user.models.filter(Model.id == model_id).fields
+  return jsonify(FieldSchema().dump(fields, many=True).data), 200
+
+@app.route('/api/models/<int:model_id>/fields/<int:field_id>', methods=['GET'])
+@requires_auth
+def get_model_field(model_id, field_id):
+  user = get_user(request)
+  field = user.models.filter(Model.id == model_id).fields.filter(Field.id == field_id)
+  return jsonify(FieldSchema().dump(field).data), 200
+
+@app.route('/api/models/<int:model_id>/fields', methods=['POST'])
+@requires_auth
+def create_model_field(model_id):
+  user = get_user(request)
+  try:
+    model = user.models.filter(Model.id == model_id).one()
+    field = Field(name=request.get_json()['name'], model=model, data_type=request.get_json()['dataType'])
+    db.session.add(field)
+    db.session.commit()
+    query = Field.query.get(field.id)
+    return jsonify(FieldSchema().dump(query).data), 201
+  except sqlalchemy.exc.SQLAlchemyError as e:
+    db.session.rollback()
+    return jsonify({"error": str(e)}), 401
+
+@app.route('/api/models/<int:model_id>/fields/<int:field_id>', methods=['PUT'])
+@requires_auth
+def update_model_field(model_id, field_id):
+  user = get_user(request)
+  try:
+    field = user.models.filter(Model.id == model_id).fields.filter(Field.id == field_id)
+    for key, value in request.get_json().items():
+      setattr(field, key, value)
+    db.session.add(field)
+    db.session.commit()
+    return jsonify(FieldSchema().dump(field).data, 200)
+  except sqlalchemy.exc.SQLAlchemyError as e:
+    db.session.rollback()
+    return jsonify({"error": str(e)}), 401
+
+@app.route('/api/models/<int:model_id>/fields/<int:field_id>', methods=['DELETE'])
+@requires_auth
+def delete_model_field(model_id, field_id):
+  user = get_user(request)
+  try:
+    field = user.models.filter(Model.id == model_id).one().fields.filter(Field.id == field_id).one()
+    db.session.delete(field)
     db.session.commit()
     return jsonify({}), 204
   except sqlalchemy.exc.SQLAlchemyError as e:

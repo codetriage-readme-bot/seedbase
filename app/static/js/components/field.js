@@ -1,25 +1,9 @@
 import React, { Component } from 'react';
 
 var Field = React.createClass({
-  getInitialState: function() {
-    return {
-      name: ""
-    };
-  },
-
   showOptionsModal: function(e) {
     e.preventDefault();
     console.log("Show options modal...");
-  },
-
-  handleFieldNameChange: function(e) {
-    let value = e.target.value.replace(" ", "_");
-    this.setState({ name: value });
-    this.props.onFieldNameChanged(value);
-  },
-
-  handleDataTypeChange: function() {
-    this.props.onDataTypeChanged(this.dataTypeInput.value, this.state.name);
   },
 
   render: function() {
@@ -27,12 +11,12 @@ var Field = React.createClass({
       <div className="row">
         <div className="col-xs-3">
           <div className="form-group">
-            <input type="text" className="form-control" value={this.state.name} placeholder="name" onChange={this.handleFieldNameChange} required />
+            <input type="text" className="form-control" value={this.props.name} placeholder="name" />
           </div>
         </div>
         <div className="col-xs-3">
           <div className="form-group">
-            <select className="form-control" onChange={this.handleDataTypeChange} ref={(input) => this.dataTypeInput = input} required>
+            <select className="form-control" value={this.props.dataType}>
               <option>Boolean</option>
               <option>Random Number</option>
               <option>Random String</option>
@@ -46,11 +30,6 @@ var Field = React.createClass({
           <div className="form-group">
             <select className="form-control">
               <option></option>
-              {this.props.objects.map(function(field) {
-                if (this.state.name != this.props.names[field.toString()]) {
-                  return <option key={field} value={this.props.names[field.toString()]}>{this.props.names[field.toString()]}</option>;
-                }
-              }.bind(this))}
             </select>
           </div>
         </div>
@@ -60,7 +39,7 @@ var Field = React.createClass({
           </button>
         </div>
         <div className="col-xs-1">
-          <button className="btn btn-default-outline" onClick={this.props.onRemove}>
+          <button className="btn btn-default-outline" onClick={this.props.fieldCallbacks.delete.bind(null, this.props.modelId, this.props.fieldId, this.props.index)}>
             <span className="icon icon-erase"></span>
           </button>
         </div>

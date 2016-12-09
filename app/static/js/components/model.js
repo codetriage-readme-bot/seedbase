@@ -1,26 +1,17 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import FieldList from './fieldList';
 
 var Model = React.createClass({
   getInitialState: function() {
     return {
-      collapsed: false,
-      name: this.props.name
+      collapsed: false
     };
   },
 
-  handleCollapse: function(e) {
-    e.preventDefault();
+  handleCollapse: function() {
     this.setState({
       collapsed: !this.state.collapsed
     });
-  },
-
-  handleModelNameChange: function(e) {
-    let value = e.target.value.replace(" ", "_").replace(/\b[a-z]/g, (letter) => {
-      return letter.toUpperCase();
-    });
-    this.setState({ name: value });
   },
 
   render: function() {
@@ -33,10 +24,10 @@ var Model = React.createClass({
                 <h4 className="panel-title">
                   <div className="row">
                     <div className="col-xs-4">
-                      <input placeholder="Name" className="form-control" value={this.props.name} onChange={this.handleModelNameChange} type="text" autoFocus required />
+                      <input placeholder="Name" className="form-control" value={this.props.name} type="text" autoFocus />
                     </div>
                     <div className="col-xs-8">
-                      <button onClick={this.props.onRemove} className="pull-right btn btn-default">
+                      <button onClick={this.props.modelCallbacks.delete.bind(null, this.props.modelId, this.props.index)} className="pull-right btn btn-default">
                       <span className="icon icon-squared-cross"></span>
                       </button>
                       <button onClick={this.handleCollapse} className="pull-right btn btn-default" data-toggle="collapse" data-target={"#collapse-" + this.props.index}>
@@ -48,7 +39,7 @@ var Model = React.createClass({
               </div>
               <div id={"collapse-" + this.props.index} className="panel-collapse collapse in" role="tabpanel">
                 <div className="panel-body">
-                  <FieldList />
+                  <FieldList fields={this.props.fields} fieldCallbacks={this.props.fieldCallbacks} modelId={this.props.modelId} />
                 </div>
               </div>
             </div>
@@ -58,5 +49,13 @@ var Model = React.createClass({
     );
   }
 });
+
+Model.propTypes = {
+  name: PropTypes.string,
+  index: PropTypes.number,
+  fields: PropTypes.arrayOf(PropTypes.object),
+  modelCallbacks: PropTypes.object,
+  fieldCallbacks: PropTypes.object
+}
 
 export default Model;
