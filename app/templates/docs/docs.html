@@ -4,7 +4,7 @@
 <div class="docs-header" id="content">
   <div class="container">
     <h1>Documentation</h1>
-    <p>Unleash the power of data with the Hatch API.</p>
+    <p>Unleash the power of data with the Seedbase API.</p>
   </div>
 </div>
 <div class="container docs-content">
@@ -53,16 +53,16 @@
   </ul>
 
   <h1 id="intro">Introduction</h1>
-  <p>Hey there! Welcome to the Hatch documentation. Let’s dive in.</p>
+  <p>Hey there! Welcome to the Seedbase documentation. Let’s dive in.</p>
   <h2 id="the-api">The API</h2>
   <p>The API is a JSON API and XML is not supported. Endpoints are documented with the HTTP method for the request and a partial resource identifier. Curly braces, <code class="highlighter-rouge">{}</code>, indicate values you have to supply. For example:
-  <figure class="highlight"><pre><code class="language-bash" data-lang="bash">GET https://hatch-data.io/api/models/{id}.json</code></pre></figure>
+  <figure class="highlight"><pre><code class="language-bash" data-lang="bash">GET https://seedbase.io/api/models/{id}.json</code></pre></figure>
   The examples in the documentation are cURL statements. You can run the statements on a command line to try out different API requests. To learn more, see <a href="https://curl.haxx.se/" target="_blank">the cURL website</a>.</p>
   <h2 id="authentication">Authentication</h2>
   <p>Basic authentication is supported with an email address and an API token. You don't need to supply authentication credentials for most endpoints, but doing so will increase your rate limit.</p>
   <p>Use the following authentication format with your email address and API token:</p>
   <p><code class="highlighter-rouge">{email_address}/token:{api_token}</code></p>
-  <figure class="highlight"><pre><code class="language-bash" data-lang="bash">curl -u jsmith@example.com/token:940gLf8Ceeo41eSmD6c5B43YPmc9et2m https://hatch-data.io/api/models.json</code></pre></figure>
+  <figure class="highlight"><pre><code class="language-bash" data-lang="bash">curl -u jsmith@example.com/token:940gLf8Ceeo41eSmD6c5B43YPmc9et2m https://seedbase.io/api/models.json</code></pre></figure>
   <p>Don't forget to url-encode the slash character if you're authenticating over HTTP!</p>
   <h2 id="rate-limits">Rate Limits</h2>
   <p>The API has a specific rate limit per month depending on your plan. See the table below:</p>
@@ -91,7 +91,7 @@
     </table>
   </div>
   <h2 id="request-format">Request Format</h2>
-  <p>Since the Hatch Data API is a JSON API, you must supply a <code class="highlighter-rouge">Content-Type: application/json</code> header in <code class="highlighter-rouge">PUT</code> and <code class="highlighter-rouge">POST</code> requests and set an <code class="highlighter-rouge">Accept: application/json</code> header on all requests.</p>
+  <p>Since the Seedbase Data API is a JSON API, you must supply a <code class="highlighter-rouge">Content-Type: application/json</code> header in <code class="highlighter-rouge">PUT</code> and <code class="highlighter-rouge">POST</code> requests and set an <code class="highlighter-rouge">Accept: application/json</code> header on all requests.</p>
   <h2 id="response-format">Response Format</h2>
   <p>Successful responses will be in the 200 or 300 range.</p>
   <figure class="highlight"><pre><code class="language-js" data-lang="js">Status: 201 Created
@@ -99,50 +99,50 @@
 {
   "model": {
     "id": 5,
-    "url": "https://hatch-data.io/api/models/5.json",
+    "url": "https://seedbase.io/api/models/5.json",
     "name": "users",
     ...
     "created_at": "2016-11-13T12:15:00Z"
   }
 }</code></pre></figure>
   <h1 id="generate">Generate</h1>
-  <p><code class="highlighter-rouge">POST https://hatch-data.io/api/generate</code></p>
+  <p><code class="highlighter-rouge">POST https://seedbase.io/api/generate</code></p>
 
   <h1 id="custom-data-types">Custom Data Types</h1>
   <h2 id="list-custom-data-types">List Custom Data Types</h2>
-  <p><code class="highlighter-rouge">GET https://hatch-data.io/api/custom-data-types</code></p>
+  <p><code class="highlighter-rouge">GET https://seedbase.io/api/custom-data-types</code></p>
   <h2 id="show-custom-data-type">Show Custom Data Type</h2>
-  <p><code class="highlighter-rouge">GET https://hatch-data.io/api/custom-data-type/{id}</code></p>
+  <p><code class="highlighter-rouge">GET https://seedbase.io/api/custom-data-type/{id}</code></p>
   <h2 id="create-custom-data-type">Create Custom Data Type</h2>
-  <p><code class="highlighter-rouge">POST https://hatch-data.io/api/custom-data-types</code></p>
+  <p><code class="highlighter-rouge">POST https://seedbase.io/api/custom-data-types</code></p>
   <h2 id="update-custom-data-type">Update Custom Data Type</h2>
-  <p><code class="highlighter-rouge">PUT https://hatch-data.io/api/custom-data-type/{id}</code></p>
+  <p><code class="highlighter-rouge">PUT https://seedbase.io/api/custom-data-type/{id}</code></p>
   <h2 id="delete-custom-data-type">Delete Custom Data Type</h2>
-  <p><code class="highlighter-rouge">DELETE https://hatch-data.io/api/custom-data-type/{id}</code></p>
+  <p><code class="highlighter-rouge">DELETE https://seedbase.io/api/custom-data-type/{id}</code></p>
 
   <h1 id="models">Models</h1>
   <h2 id="list-models">List Models</h2>
-  <p><code class="highlighter-rouge">GET https://hatch-data.io/api/models</code></p>
+  <p><code class="highlighter-rouge">GET https://seedbase.io/api/models</code></p>
   <h2 id="show-model">Show Model</h2>
-  <p><code class="highlighter-rouge">GET https://hatch-data.io/api/models/{id}</code></p>
+  <p><code class="highlighter-rouge">GET https://seedbase.io/api/models/{id}</code></p>
   <h2 id="create-model">Create Model</h2>
-  <p><code class="highlighter-rouge">POST https://hatch-data.io/api/models</code></p>
+  <p><code class="highlighter-rouge">POST https://seedbase.io/api/models</code></p>
   <h2 id="update-model">Update Model</h2>
-  <p><code class="highlighter-rouge">PUT https://hatch-data.io/api/models/{id}</code></p>
+  <p><code class="highlighter-rouge">PUT https://seedbase.io/api/models/{id}</code></p>
   <h2 id="delete-model">Delete Model</h2>
-  <p><code class="highlighter-rouge">DELETE https://hatch-data.io/api/models/{id}</code></p>
+  <p><code class="highlighter-rouge">DELETE https://seedbase.io/api/models/{id}</code></p>
 
   <h1 id="fields">Fields</h1>
   <h2 id="list-fields">List Fields</h2>
-  <p><code class="highlighter-rouge">GET https://hatch-data.io/api/models/{model_id}/fields</code></p>
+  <p><code class="highlighter-rouge">GET https://seedbase.io/api/models/{model_id}/fields</code></p>
   <h2 id="show-field">Show Field</h2>
-  <p><code class="highlighter-rouge">GET https://hatch-data.io/api/models/{model_id}/fields/{field_id}</code></p>
+  <p><code class="highlighter-rouge">GET https://seedbase.io/api/models/{model_id}/fields/{field_id}</code></p>
   <h2 id="create-field">Create Field</h2>
-  <p><code class="highlighter-rouge">POST https://hatch-data.io/api/models/{model_id}/fields</code></p>
+  <p><code class="highlighter-rouge">POST https://seedbase.io/api/models/{model_id}/fields</code></p>
   <h2 id="update-field">Update Field</h2>
-  <p><code class="highlighter-rouge">PUT https://hatch-data.io/api/models/{model_id}/fields/{field_id}</code></p>
+  <p><code class="highlighter-rouge">PUT https://seedbase.io/api/models/{model_id}/fields/{field_id}</code></p>
   <h2 id="delete-field">Delete Field</h2>
-  <p><code class="highlighter-rouge">DELETE https://hatch-data.io/api/models/{model_id}/fields/{id}</code></p>
+  <p><code class="highlighter-rouge">DELETE https://seedbase.io/api/models/{model_id}/fields/{id}</code></p>
 
   <a class="docs-top" style="display: none" href="#">Back to top</a>
 </div>

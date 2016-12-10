@@ -1,5 +1,5 @@
 {
-  "name": "hatch",
+  "name": "seedbase",
   "version": "1.0.0",
   "description": "Describes the dependencies and configuration for Node.js",
   "main": "run.py",
@@ -11,13 +11,13 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rosendin/hatch.git"
+    "url": "git+https://github.com/rosendin/seedbase.git"
   },
   "author": "Matthew Rosendin <matthew.rosendin@gmail.com>",
   "bugs": {
-    "url": "https://github.com/rosendin/hatch/issues"
+    "url": "https://github.com/rosendin/seedbase/issues"
   },
-  "homepage": "https://github.com/rosendin/hatch#readme",
+  "homepage": "https://github.com/rosendin/seedbase#readme",
   "dependencies": {
     "babel-core": "~6.7.*",
     "babel-loader": "~6.2.*",

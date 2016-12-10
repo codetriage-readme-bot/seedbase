@@ -4,10 +4,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Generate placeholder data with Hatch Data Generator">
+    <meta name="description" content="Generate placeholder data with Seedbase Data Generator">
     <meta name="keywords" content="generate mock placeholder data rest api">
 
-    <title>Hatch | Data Generator</title>
+    <title>Seedbase | Data Generator</title>
     <link rel="apple-touch-icon" sizes="152x152" href="{{ url_for('static', filename='img/favicon/apple-touch-icon.png') }}">
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/favicon/favicon-32x32.png') }}">
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/favicon/favicon-16x16.png') }}">
@@ -34,7 +34,7 @@
           </button>
           <a class="navbar-brand navbar-brand-emphasized" href="/">
             <span class="navbar-brand-icon"><img style="margin-bottom: 2px;" src="{{ url_for('static', filename='img/logo-navbar.png') }}" /></span>
-            Hatch
+            Seedbase
           </a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
@@ -63,7 +63,7 @@
           <nav class="sidebar-nav">
             <div class="collapse nav-toggleable-sm" id="nav-toggleable-sm">
               <ul class="nav nav-pills nav-stacked">
-                <li class="nav-header">Hatch Generator</li>
+                <li class="nav-header">Seedbase Generator</li>
                 <li {%- if request.path == "/generator/data-types" %} class="active"{% endif %}>
                   <a href="/generator/data-types">Custom Data Types</a>
                 </li>

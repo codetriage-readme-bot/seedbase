@@ -11,7 +11,7 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 ma = Marshmallow(app)
 
-app.config.from_object(os.environ['HATCH_CONFIG'])
+app.config.from_object(os.environ['SEEDBASE_CONFIG'])
 
 login_manager = LoginManager()
 login_manager.init_app(app)

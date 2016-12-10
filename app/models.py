@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 # coding: utf-8
 """
-This file lists all models for the Hatch web application. Some references that may be useful:
+This file lists all models for the Seedbase web application. Some references that may be useful:
 - http://docs.sqlalchemy.org/en/latest/orm/inheritance.html
 
-:copyright: 2016 by Hatch
+:copyright: 2016 by Seedbase
 """
 
 from app import db, ma

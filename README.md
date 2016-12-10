@@ -1,17 +1,17 @@
-Hatch
-=====
+Seedbase.io
+===========
 
-A data generation platform for emulating production data. Follow the [Trello Board](https://trello.com/b/8zS0QPeR/hatch) for the product roadmap and visit the [wiki](https://github.com/rosendin/hatch/wiki) for further reading.
+A data generation platform for emulating production data. Follow the [Trello Board](https://trello.com/b/8zS0QPeR/seedbase) for the product roadmap and visit the [wiki](https://github.com/rosendin/seedbase/wiki) for further reading.
 
 ## Development
 
-The Hatch tech stack consists of a Python back-end on the Flask microframework and a ReactJS front-end.
+The Seedbase tech stack consists of a Python back-end on the Flask microframework and a ReactJS front-end.
 
 ### Getting Started
 
 Clone the repository:
 ```
-$ git clone https://github.com/rosendin/hatch.git
+$ git clone https://github.com/rosendin/seedbase.git
 ```
 
 Create a virtual environment:
