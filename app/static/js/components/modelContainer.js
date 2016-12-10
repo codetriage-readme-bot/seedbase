@@ -12,6 +12,7 @@ var ModelContainer = React.createClass({
   addModel: function(modelName) {
     console.log("Adding model.")
 
+    let previousState = this.state;
     let newModel = { id: Date.now(), name: modelName };
 
     this.setState({ models: this.state.models.concat(newModel) });
@@ -31,6 +32,7 @@ var ModelContainer = React.createClass({
         console.log("jqXHR: ", jqXHR);
         console.log("textStatus: ", textStatus);
         console.log("errorThrown: ", errorThrown);
+        this.setState(previousState);
       }
     });
   },
@@ -39,6 +41,8 @@ var ModelContainer = React.createClass({
     console.log("Deleting model.")
     console.log("Model ID: ", modelId);
     console.log("Model Index: ", modelIndex);
+
+    let previousState = this.state;
     let nextState = update(this.state.models, {
       $splice: [[modelIndex, 1]]
     });
@@ -55,6 +59,7 @@ var ModelContainer = React.createClass({
         console.log("jqXHR: ", jqXHR);
         console.log("textStatus: ", textStatus);
         console.log("errorThrown: ", errorThrown);
+        this.setState(previousState);
       }
     });
   },
@@ -62,10 +67,9 @@ var ModelContainer = React.createClass({
   addField: function(modelId, fieldName, dataType) {
     console.log("Adding field.")
 
+    let previousState = this.state;
     let modelIndex = this.state.models.findIndex((model) => model.id == modelId);
-
     let newField = { id: Date.now(), name: fieldName, dataType: dataType };
-
     let nextState = update(this.state.models, {
       [modelIndex]: {
         fields: { $push: [newField] }
@@ -88,6 +92,7 @@ var ModelContainer = React.createClass({
         console.log("jqXHR: ", jqXHR);
         console.log("textStatus: ", textStatus);
         console.log("errorThrown: ", errorThrown);
+        this.setState(previousState);
       }
     });
   },
@@ -95,8 +100,8 @@ var ModelContainer = React.createClass({
   deleteField: function(modelId, fieldId, fieldIndex) {
     console.log("Deleting field.")
 
+    let previousState = this.state;
     let modelIndex = this.state.models.findIndex((model) => model.id == modelId);
-
     let nextState = update(this.state.models, {
       [modelIndex]: {
         fields: { $splice: [[fieldIndex, 1]] }
@@ -116,6 +121,7 @@ var ModelContainer = React.createClass({
         console.log("jqXHR: ", jqXHR);
         console.log("textStatus: ", textStatus);
         console.log("errorThrown: ", errorThrown);
+        this.setState(previousState);
       }
     });
   },
