@@ -40,6 +40,15 @@ Export the `FLASK_APP` environment variable and run the application:
 (env) $ python run.py
 ```
 
+You may have to restart your shell after exporting the environment variable. Also add a `.env` file to the application root and set values for `MYSQL_USERNAME`, `MYSQL_PASSWORD`, and `MYSQL_DATABASE`.
+
+Make sure the database is created. Then enter the python (`python`) and run the following to create the database tables:
+
+```
+from app import db
+db.create_all()
+```
+
 ### Database Migrations
 
 #### Locally
