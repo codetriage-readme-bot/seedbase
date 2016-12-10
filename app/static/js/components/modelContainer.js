@@ -14,6 +14,8 @@ var ModelContainer = React.createClass({
 
     let newModel = { id: Date.now(), name: modelName };
 
+    this.setState({ models: this.state.models.concat(newModel) });
+
     $.ajax({
       type: 'POST',
       url: `/api/models`,
