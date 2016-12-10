@@ -7,6 +7,7 @@ var FieldList = React.createClass({
       return <Field key={field.id}
                     name={field.name}
                     dataType={field.dataType}
+                    parentNode={field.parentNode}
                     fieldCallbacks={this.props.fieldCallbacks}
                     modelId={this.props.modelId}
                     fieldId={field.id}
@@ -21,7 +22,7 @@ var FieldList = React.createClass({
         </div>
         {fields}
         <div className="form-group">
-          <button onClick={this.props.fieldCallbacks.add.bind(null, this.props.modelId, "", "")} className="btn btn-primary-outline">
+          <button onClick={this.props.fieldCallbacks.add.bind(null, this.props.modelId, "", "", "")} className="btn btn-primary-outline">
             <span className="icon icon-plus"></span> Add Field
           </button>
         </div>

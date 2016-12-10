@@ -24,7 +24,7 @@ var Model = React.createClass({
                 <h4 className="panel-title">
                   <div className="row">
                     <div className="col-xs-4">
-                      <input placeholder="Name" className="form-control" value={this.props.name} type="text" autoFocus />
+                      <input placeholder="Name" className="form-control" defaultValue={this.props.name} type="text" autoFocus />
                     </div>
                     <div className="col-xs-8">
                       <button onClick={this.props.modelCallbacks.delete.bind(null, this.props.modelId, this.props.index)} className="pull-right btn btn-default">

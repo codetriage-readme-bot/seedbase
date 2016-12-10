@@ -11,12 +11,12 @@ var Field = React.createClass({
       <div className="row">
         <div className="col-xs-3">
           <div className="form-group">
-            <input type="text" className="form-control" value={this.props.name} placeholder="name" />
+            <input type="text" className="form-control" defaultValue={this.props.name} placeholder="name" />
           </div>
         </div>
         <div className="col-xs-3">
           <div className="form-group">
-            <select className="form-control" value={this.props.dataType}>
+            <select className="form-control" defaultValue={this.props.dataType}>
               <option>Boolean</option>
               <option>Random Number</option>
               <option>Random String</option>
@@ -28,7 +28,7 @@ var Field = React.createClass({
         </div>
         <div className="col-xs-3">
           <div className="form-group">
-            <select className="form-control">
+            <select className="form-control" defaultValue={this.props.parentNode}>
               <option></option>
             </select>
           </div>

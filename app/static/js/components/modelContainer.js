@@ -13,7 +13,7 @@ var ModelContainer = React.createClass({
     console.log("Adding model.")
 
     let previousState = this.state;
-    let newModel = { id: Date.now(), name: modelName };
+    let newModel = { id: Date.now(), name: modelName, fields: [] };
 
     this.setState({ models: this.state.models.concat(newModel) });
 
@@ -26,7 +26,7 @@ var ModelContainer = React.createClass({
         console.log(data);
         newModel.id = data.id;
         newModel.fields = data.fields;
-        this.setState({ models: this.state.models.concat(newModel) })
+        this.setState({ models: this.state.models })
       },
       error: (jqXHR, textStatus, errorThrown) => {
         console.log("jqXHR: ", jqXHR);
@@ -64,12 +64,12 @@ var ModelContainer = React.createClass({
     });
   },
 
-  addField: function(modelId, fieldName, dataType) {
+  addField: function(modelId, fieldName, dataType, parentNode) {
     console.log("Adding field.")
 
     let previousState = this.state;
     let modelIndex = this.state.models.findIndex((model) => model.id == modelId);
-    let newField = { id: Date.now(), name: fieldName, dataType: dataType };
+    let newField = { id: Date.now(), name: fieldName, dataType: dataType, parentNode: parentNode };
     let nextState = update(this.state.models, {
       [modelIndex]: {
         fields: { $push: [newField] }

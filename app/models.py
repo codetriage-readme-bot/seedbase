@@ -75,13 +75,15 @@ class Field(db.Model):
   model_id      = db.Column(db.Integer, db.ForeignKey('model.id'))
   model         = db.relationship('Model', backref=db.backref('fields', lazy='dynamic'))
   data_type     = db.Column(db.String(32))
+  parent_node   = db.Column(db.String(50))
   created_at    = db.Column(db.DateTime, default=datetime.utcnow)
   updated_at    = db.Column(db.DateTime)
 
-  def __init__(self, name, model, data_type):
+  def __init__(self, name, model, data_type, parent_node=None):
     self.name = name
     self.model = model
     self.data_type = data_type
+    self.parent_node = parent_node
     self.updated_at = datetime.utcnow()
 
   def __repr__(self):
