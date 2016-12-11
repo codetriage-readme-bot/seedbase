@@ -121,6 +121,14 @@
   color: #fff;
 }
 
+.footer {
+  padding: 20px;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
+  background-color: #f5f5f5;
+}
+
 
 /* general block overrrides */
 @media (max-width: 768px) {

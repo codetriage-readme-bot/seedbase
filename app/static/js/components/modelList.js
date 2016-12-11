@@ -20,11 +20,11 @@ var ModelList = React.createClass({
       <form onSubmit={this.handleSubmit}>
         {models}
         <div className="row">
-          <div className="col-sm-9">
+          <div className="col-sm-12">
             <button onClick={this.props.modelCallbacks.add.bind(null, "")} className="btn btn-primary-outline p-x m-t m-r">
               <span className="icon icon-plus"></span> Add Model
             </button>
-            <button type="submit" className="btn btn-success-outline p-x m-t pull-right" disabled={!models.length}>Continue</button>
+            <button type="submit" className="btn btn-success-outline p-x m-t pull-right" disabled={!models.length}>Save</button>
           </div>
         </div>
       </form>

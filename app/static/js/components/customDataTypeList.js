@@ -30,11 +30,11 @@ var CustomDataTypeList = React.createClass({
       <div>
         {customDataTypes}
         <div className="row">
-          <div className="col-sm-9">
+          <div className="col-sm-12">
             <button onClick={this.addCustomDataType} className="btn btn-primary-outline p-x m-t m-r">
               <span className="icon icon-plus"></span> Add Custom Data Type
             </button>
-            <button className="btn btn-success-outline p-x m-t pull-right" disabled={!customDataTypes.length}>Continue</button>
+            <button className="btn btn-success-outline p-x m-t pull-right" disabled={!customDataTypes.length}>Save</button>
           </div>
         </div>
       </div>

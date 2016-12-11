@@ -47,6 +47,15 @@ button.pull-right.btn.btn-default {
   width: 10%;
 }
 
+.btn-success-outline:hover {
+  box-shadow: 0 4px #23a057;
+  transition: 0.5s;
+}
+
+.btn-primary-outline:hover {
+  box-shadow: 0 4px #2980b9;
+  transition: 0.5s;
+}
 @media (max-width: 520px) {
   .col-xs-1, .col-xs-3, .col-xs-6 {
     padding: 5px;
