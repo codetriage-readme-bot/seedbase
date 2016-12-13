@@ -12,3 +12,4 @@ flask-wtf==0.13.1
 flask-marshmallow==0.7.0
 marshmallow-sqlalchemy==0.11.0
 StringGenerator==0.1.9
+stripe==1.43.0
