@@ -17,6 +17,7 @@
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/favicon/browserconfig.xml') }}">
     <meta name="theme-color" content="#ffffff">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link href="{{ url_for('static', filename='css/generator-toolkit.min.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/generator.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/global.css') }}" rel="stylesheet">
@@ -33,7 +34,7 @@
             <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand navbar-brand-emphasized" href="/">
-            <span class="navbar-brand-icon"><img style="margin-bottom: 2px;" src="{{ url_for('static', filename='img/logo-navbar.png') }}" /></span>
+            <span class="icon icon-leaf navbar-brand-icon"></span>
             Seedbase
           </a>
         </div>
@@ -50,6 +51,7 @@
               <li {%- if request.path == "/signup" %} class="active"{% endif %}><a href="/signup">Create Account</a></li>
               <li {%- if request.path == "/login" %} class="active"{% endif %}><a href="/login">Login</a></li>
             {% else %}
+              <li><a href="/account">Account</a></li>
               <li><a href="/logout">Logout</a></li>
             {% endif %}
           </ul>
@@ -99,6 +101,7 @@
     <script type="text/javascript" src="{{ url_for('static', filename='js/toolkit.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/generator.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/bundle.js') }}"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script>
       // execute/clear BS loaders for docs
       $(function(){while(window.BS&&window.BS.loader&&window.BS.loader.length){(window.BS.loader.pop())()}})

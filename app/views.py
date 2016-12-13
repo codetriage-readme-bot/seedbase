@@ -19,6 +19,10 @@ def is_safe_url(target):
 def home():
   return render_template('home/home.html')
 
+@app.route('/account', methods=['GET'])
+def account():
+  return render_template('user/account.html')
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
   form = LoginForm()
@@ -77,11 +81,8 @@ def logout():
 def data_types():
   return render_template('generator/data-types.html')
 
-@app.route('/generator/models', methods=['GET', 'POST'])
+@app.route('/generator/models', methods=['GET'])
 def models():
-  if request.method == 'POST':
-    # Handle POST
-    pass
   return render_template('generator/models.html')
 
 @app.route('/generator/connector', methods=['GET', 'POST'])
