@@ -37,6 +37,21 @@ var ModelContainer = React.createClass({
     });
   },
 
+  updateModel: function(modelId, key, value) {
+    console.log("Updating model.");
+
+    let modelIndex = this.state.models.findIndex((model) => model.id == modelId);
+    let model = this.state.models[modelIndex];
+
+    this.setState(update(this.state, {
+      models: {
+        [modelIndex]: {
+          [key]: { $set: value }
+        }
+      }
+    }));
+  },
+
   deleteModel: function(modelId, modelIndex) {
     console.log("Deleting model.")
     console.log("Model ID: ", modelId);
@@ -97,6 +112,27 @@ var ModelContainer = React.createClass({
     });
   },
 
+  updateField: function(modelId, fieldId, key, value) {
+    console.log("Updating field.");
+
+    let modelIndex = this.state.models.findIndex((model) => model.id == modelId);
+    let model = this.state.models[modelIndex];
+    let fieldIndex = model.fields.findIndex((field) => field.id == fieldId);
+    let field = model.fields[fieldIndex];
+
+    this.setState(update(this.state, {
+      models: {
+        [modelIndex]: {
+          fields: { 
+            [fieldIndex]: {
+              [key]: { $set: value }
+            }
+          }
+        }
+      }
+    }));
+  },
+
   deleteField: function(modelId, fieldId, fieldIndex) {
     console.log("Deleting field.")
 
@@ -148,12 +184,13 @@ var ModelContainer = React.createClass({
     return(
       <ModelList models={this.state.models} 
                  modelCallbacks={{
-                  toggle: this.toggleModel,
                   delete: this.deleteModel,
-                     add: this.addModel }}
+                     add: this.addModel,
+                  update: this.updateModel }}
                  fieldCallbacks={{
                   delete: this.deleteField,
-                     add: this.addField }} />
+                     add: this.addField,
+                  update: this.updateField }} />
     );
   }
 });

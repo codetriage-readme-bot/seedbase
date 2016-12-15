@@ -6,17 +6,21 @@ var Field = React.createClass({
     console.log("Show options modal...");
   },
 
+  handleChange: function(e) {
+    this.props.fieldCallbacks.update(this.props.modelId, this.props.fieldId, e.target.data-name, e.target.value)
+  },
+
   render: function() {
     return (
       <div className="row">
         <div className="col-xs-3">
           <div className="form-group">
-            <input type="text" className="form-control" defaultValue={this.props.name} placeholder="name" />
+            <input type="text" className="form-control" data-name="name" defaultValue={this.props.name} onChange={this.handleChange} placeholder="name" />
           </div>
         </div>
         <div className="col-xs-3">
           <div className="form-group">
-            <select className="form-control" defaultValue={this.props.dataType}>
+            <select className="form-control" data-name="dataType" defaultValue={this.props.dataType} onChange={this.handleChange}>
               <option>Boolean</option>
               <option>Random Number</option>
               <option>Random String</option>
@@ -28,7 +32,7 @@ var Field = React.createClass({
         </div>
         <div className="col-xs-3">
           <div className="form-group">
-            <select className="form-control" defaultValue={this.props.parentNode}>
+            <select className="form-control" data-name="parentNode" defaultValue={this.props.parentNode} onChange={this.handleChange}>
               <option></option>
             </select>
           </div>
