@@ -162,6 +162,23 @@ var ModelContainer = React.createClass({
     });
   },
 
+  save: function() {
+    $.ajax({
+      type: 'PUT',
+      url: `/api/models/update_many`,
+      data: JSON.stringify({models: this.state.models}),
+      contentType: 'application/json',
+      success: (data, textStatus, jqXHR) => {
+        console.log(data);
+      },
+      error: (jqXHR, textStatus, errorThrown) => {
+        console.log("jqXHR: ", jqXHR);
+        console.log("textStatus: ", textStatus);
+        console.log("errorThrown: ", errorThrown);
+      }
+    });
+  },
+
   componentDidMount() {
     console.log("Getting models...")
     $.ajax({
@@ -190,7 +207,8 @@ var ModelContainer = React.createClass({
                  fieldCallbacks={{
                   delete: this.deleteField,
                      add: this.addField,
-                  update: this.updateField }} />
+                  update: this.updateField }}
+                  onSave={this.save} />
     );
   }
 });

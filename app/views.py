@@ -19,6 +19,14 @@ def is_safe_url(target):
 def home():
   return render_template('home/home.html')
 
+@app.route('/terms-of-service')
+def terms_of_service():
+  return render_template('home/terms_of_service.html')
+
+@app.route('/privacy-policy')
+def privacy_policy():
+  return render_template('home/privacy_policy.html')
+
 @app.route('/account', methods=['GET'])
 def account():
   return render_template('user/account.html')

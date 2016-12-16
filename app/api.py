@@ -76,6 +76,18 @@ def create_model():
     db.session.rollback()
     return jsonify({"error": str(e)}), 401
 
+@app.route('/api/models/update_many', methods=['PUT'])
+@requires_auth
+def update_models():
+  user = get_user(request)
+  models = request.get_json()['models']
+  try:
+    print(models)
+    return jsonify({}), 200
+  except sqlalchemy.exc.SQLAlchemyError as e:
+    db.session.rollback()
+    return jsonify({"error": str(e)}), 401
+
 @app.route('/api/models/<int:model_id>', methods=['PUT'])
 @requires_auth
 def update_model(model_id):

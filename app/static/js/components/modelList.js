@@ -2,8 +2,9 @@ import React, { Component, PropTypes } from 'react';
 import Model from './model';
 
 var ModelList = React.createClass({
-  handleSubmit: function(event) {
-    event.preventDefault();
+  handleSubmit: function(e) {
+    e.preventDefault();
+    this.props.onSave();
   },
 
   render: function() {
@@ -24,7 +25,7 @@ var ModelList = React.createClass({
             <button onClick={this.props.modelCallbacks.add.bind(null, "")} className="btn btn-primary-outline p-x m-t m-r">
               <span className="icon icon-plus"></span> Add Model
             </button>
-            <button type="submit" className="btn btn-success-outline p-x m-t pull-right" disabled={!models.length}>Save</button>
+            <button type="submit" onClick={this.handleSubmit} className="btn btn-success-outline p-x m-t pull-right" disabled={!models.length}>Save</button>
           </div>
         </div>
       </form>
