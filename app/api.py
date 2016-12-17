@@ -1,4 +1,4 @@
-from flask import jsonify, request, g
+from flask import jsonify, request, g, flash
 from functools import wraps
 from flask_login import login_required, current_user
 from app import app, db
@@ -82,8 +82,18 @@ def update_models():
   user = get_user(request)
   models = request.get_json()['models']
   try:
-    print(models)
-    return jsonify({}), 200
+    for model in models:
+      m = user.models.filter(Model.id == model['id']).first()
+      setattr(m, 'name', model['name'])
+      for field in model['fields']:
+        for f in m.fields:
+          if field['id'] == f.id:
+            setattr(f, 'name', field['name'])
+            setattr(f, 'data_type', field['data_type'])
+          db.session.add(f)
+      db.session.add(m)
+    db.session.commit()
+    return jsonify(ModelSchema().dump(m)), 200
   except sqlalchemy.exc.SQLAlchemyError as e:
     db.session.rollback()
     return jsonify({"error": str(e)}), 401

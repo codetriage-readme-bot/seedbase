@@ -7,7 +7,7 @@ var Field = React.createClass({
   },
 
   handleChange: function(e) {
-    this.props.fieldCallbacks.update(this.props.modelId, this.props.fieldId, e.target.data-name, e.target.value)
+    this.props.fieldCallbacks.update(this.props.modelId, this.props.fieldId, e.target.getAttribute('data-name'), e.target.value)
   },
 
   render: function() {
@@ -20,7 +20,7 @@ var Field = React.createClass({
         </div>
         <div className="col-xs-3">
           <div className="form-group">
-            <select className="form-control" data-name="dataType" defaultValue={this.props.dataType} onChange={this.handleChange}>
+            <select className="form-control" data-name="data_type" value={this.props.dataType} onChange={this.handleChange}>
               <option>Boolean</option>
               <option>Random Number</option>
               <option>Random String</option>

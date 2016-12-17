@@ -6,8 +6,8 @@ var FieldList = React.createClass({
     let fields = this.props.fields.map((field, index) => {
       return <Field key={field.id}
                     name={field.name}
-                    dataType={field.dataType}
-                    parentNode={field.parentNode}
+                    dataType={field.data_type}
+                    parentNode={field.parent_node}
                     fieldCallbacks={this.props.fieldCallbacks}
                     modelId={this.props.modelId}
                     fieldId={field.id}
