@@ -1,4 +1,4 @@
-from flask import jsonify, request, g, flash
+from flask import jsonify, request, g
 from functools import wraps
 from flask_login import login_required, current_user
 from app import app, db
