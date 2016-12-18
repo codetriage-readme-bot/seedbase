@@ -11,7 +11,10 @@ var FieldList = React.createClass({
                     fieldCallbacks={this.props.fieldCallbacks}
                     modelId={this.props.modelId}
                     fieldId={field.id}
-                    index={index} />
+                    index={index}
+                    parentNodes={this.props.fields.filter((field) => {
+                      return field.data_type == 'JSON Object';
+                    })} />
     });
     return (
       <div>

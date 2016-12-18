@@ -11,6 +11,10 @@ var Field = React.createClass({
   },
 
   render: function() {
+    var parentNodes = this.props.parentNodes.map((field, index) => {
+      return <option key={index}>{field.name}</option>
+    });
+
     return (
       <div className="row">
         <div className="col-xs-3">
@@ -34,6 +38,7 @@ var Field = React.createClass({
           <div className="form-group">
             <select className="form-control" data-name="parentNode" defaultValue={this.props.parentNode} onChange={this.handleChange}>
               <option></option>
+              {parentNodes}
             </select>
           </div>
         </div>
