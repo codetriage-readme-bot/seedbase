@@ -13,10 +13,10 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 
 TEMPLATES_AUTO_RELOAD = True
 
-MYSQL_USERNAME = os.environ.get("MYSQL_USERNAME")
-MYSQL_PASSWORD = os.environ.get("MYSQL_PASSWORD")
-MYSQL_DATABASE = os.environ.get("MYSQL_DATABASE")
+PG_USERNAME = os.environ.get("PG_USERNAME")
+PG_PASSWORD = os.environ.get("PG_PASSWORD")
+PG_DATABASE = os.environ.get("PG_DATABASE")
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 SQLALCHEMY_TRACK_MODIFICATIONS = True
-SQLALCHEMY_DATABASE_URI = 'mysql://' + MYSQL_USERNAME + ':' + MYSQL_PASSWORD + '@localhost/' + MYSQL_DATABASE
+SQLALCHEMY_DATABASE_URI = 'postgresql://localhost/' + PG_DATABASE
