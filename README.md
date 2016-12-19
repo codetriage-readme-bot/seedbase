@@ -68,5 +68,10 @@ db.create_all()
 
 SSH into Heroku
 ```
-(env) $ heroku run bash
+(env) $ heroku run bash --app seedbase-staging
+```
+
+Establish a psql session with the remote database
+```
+(env) $ heroku pg:psql --app seedbase-staging
 ```

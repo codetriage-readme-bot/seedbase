@@ -19,4 +19,4 @@ PG_DATABASE = os.environ.get("PG_DATABASE")
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 SQLALCHEMY_TRACK_MODIFICATIONS = True
-SQLALCHEMY_DATABASE_URI = 'postgresql://localhost/' + PG_DATABASE
+SQLALCHEMY_DATABASE_URI = 'postgresql://'+PG_USERNAME+':'+PG_PASSWORD+'@localhost/' + PG_DATABASE

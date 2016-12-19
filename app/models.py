@@ -11,6 +11,7 @@ from app import db, ma
 from datetime import datetime
 from marshmallow_sqlalchemy import ModelSchema
 from marshmallow import fields
+from sqlalchemy.dialects.postgresql import ARRAY, HSTORE
 from passlib.apps import custom_app_context as pwd_context
 
 
@@ -53,6 +54,7 @@ class Model(db.Model):
   __tablename__ = 'model'
   id            = db.Column(db.Integer, primary_key=True)
   name          = db.Column(db.String(50))
+  fields        = db.Column(ARRAY(HSTORE), default=[])
   user_id       = db.Column(db.Integer, db.ForeignKey('user.id'))
   user          = db.relationship('User', backref=db.backref('models', lazy='dynamic'))
   created_at    = db.Column(db.DateTime, default=datetime.utcnow)
@@ -65,29 +67,6 @@ class Model(db.Model):
 
   def __repr__(self):
     return '<Model %r>' % self.name
-
-class Field(db.Model):
-  """ A representation of a JSON key/value pair """
-
-  __tablename__ = 'field'
-  id            = db.Column(db.Integer, primary_key=True)
-  name          = db.Column(db.String(50))
-  model_id      = db.Column(db.Integer, db.ForeignKey('model.id'))
-  model         = db.relationship('Model', backref=db.backref('fields', lazy='dynamic'))
-  data_type     = db.Column(db.String(32))
-  parent_node   = db.Column(db.String(50))
-  created_at    = db.Column(db.DateTime, default=datetime.utcnow)
-  updated_at    = db.Column(db.DateTime)
-
-  def __init__(self, name, model, data_type, parent_node=None):
-    self.name = name
-    self.model = model
-    self.data_type = data_type
-    self.parent_node = parent_node
-    self.updated_at = datetime.utcnow()
-
-  def __repr__(self):
-    return '<Field %r>' % self.name
 
 class NativeDataType(db.Model):
   """ A base class for representing different data types """
@@ -123,14 +102,8 @@ class CustomDataType(NativeDataType):
   def __repr__(self):
     return '<CustomDataType %r>' % self.name
 
-class FieldSchema(ma.ModelSchema):
-  """ Define Field output with marshmallow """
-  class Meta:
-    model = Field
-
 class ModelSchema(ma.ModelSchema):
   """ Define Model output with marshmallow """
-  fields = fields.Nested(FieldSchema, many=True)
 
   class Meta:
     model = Model
