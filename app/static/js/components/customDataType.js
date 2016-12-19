@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ConditionList from './conditionList'
+import ConditionList from './ConditionList'
 
 var CustomDataType = React.createClass({
   getInitialState: function() {

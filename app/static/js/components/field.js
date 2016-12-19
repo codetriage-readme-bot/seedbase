@@ -6,40 +6,22 @@ var Field = React.createClass({
     console.log("Show options modal...");
   },
 
-  handleChange: function(e) {
-    this.props.fieldCallbacks.update(this.props.modelId, this.props.fieldId, e.target.getAttribute('data-name'), e.target.value)
-  },
-
   render: function() {
-    var parentNodes = this.props.parentNodes.map((field, index) => {
-      return <option key={index}>{field.name}</option>
-    });
-
     return (
       <div className="row">
         <div className="col-xs-3">
           <div className="form-group">
-            <input type="text" className="form-control" data-name="name" defaultValue={this.props.name} onChange={this.handleChange} placeholder="name" />
+            <input type="text" className="form-control" data-name="name" value={this.props.name} placeholder="name" />
           </div>
         </div>
         <div className="col-xs-3">
           <div className="form-group">
-            <select className="form-control" data-name="data_type" value={this.props.dataType} onChange={this.handleChange}>
-              <option>Boolean</option>
-              <option>Random Number</option>
-              <option>Random String</option>
-              <option>JSON Object</option>
-              <option>JSON Array</option>
-              <option>Array</option>
-            </select>
+            <input className="form-control" data-name="data_type" value={this.props.dataType} />
           </div>
         </div>
         <div className="col-xs-3">
           <div className="form-group">
-            <select className="form-control" data-name="parentNode" defaultValue={this.props.parentNode} onChange={this.handleChange}>
-              <option></option>
-              {parentNodes}
-            </select>
+            <input className="form-control" data-name="parentNode" value={this.props.parentNode} />
           </div>
         </div>
         <div className="col-xs-1">

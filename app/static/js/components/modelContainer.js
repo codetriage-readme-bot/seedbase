@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ModelList from './modelList';
+import ModelList from './ModelList';
 import update from 'react-addons-update';
 
 var ModelContainer = React.createClass({
@@ -79,89 +79,6 @@ var ModelContainer = React.createClass({
     });
   },
 
-  addField: function(modelId, fieldName, dataType, parentNode) {
-    console.log("Adding field.")
-
-    let previousState = this.state;
-    let modelIndex = this.state.models.findIndex((model) => model.id == modelId);
-    let newField = { id: Date.now(), name: fieldName, dataType: dataType, parentNode: parentNode };
-    let nextState = update(this.state.models, {
-      [modelIndex]: {
-        fields: { $push: [newField] }
-      }
-    });
-
-    this.setState({ models: nextState });
-
-    $.ajax({
-      type: 'POST',
-      url: `/api/models/${modelId}/fields`,
-      data: JSON.stringify(newField),
-      contentType: 'application/json',
-      success: (data, textStatus, jqXHR) => {
-        console.log(data);
-        newField.id = data.id;
-        this.setState({ models: nextState });
-      },
-      error: (jqXHR, textStatus, errorThrown) => {
-        console.log("jqXHR: ", jqXHR);
-        console.log("textStatus: ", textStatus);
-        console.log("errorThrown: ", errorThrown);
-        this.setState(previousState);
-      }
-    });
-  },
-
-  updateField: function(modelId, fieldId, key, value) {
-    console.log("Updating field.");
-
-    let modelIndex = this.state.models.findIndex((model) => model.id == modelId);
-    let model = this.state.models[modelIndex];
-    let fieldIndex = model.fields.findIndex((field) => field.id == fieldId);
-    let field = model.fields[fieldIndex];
-
-    this.setState(update(this.state, {
-      models: {
-        [modelIndex]: {
-          fields: { 
-            [fieldIndex]: {
-              [key]: { $set: value }
-            }
-          }
-        }
-      }
-    }));
-  },
-
-  deleteField: function(modelId, fieldId, fieldIndex) {
-    console.log("Deleting field.")
-
-    let previousState = this.state;
-    let modelIndex = this.state.models.findIndex((model) => model.id == modelId);
-    let nextState = update(this.state.models, {
-      [modelIndex]: {
-        fields: { $splice: [[fieldIndex, 1]] }
-      }
-    });
-
-    this.setState({ models: nextState });
-
-    $.ajax({
-      type: 'DELETE',
-      url: `/api/models/${modelId}/fields/${fieldId}`,
-      contentType: 'application/json',
-      success: (data, textStatus, jqXHR) => {
-        console.log("Successfully deleted.");
-      },
-      error: (jqXHR, textStatus, errorThrown) => {
-        console.log("jqXHR: ", jqXHR);
-        console.log("textStatus: ", textStatus);
-        console.log("errorThrown: ", errorThrown);
-        this.setState(previousState);
-      }
-    });
-  },
-
   componentDidMount() {
     console.log("Getting models...")
     $.ajax({
@@ -181,17 +98,15 @@ var ModelContainer = React.createClass({
   },
 
   render() {
-    return(
-      <ModelList models={this.state.models} 
-                 modelCallbacks={{
-                  delete: this.deleteModel,
-                     add: this.addModel,
-                  update: this.updateModel }}
-                 fieldCallbacks={{
-                  delete: this.deleteField,
-                     add: this.addField,
-                  update: this.updateField }} />
-    );
+    let modelList = this.props.children && React.cloneElement(this.props.children, {
+      models: this.state.models,
+      modelCallbacks:{
+        delete: this.deleteModel,
+           add: this.addModel,
+        update: this.updateModel
+      }
+    });
+    return modelList;
   }
 });
 

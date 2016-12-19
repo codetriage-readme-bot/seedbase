@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import CustomDataType from './customDataType';
+import CustomDataType from './CustomDataType';
 
 var CustomDataTypeList = React.createClass({
   getInitialState: function() {

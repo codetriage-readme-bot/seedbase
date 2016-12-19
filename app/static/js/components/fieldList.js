@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Field from './field';
+import Field from './Field';
 
 var FieldList = React.createClass({
   render: function() {
@@ -11,10 +11,7 @@ var FieldList = React.createClass({
                     fieldCallbacks={this.props.fieldCallbacks}
                     modelId={this.props.modelId}
                     fieldId={field.id}
-                    index={index}
-                    parentNodes={this.props.fields.filter((field) => {
-                      return field.data_type == 'JSON Object';
-                    })} />
+                    index={index} />
     });
     return (
       <div>
@@ -24,11 +21,6 @@ var FieldList = React.createClass({
           <div className="col-xs-3">Parent Node</div>
         </div>
         {fields}
-        <div className="form-group">
-          <button onClick={this.props.fieldCallbacks.add.bind(null, this.props.modelId, "", "", "")} className="btn btn-primary-outline">
-            <span className="icon icon-plus"></span> Add Field
-          </button>
-        </div>
       </div>
     );
   }

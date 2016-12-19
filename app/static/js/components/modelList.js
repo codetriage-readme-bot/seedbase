@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import Model from './model';
+import Model from './Model';
+import { Link } from 'react-router';
 
 var ModelList = React.createClass({
   render: function() {
@@ -12,23 +13,23 @@ var ModelList = React.createClass({
                     modelCallbacks={this.props.modelCallbacks}
                     fieldCallbacks={this.props.fieldCallbacks} /> 
     });
+
+    let modelModal = this.props.children && React.cloneElement(this.props.children, {
+      models: this.props.models,
+      modelCallbacks: this.props.modelCallbacks
+    });
+
     return (
-      <form>
+      <div>
         {models}
-        <div className="row">
-          <div className="col-sm-12">
-            <button onClick={this.props.modelCallbacks.add.bind(null, "")} className="btn btn-primary-outline p-x m-t m-r">
-              <span className="icon icon-plus"></span> Add Model
-            </button>
-          </div>
-        </div>
-      </form>
+        <Link to='/generator/models/new' onClick={() => $('.modal').modal('show')} className="btn btn-primary-outline p-x m-t m-r"><span className="icon icon-plus"></span></Link>
+        {modelModal}
+      </div>
     );
   }
 });
 
 ModelList.propTypes = {
-  fieldCallbacks: PropTypes.object,
   modelCallbacks: PropTypes.object,
   models: PropTypes.arrayOf(PropTypes.object)
 }

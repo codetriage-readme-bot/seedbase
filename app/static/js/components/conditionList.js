@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Condition from './condition'
+import Condition from './Condition'
 
 var ConditionList = React.createClass({
   getInitialState: function() {

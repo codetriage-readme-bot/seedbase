@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import FieldList from './fieldList';
+import FieldList from './FieldList';
+import { Link } from 'react-router';
 
 var Model = React.createClass({
   getInitialState: function() {
@@ -14,10 +15,6 @@ var Model = React.createClass({
     });
   },
 
-  handleChange: function(e) {
-    this.props.modelCallbacks.update(this.props.modelId, "name", e.target.value)
-  },
-
   render: function() {
     return (
       <div className="row">
@@ -28,15 +25,16 @@ var Model = React.createClass({
                 <h4 className="panel-title">
                   <div className="row">
                     <div className="col-xs-4">
-                      <input placeholder="Name" className="form-control" onChange={this.handleChange} defaultValue={this.props.name} type="text" autoFocus />
+                      <input placeholder="Name" className="form-control" value={this.props.name} type="text" autoFocus />
                     </div>
                     <div className="col-xs-8">
                       <button onClick={this.props.modelCallbacks.delete.bind(null, this.props.modelId, this.props.index)} className="pull-right btn btn-default">
-                      <span className="icon icon-squared-cross"></span>
+                        <span className="icon icon-squared-cross"></span>
                       </button>
                       <button onClick={this.handleCollapse} className="pull-right btn btn-default" data-toggle="collapse" data-target={"#collapse-" + this.props.index}>
                         <span className={"icon " + (this.state.collapsed ? "icon-squared-plus" : "icon-squared-minus")}></span>
                       </button>
+                      <Link to={'generator/models/'+this.props.modelId+'/edit'} className="pull-right btn btn-default"><span className="icon icon-pencil"></span></Link>
                     </div>
                   </div>
                 </h4>
