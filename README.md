@@ -61,7 +61,7 @@ db.create_all()
 #### Heroku
 
 ```
-(env) $ heroku run flask db upgrade
+(env) $ heroku run flask db upgrade --app seedbase-staging
 ```
 
 ### Other Useful Commands

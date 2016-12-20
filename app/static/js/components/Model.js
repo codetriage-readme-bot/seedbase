@@ -57,7 +57,7 @@ class Model extends Component {
                       <button onClick={this.handleCollapse} className="pull-right btn btn-default" data-toggle="collapse" data-target={"#collapse-" + this.props.index}>
                         <span className={"icon " + (this.state.collapsed ? "icon-squared-plus" : "icon-squared-minus")}></span>
                       </button>
-                      <Link to={'generator/models/'+this.props.modelId+'/edit'} className="pull-right btn btn-default"><span className="icon icon-pencil"></span></Link>
+                      <Link to={'generator/models/'+this.props.modelId+'/edit'} className="pull-right btn btn-default" style={{"marginTop": "3px"}}><span className="icon icon-pencil"></span></Link>
                     </div>
                   </div>
                 </h4>
