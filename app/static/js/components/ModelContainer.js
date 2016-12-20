@@ -2,18 +2,19 @@ import React, { Component } from 'react';
 import ModelList from './ModelList';
 import update from 'react-addons-update';
 
-var ModelContainer = React.createClass({
-  getInitialState: function() {
-    return {
+class ModelContainer extends Component {
+  constructor() {
+    super(...arguments);
+
+    this.state = {
       models: []
     };
-  },
+  };
 
-  addModel: function(modelName) {
+  addModel(newModel) {
+    console.log(newModel)
     console.log("Adding model.")
-
     let previousState = this.state;
-    let newModel = { id: Date.now(), name: modelName, fields: [] };
 
     this.setState({ models: this.state.models.concat(newModel) });
 
@@ -25,7 +26,6 @@ var ModelContainer = React.createClass({
       success: (data, textStatus, jqXHR) => {
         console.log(data);
         newModel.id = data.id;
-        newModel.fields = data.fields;
         this.setState({ models: this.state.models })
       },
       error: (jqXHR, textStatus, errorThrown) => {
@@ -35,9 +35,9 @@ var ModelContainer = React.createClass({
         this.setState(previousState);
       }
     });
-  },
+  };
 
-  updateModel: function(modelId, key, value) {
+  updateModel(modelId, key, value) {
     console.log("Updating model.");
 
     let modelIndex = this.state.models.findIndex((model) => model.id == modelId);
@@ -50,9 +50,9 @@ var ModelContainer = React.createClass({
         }
       }
     }));
-  },
+  };
 
-  deleteModel: function(modelId, modelIndex) {
+  deleteModel(modelId, modelIndex) {
     console.log("Deleting model.")
     console.log("Model ID: ", modelId);
     console.log("Model Index: ", modelIndex);
@@ -77,7 +77,7 @@ var ModelContainer = React.createClass({
         this.setState(previousState);
       }
     });
-  },
+  };
 
   componentDidMount() {
     console.log("Getting models...")
@@ -95,19 +95,19 @@ var ModelContainer = React.createClass({
         console.log("errorThrown: ", errorThrown);
       }
     });
-  },
+  };
 
   render() {
     let modelList = this.props.children && React.cloneElement(this.props.children, {
       models: this.state.models,
       modelCallbacks:{
-        delete: this.deleteModel,
-           add: this.addModel,
-        update: this.updateModel
+        delete: this.deleteModel.bind(this),
+           add: this.addModel.bind(this),
+        update: this.updateModel.bind(this)
       }
     });
     return modelList;
-  }
-});
+  };
+}
 
 export default ModelContainer;

@@ -68,6 +68,9 @@
             <div class="collapse nav-toggleable-sm" id="nav-toggleable-sm">
               <ul class="nav nav-pills nav-stacked">
                 <li class="nav-header">Seedbase Generator</li>
+                <li {%- if request.path == "/generator/dashboard" %} class="active"{% endif %}>
+                  <a href="/generator/dashboard">Dashboard</a>
+                </li>
                 <li {%- if request.path == "/generator/data-types" %} class="active"{% endif %}>
                   <a href="/generator/data-types">Custom Data Types</a>
                 </li>

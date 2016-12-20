@@ -67,7 +67,17 @@ def get_model(model_id):
 def create_model():
   user = get_user(request)
   try:
-    model = Model(name=request.get_json()['name'], user=user)
+    fields = []
+
+    for field in request.get_json()['fields']:
+      fields.append({
+        'id': str(field['id']),
+        'name': str(field['name']),
+        'data_type': str(field['data_type']),
+        'parent_node': str(field['parent_node']) if 'parent_node' in field else None
+      })
+
+    model = Model(name=request.get_json()['name'], fields=fields, user=user)
     db.session.add(model)
     db.session.commit()
     query = Model.query.get(model.id)

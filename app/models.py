@@ -60,8 +60,9 @@ class Model(db.Model):
   created_at    = db.Column(db.DateTime, default=datetime.utcnow)
   updated_at    = db.Column(db.DateTime)
 
-  def __init__(self, name, user):
+  def __init__(self, name, fields, user):
     self.name = name
+    self.fields = fields
     self.user = user
     self.updated_at = datetime.utcnow()
 

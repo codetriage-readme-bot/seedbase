@@ -85,6 +85,10 @@ def logout():
   flash("You've been logged out.", category="info")
   return redirect(url_for('models'))
 
+@app.route('/generator/dashboard', methods=['GET'])
+def dashboard():
+  return render_template('generator/dashboard.html')
+
 @app.route('/generator/data-types', methods=['GET', 'POST'])
 def data_types():
   return render_template('generator/data-types.html')

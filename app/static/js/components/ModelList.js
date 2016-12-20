@@ -10,8 +10,7 @@ var ModelList = React.createClass({
                     modelId={model.id}
                     index={index}
                     fields={model.fields}
-                    modelCallbacks={this.props.modelCallbacks}
-                    fieldCallbacks={this.props.fieldCallbacks} /> 
+                    modelCallbacks={this.props.modelCallbacks} /> 
     });
 
     let modelModal = this.props.children && React.cloneElement(this.props.children, {

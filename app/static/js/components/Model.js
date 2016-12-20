@@ -1,21 +1,44 @@
 import React, { Component, PropTypes } from 'react';
-import FieldList from './FieldList';
 import { Link } from 'react-router';
 
-var Model = React.createClass({
-  getInitialState: function() {
-    return {
+class Model extends Component {
+  constructor() {
+    super(...arguments);
+
+    this.state = {
       collapsed: false
     };
-  },
+  };
 
-  handleCollapse: function() {
+  handleCollapse() {
     this.setState({
       collapsed: !this.state.collapsed
     });
-  },
+  };
 
-  render: function() {
+  render() {
+    let fields = this.props.fields.map((field, index) => {
+      return(
+        <div className="row" key={field.id}>
+          <div className="col-xs-4">
+            <div className="form-group">
+              <input className="form-control" value={field.name} readOnly />
+            </div>
+          </div>
+          <div className="col-xs-4">
+            <div className="form-group">
+              <input className="form-control" value={field.data_type} readOnly />
+            </div>
+          </div>
+          <div className="col-xs-4">
+            <div className="form-group">
+              <input className="form-control" value={field.parent_node || ""} readOnly />
+            </div>
+          </div>
+        </div>
+      );
+    });
+
     return (
       <div className="row">
         <div className="col-sm-12">
@@ -25,7 +48,7 @@ var Model = React.createClass({
                 <h4 className="panel-title">
                   <div className="row">
                     <div className="col-xs-4">
-                      <input placeholder="Name" className="form-control" value={this.props.name} type="text" autoFocus />
+                      {this.props.name}
                     </div>
                     <div className="col-xs-8">
                       <button onClick={this.props.modelCallbacks.delete.bind(null, this.props.modelId, this.props.index)} className="pull-right btn btn-default">
@@ -41,7 +64,14 @@ var Model = React.createClass({
               </div>
               <div id={"collapse-" + this.props.index} className="panel-collapse collapse in" role="tabpanel">
                 <div className="panel-body">
-                  <FieldList fields={this.props.fields} fieldCallbacks={this.props.fieldCallbacks} modelId={this.props.modelId} />
+                  <div>
+                    <div className="row">
+                      <div className="col-xs-4">Field Name</div>
+                      <div className="col-xs-4">Data Type</div>
+                      <div className="col-xs-4">Parent Node</div>
+                    </div>
+                    {fields}
+                  </div>
                 </div>
               </div>
             </div>
@@ -49,8 +79,8 @@ var Model = React.createClass({
         </div>
       </div>
     );
-  }
-});
+  };
+};
 
 Model.propTypes = {
   name: PropTypes.string,
