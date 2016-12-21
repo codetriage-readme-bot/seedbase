@@ -24,7 +24,7 @@ hr {
 }
 
 button.pull-right.btn.btn-default, a.pull-right.btn.btn-default {
-  margin: 3px;
+  margin: 5px 3px 3px 3px;
 }
 
 .navbar-fixed-top,
@@ -45,6 +45,11 @@ button.pull-right.btn.btn-default, a.pull-right.btn.btn-default {
 
 .col-xs-1 {
   width: 10%;
+}
+
+.panel-title h3 {
+  margin-top: 10px;
+  color: #333;
 }
 
 .btn-success-outline:hover {

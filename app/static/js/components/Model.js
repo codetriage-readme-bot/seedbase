@@ -45,10 +45,10 @@ class Model extends Component {
           <div className="panel-group" id={"accordion-" + this.props.index} role="tablist">
             <div className="panel panel-default">
               <div className="panel-heading" role="tab">
-                <h4 className="panel-title">
+                <div className="panel-title">
                   <div className="row">
                     <div className="col-xs-4">
-                      {this.props.name}
+                      <h3>{this.props.name}</h3>
                     </div>
                     <div className="col-xs-8">
                       <button onClick={this.props.modelCallbacks.delete.bind(null, this.props.modelId, this.props.index)}
@@ -63,13 +63,12 @@ class Model extends Component {
                       </button>
                       <Link to={`generator/models/${this.props.modelId}/edit`}
                             onClick={() => $('.modal').modal('show')}
-                            className="pull-right btn btn-default"
-                            style={{"marginTop": "3px"}}>
+                            className="pull-right btn btn-default">
                         <span className="icon icon-pencil"></span>
                       </Link>
                     </div>
                   </div>
-                </h4>
+                </div>
               </div>
               <div id={"collapse-" + this.props.index} className="panel-collapse collapse in" role="tabpanel">
                 <div className="panel-body">
