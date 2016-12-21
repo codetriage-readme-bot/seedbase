@@ -92,17 +92,23 @@ def update_model(model_id):
     if 'name' in request.get_json():
       setattr(model, 'name', request.get_json()['name'])
 
-    for f in request.get_json()['fields']:
-      field = model.fields.filter_by(id = f['id']).first()
+    for field in model.fields:
+      update_field = next((f for f in request.get_json()['fields'] if field.id == f['id']), None)
 
-      if field:
-        setattr(field, 'name', f['name']) if 'name' in f else None
-        setattr(field, 'data_type', f['data_type']) if 'data_type' in f else None
-        setattr(field, 'parent_node', f['parent_node']) if 'parent_node' in f else None
+      if update_field:
+        setattr(field, 'name', update_field['name']) if 'name' in update_field else None
+        setattr(field, 'data_type', update_field['data_type']) if 'data_type' in update_field else None
+        setattr(field, 'parent_node', update_field['parent_node']) if 'parent_node' in update_field else None
       else:
-        field = Field(name=f['name'], model=model, data_type=f['data_type'])
-        field.parent_node = f['parent_node'] if 'parent_node' in f else None
-        model.fields.append(field)
+        db.session.delete(field)
+
+    for field in request.get_json()['fields']:
+      new_field = next((None for f in model.fields if f.id == field['id']), field)
+
+      if new_field:
+        new_field = Field(name=field['name'], model=model, data_type=field['data_type'])
+        new_field.parent_node = field['parent_node'] if 'parent_node' in field else None
+        model.fields.append(new_field)
 
     db.session.add(model)
     db.session.commit()
