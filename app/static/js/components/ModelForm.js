@@ -44,8 +44,9 @@ class ModelForm extends Component {
 							<div className="modal-body">
 								<div className="container-fluid">
 									<div className="row">
-										<div className="col-xs-4 col-xs-offset-4">
+										<div className="col-xs-6 col-xs-offset-3">
 											<div className="form-group">
+												<label>Model Name</label>
 												<input type="text"
 															 className="form-control"
 															 defaultValue={this.props.draftModel.name}
