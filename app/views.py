@@ -1,6 +1,6 @@
 from flask import render_template, url_for, request, flash, redirect, jsonify, abort, g
 from flask_login import login_user, login_required, logout_user, current_user
-from forms import SignupForm, LoginForm, flash_errors
+from forms import SignupForm, LoginForm, ConnectorForm, flash_errors
 from urlparse import urlparse, urljoin
 from app import app, db, login_manager, api
 from app.models import User
@@ -99,7 +99,16 @@ def models():
 
 @app.route('/generator/connector', methods=['GET', 'POST'])
 def connector():
-  return render_template('generator/connector.html')
+  models = current_user.models
+  form = ConnectorForm()
+
+  form.model.choices = map(lambda m: (str(m.id), m.name), current_user.models.all())
+
+  if request.method == 'POST' and form.validate_on_submit():
+    pass
+  else:
+    flash_errors(form)
+  return render_template('generator/connector.html', models=models, form=form)
 
 @app.route('/docs')
 def docs():

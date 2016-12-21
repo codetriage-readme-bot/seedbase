@@ -15,46 +15,50 @@
 <!-- Connector -->
 <p>The connector hooks into another API to create data.</p>
 <form action="/generator/connector" method="POST">
+  {{ form.csrf_token }}
   <h6>Basic Authentication</h6>
   <div class="row">
     <div class="col-md-6">
       <div class="form-group">
         <label>Email</label>
-        <input class="form-control" type="email" />
+        <input class="form-control" type="email" name="email" value="{{request.form.email}}" />
       </div>
     </div>
     <div class="col-md-6">
       <div class="form-group">
         <label>Password</label>
-        <input class="form-control" type="password" />
+        <input class="form-control" type="password" name="password" value="{{request.form.password}}" />
       </div>
     </div>
   </div>
+  <hr/>
   <div class="row">
     <div class="col-md-5">
       <div class="form-group">
         <label>Endpoint</label>
-        <input class="form-control" placeholder="https://domain.com/api/v2/endpoint.json" />
+        <input class="form-control" placeholder="https://domain.com/api/v2/endpoint.json" name="endpoint" value="{{request.form.endpoint}}"/>
       </div>
     </div>
     <div class="col-md-3">
       <div class="form-group">
         <label>Model</label>
-        <select class="form-control">
+        <select class="form-control" name="model" value="{{request.form.model}}">
           <option></option>
-          <option></option>
+          {% for model in models %}
+            <option value="{{ model.id }}">{{ model.name }}</option>
+          {% endfor %}
         </select>
       </div>
     </div>
     <div class="col-md-2">
       <div class="form-group">
         <label>Amount</label>
-        <input class="form-control" type="number" max="100" min="0" />
+        <input class="form-control" type="number" max="100" min="0" name="amount" value="{{request.form.amount}}" />
       </div>
     </div>
     <div class="col-md-2">
       <div class="form-group">
-        <button class="btn btn-primary btn-block" style="margin-top: 25px;">POST</button>
+        <button type="submit" class="btn btn-primary btn-block" style="margin-top: 25px;">POST</button>
       </div>
     </div>
   </div>
