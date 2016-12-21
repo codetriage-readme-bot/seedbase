@@ -2,7 +2,7 @@ from flask import jsonify, request, g
 from functools import wraps
 from flask_login import login_required, current_user
 from app import app, db
-from app.models import User, Model, CustomDataType, ModelSchema, CustomDataTypeSchema
+from app.models import User, Model, Field, CustomDataType, ModelSchema, CustomDataTypeSchema
 import sqlalchemy.exc
 
 def requires_auth(f):
@@ -67,17 +67,13 @@ def get_model(model_id):
 def create_model():
   user = get_user(request)
   try:
-    fields = []
+    model = Model(name=request.get_json()['name'], user=user)
 
-    for field in request.get_json()['fields']:
-      fields.append({
-        'id': str(field['id']),
-        'name': str(field['name']),
-        'data_type': str(field['data_type']),
-        'parent_node': str(field['parent_node']) if 'parent_node' in field else None
-      })
+    for f in request.get_json()['fields']:
+      field = Field(name=f['name'], model=model, data_type=f['data_type'])
+      field.parent_node = f['parent_node'] if 'parent_node' in f else None
+      model.fields.append(field)
 
-    model = Model(name=request.get_json()['name'], fields=fields, user=user)
     db.session.add(model)
     db.session.commit()
     query = Model.query.get(model.id)
@@ -92,18 +88,22 @@ def update_model(model_id):
   user = get_user(request)
   try:
     model = user.models.filter(Model.id == model_id).first()
-    fields = []
 
-    for field in request.get_json()['fields']:
-      fields.append({
-        'id': str(field['id']),
-        'name': str(field['name']) if 'data_type' in field else None,
-        'data_type': str(field['data_type']) if 'data_type' in field else None,
-        'parent_node': str(field['parent_node']) if 'parent_node' in field else None
-      })
+    if 'name' in request.get_json():
+      setattr(model, 'name', request.get_json()['name'])
 
-    model.name = request.get_json()['name']
-    model.fields = fields
+    for f in request.get_json()['fields']:
+      field = model.fields.filter_by(id = f['id']).first()
+
+      if field:
+        setattr(field, 'name', f['name']) if 'name' in f else None
+        setattr(field, 'data_type', f['data_type']) if 'data_type' in f else None
+        setattr(field, 'parent_node', f['parent_node']) if 'parent_node' in f else None
+      else:
+        field = Field(name=f['name'], model=model, data_type=f['data_type'])
+        field.parent_node = f['parent_node'] if 'parent_node' in f else None
+        model.fields.append(field)
+
     db.session.add(model)
     db.session.commit()
     return jsonify(ModelSchema().dump(model).data), 200
@@ -117,7 +117,9 @@ def delete_model(model_id):
   user = get_user(request)
   try:
     model = user.models.filter(Model.id == model_id).first()
+    fields = model.fields.all()
     db.session.delete(model)
+    [db.session.delete(field) for field in fields]
     db.session.commit()
     return jsonify({}), 204
   except sqlalchemy.exc.SQLAlchemyError as e:

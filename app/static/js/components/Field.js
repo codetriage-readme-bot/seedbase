@@ -26,7 +26,7 @@ class Field extends Component {
         <div className="col-xs-3">
           <div className="form-group">
             <select className="form-control" defaultValue={this.props.dataType} onChange={(event) => this.handleChange('data_type', event)} required={true}>
-              <option disabled></option>
+              <option></option>
               <option>Boolean</option>
               <option>Number</option>
               <option>String</option>
