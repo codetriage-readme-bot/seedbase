@@ -92,11 +92,21 @@ def update_model(model_id):
   user = get_user(request)
   try:
     model = user.models.filter(Model.id == model_id).first()
-    for key, value in request.get_json().items():
-      setattr(model, key, value)
+    fields = []
+
+    for field in request.get_json()['fields']:
+      fields.append({
+        'id': str(field['id']),
+        'name': str(field['name']) if 'data_type' in field else None,
+        'data_type': str(field['data_type']) if 'data_type' in field else None,
+        'parent_node': str(field['parent_node']) if 'parent_node' in field else None
+      })
+
+    model.name = request.get_json()['name']
+    model.fields = fields
     db.session.add(model)
     db.session.commit()
-    return jsonify(ModelSchema().dump(model).data, 200)
+    return jsonify(ModelSchema().dump(model).data), 200
   except sqlalchemy.exc.SQLAlchemyError as e:
     db.session.rollback()
     return jsonify({"error": str(e)}), 401

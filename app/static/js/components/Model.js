@@ -51,13 +51,22 @@ class Model extends Component {
                       {this.props.name}
                     </div>
                     <div className="col-xs-8">
-                      <button onClick={this.props.modelCallbacks.delete.bind(null, this.props.modelId, this.props.index)} className="pull-right btn btn-default">
+                      <button onClick={this.props.modelCallbacks.delete.bind(null, this.props.modelId, this.props.index)}
+                              className="pull-right btn btn-default">
                         <span className="icon icon-squared-cross"></span>
                       </button>
-                      <button onClick={this.handleCollapse} className="pull-right btn btn-default" data-toggle="collapse" data-target={"#collapse-" + this.props.index}>
+                      <button onClick={this.handleCollapse.bind(this)}
+                              className="pull-right btn btn-default"
+                              data-toggle="collapse"
+                              data-target={"#collapse-" + this.props.index}>
                         <span className={"icon " + (this.state.collapsed ? "icon-squared-plus" : "icon-squared-minus")}></span>
                       </button>
-                      <Link to={'generator/models/'+this.props.modelId+'/edit'} className="pull-right btn btn-default" style={{"marginTop": "3px"}}><span className="icon icon-pencil"></span></Link>
+                      <Link to={`generator/models/${this.props.modelId}/edit`}
+                            onClick={() => $('.modal').modal('show')}
+                            className="pull-right btn btn-default"
+                            style={{"marginTop": "3px"}}>
+                        <span className="icon icon-pencil"></span>
+                      </Link>
                     </div>
                   </div>
                 </h4>

@@ -37,19 +37,33 @@ class ModelContainer extends Component {
     });
   };
 
-  updateModel(modelId, key, value) {
+  updateModel(model) {
     console.log("Updating model.");
 
-    let modelIndex = this.state.models.findIndex((model) => model.id == modelId);
-    let model = this.state.models[modelIndex];
+    let modelIndex = this.state.models.findIndex((m) => m.id == model.id);
+    let previousState = this.state.models[modelIndex];
 
     this.setState(update(this.state, {
       models: {
-        [modelIndex]: {
-          [key]: { $set: value }
-        }
+        [modelIndex]: { $set: model }
       }
     }));
+
+    $.ajax({
+      type: 'PUT',
+      url: `/api/models/${model.id}`,
+      data: JSON.stringify(model),
+      contentType: 'application/json',
+      success: (data, textStatus, jqXHR) => {
+        console.log(data);
+      },
+      error: (jqXHR, textStatus, errorThrown) => {
+        console.log("jqXHR: ", jqXHR.responseText);
+        console.log("textStatus: ", textStatus);
+        console.log("errorThrown: ", errorThrown);
+        this.setState(previousState);
+      }
+    });
   };
 
   deleteModel(modelId, modelIndex) {
