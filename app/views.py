@@ -4,6 +4,7 @@ from forms import SignupForm, LoginForm, ConnectorForm, flash_errors
 from urlparse import urlparse, urljoin
 from app import app, db, login_manager, api
 from app.models import User
+from app.generator.http_connector import HTTPConnector
 
 @login_manager.user_loader
 def load_user(email):
@@ -105,7 +106,8 @@ def connector():
   form.model.choices = map(lambda m: (str(m.id), m.name), current_user.models.all())
 
   if request.method == 'POST' and form.validate_on_submit():
-    pass
+    connection = HTTPConnector(form)
+    connection.test_connection()
   else:
     flash_errors(form)
   return render_template('generator/connector.html', models=models, form=form)

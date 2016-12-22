@@ -19,7 +19,7 @@ class SignupForm(FlaskForm):
   confirmation = PasswordField('confirmation', [InputRequired(), EqualTo('password', message='Passwords must match.')])
 
 class ConnectorForm(FlaskForm):
-  email = StringField('email', [InputRequired()])
+  username = StringField('username', [InputRequired()])
   password = PasswordField('password', [InputRequired()])
   endpoint = StringField('endpoint', [InputRequired(), URL(require_tld=False)])
   model = SelectField('model', [InputRequired()])
