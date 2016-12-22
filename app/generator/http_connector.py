@@ -1,3 +1,4 @@
+from field_parser import create_dict
 import gen_boolean, gen_number, gen_string
 import requests
 import json
@@ -46,7 +47,7 @@ class HTTPConnector(object):
 		"""
 
 		field_list = [f.__dict__ for f in fields]
-		json_data = []
+		json_data = json.dumps(create_dict(field_list))
+		print(json_data)
 
-		# TODO Data should be sorted first so that all top-level objects come first.
 		return json_data
