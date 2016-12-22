@@ -1,3 +1,4 @@
+import gen_boolean, gen_number, gen_string
 import requests
 import json
 
@@ -15,17 +16,37 @@ class HTTPConnector(object):
 
 	"""
 
-	def __init__(self, form):
+	def __init__(self, form, current_user):
 		self.username = form.username.data
 		self.password = form.password.data
 		self.endpoint = form.endpoint.data
-		self.model = form.model.data
+		self.model_id = form.model.data
 		self.amount = form.amount.data
+		self.user = current_user
 
 	def test_connection(self):
 		"""Test a POST request using form data"""
 
-		data = json.dumps({"ticket": {"subject": "Testing", "description": "Just a test", "comment": { "body": "This is an epic test ticket." }, "priority": "urgent"}})
+		model = self.user.models.filter_by(id = self.model_id).one()
+
+		# Convert model.fields into a JSON payload
+		payload = self.create_json(model.fields)
+
 		headers = {'Content-Type': 'application/json'}
-		r = requests.post(self.endpoint, auth=(self.username, self.password), data=data, headers=headers)
+		r = requests.post(self.endpoint, auth=(self.username, self.password), data=payload, headers=headers)
 		print(r.json())
+
+	def create_json(self, fields):
+		"""Convert an array of fields to a JSON payload using a
+			 topological sorting algorithm
+
+		Args:
+			fields (object[]): A given model's fields
+
+		"""
+
+		field_list = [f.__dict__ for f in fields]
+		json_data = []
+
+		# TODO Data should be sorted first so that all top-level objects come first.
+		return json_data

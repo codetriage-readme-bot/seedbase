@@ -106,7 +106,7 @@ def connector():
   form.model.choices = map(lambda m: (str(m.id), m.name), current_user.models.all())
 
   if request.method == 'POST' and form.validate_on_submit():
-    connection = HTTPConnector(form)
+    connection = HTTPConnector(form, current_user)
     connection.test_connection()
   else:
     flash_errors(form)
