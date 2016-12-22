@@ -23,6 +23,8 @@ class HTTPConnector(object):
 		self.amount = form.amount.data
 
 	def test_connection(self):
+		"""Test a POST request using form data"""
+
 		data = json.dumps({"ticket": {"subject": "Testing", "description": "Just a test", "comment": { "body": "This is an epic test ticket." }, "priority": "urgent"}})
 		headers = {'Content-Type': 'application/json'}
 		r = requests.post(self.endpoint, auth=(self.username, self.password), data=data, headers=headers)

@@ -13,6 +13,8 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 
 TEMPLATES_AUTO_RELOAD = True
 
+WTF_CSRF_CHECK_DEFAULT = False
+
 PG_USERNAME = os.environ.get("PG_USERNAME")
 PG_PASSWORD = os.environ.get("PG_PASSWORD")
 PG_DATABASE = os.environ.get("PG_DATABASE")

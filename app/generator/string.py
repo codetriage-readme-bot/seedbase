@@ -1,6 +1,4 @@
-# Can use StringGenerator 0.1.9
-# https://pypi.python.org/pypi/StringGenerator
-#
-# Generate unique ids, passwords, secrets, etc.
-
 import strgen
+
+def generate_random_string():
+	return strgen.StringGenerator("[\d\w]{10}").render()
