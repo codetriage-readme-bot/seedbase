@@ -2,6 +2,7 @@ alembic==0.8.9
 click==6.6
 Flask==0.11
 Flask-HTTPAuth==3.2.1
+Flask-Limiter==0.9.3
 Flask-Login==0.4.0
 flask-marshmallow==0.7.0
 Flask-Migrate==2.0.0

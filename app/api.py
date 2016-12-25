@@ -1,9 +1,17 @@
 from flask import jsonify, request, g
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 from functools import wraps
 from flask_login import login_required, current_user
 from app import app, db
 from app.models import User, Model, Field, CustomDataType, ModelSchema, CustomDataTypeSchema
 import sqlalchemy.exc
+
+limiter = Limiter(
+  app,
+  key_func=get_remote_address,
+  global_limits=["200 per day", "50 per hour"]
+)
 
 def requires_auth(f):
   """This is a decorator for API routes to check authentication
