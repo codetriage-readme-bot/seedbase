@@ -47,7 +47,6 @@ class HTTPConnector(object):
 		"""
 
 		field_list = [f.__dict__ for f in fields]
-		json_data = json.dumps(create_dict(field_list))
-		print(json_data)
+		json_data = create_dict(field_list)
 
 		return json_data

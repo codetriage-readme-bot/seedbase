@@ -1,4 +1,7 @@
 from collections import deque
+from gen_string import get_random_string
+from gen_boolean import get_random_boolean
+from gen_number import get_random_integer
 
 def create_dict(fields):
 	result = []
@@ -50,11 +53,13 @@ def parse_fields(data, parent_node, result):
 			data.remove(ele)
 			result.append(repr(str(ele['name'])))
 			result.append(":")
-			if ele['data_type'] == 'String':
-				result.append(repr("data"))
+			if ele['data_type'] == 'Boolean':
+				result.append(repr(str(get_random_boolean())))
 			elif ele['data_type'] == 'Number':
-				result.append(repr("data"))
+				result.append(repr(str(get_random_number())))
+			elif ele['data_type'] == 'String':
+				result.append(repr(str(get_random_string())))
 
 def parse_json(result):
-	return ''.join(result).replace('\'\'', '\',\'').replace('}\'', '},\'')
+	return ''.join(result).replace('\'\'', '\',\'').replace('}\'', '},\'').replace('\'', '"')
 
