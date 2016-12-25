@@ -5,6 +5,7 @@ from urlparse import urlparse, urljoin
 from app import app, db, login_manager, api
 from app.models import User
 from app.generator.http_connector import HTTPConnector
+import requests
 
 @login_manager.user_loader
 def load_user(email):
@@ -107,7 +108,12 @@ def connector():
 
   if request.method == 'POST' and form.validate_on_submit():
     connection = HTTPConnector(form, current_user)
-    connection.test_connection()
+    response = connection.post_record()
+
+    if response.status_code in range(200, 299):
+      flash("Request succeeded.", category="success")
+    else:
+      flash("Request failed.", category="danger")
   else:
     flash_errors(form)
   return render_template('generator/connector.html', models=models, form=form)

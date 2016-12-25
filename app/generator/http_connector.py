@@ -42,7 +42,9 @@ class HTTPConnector(object):
 			 topological sorting algorithm
 
 		Args:
-			fields (object[]): A given model's fields
+			fields (dict[]): A given model's fields
+		Returns:
+			json_data (dict): A dict properly formatted as JSON
 
 		"""
 
@@ -50,3 +52,20 @@ class HTTPConnector(object):
 		json_data = create_dict(field_list)
 
 		return json_data
+
+	def post_record(self):
+		"""Sends a POST request using the form data and returns
+		the response
+
+		Returns:
+			response (dict): The JSON response from the server
+		"""
+
+		model = self.user.models.filter_by(id = self.model_id).one()
+
+		# Convert model.fields into a JSON payload
+		payload = self.create_json(model.fields)
+
+		headers = {'Content-Type': 'application/json'}
+		r = requests.post(self.endpoint, auth=(self.username, self.password), data=payload, headers=headers)
+		return r
