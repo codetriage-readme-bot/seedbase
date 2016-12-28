@@ -1,7 +1,7 @@
 Seedbase.io
 ===========
 
-A data generation platform with a RESTful API connector. Follow the [Trello Board](https://trello.com/b/8zS0QPeR/seedbase) for the product roadmap and visit the [wiki](https://github.com/rosendin/seedbase/wiki) for further reading.
+A data generation platform with a RESTful API connector built on Python, Flask, React, and PostgreSQL. Designed to test APIs by generating random data and POSTing to endpoints. Follow the [Trello Board](https://trello.com/b/8zS0QPeR/seedbase) for the product roadmap and visit the [wiki](https://github.com/rosendin/seedbase/wiki) for further reading.
 
 ## Development
 
