@@ -1,7 +1,7 @@
 Seedbase.io
 ===========
 
-A data generation platform for emulating production data. Follow the [Trello Board](https://trello.com/b/8zS0QPeR/seedbase) for the product roadmap and visit the [wiki](https://github.com/rosendin/seedbase/wiki) for further reading.
+A data generation platform with a RESTful API connector. Follow the [Trello Board](https://trello.com/b/8zS0QPeR/seedbase) for the product roadmap and visit the [wiki](https://github.com/rosendin/seedbase/wiki) for further reading.
 
 ## Development
 
@@ -49,6 +49,13 @@ from app import db
 db.create_all()
 ```
 
+### Testing
+
+Run the test suite:
+```
+(env) $ python -m unittest discover
+```
+
 ### Database Migrations
 
 #### Locally
@@ -56,22 +63,4 @@ db.create_all()
 ```
 (env) $ flask db migrate
 (env) $ flask db upgrade
-```
-
-#### Heroku
-
-```
-(env) $ heroku run flask db upgrade --app seedbase-staging
-```
-
-### Other Useful Commands
-
-SSH into Heroku
-```
-(env) $ heroku run bash --app seedbase-staging
-```
-
-Establish a psql session with the remote database
-```
-(env) $ heroku pg:psql --app seedbase-staging
 ```
