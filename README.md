@@ -23,7 +23,7 @@ $ virtualenv env
 
 Activate the environment by sourcing the activate script:
 ```
-$ . bin/env/activate
+$ . env/bin/activate
 ```
 
 Install Python requirements:
@@ -36,19 +36,31 @@ Install NPM development modules:
 (env) $ npm install
 ```
 
-Export the `FLASK_APP` environment variable and run the application:
+Export the `SEEDBASE_CONFIG` environment variable (You may have to restart your shell after exporting the environment variable):
 ```
-(env) $ export FLASK_APP=run.py
+(env) $ export SEEDBASE_CONFIG=config.default
+```
+
+Also add a `.env` file to the application root and set values for `PG_USERNAME`, `PG_PASSWORD`, `PG_DATABASE`, and `SECRET_KEY`. Make sure to have PostgreSQL installed on your system. You can just set `PG_USERNAME=root` and the other values to empty strings if you want to setup the database later.
+
+Finally, run the application:
+```
 (env) $ python run.py
 ```
 
-You may have to restart your shell after exporting the environment variable. Also add a `.env` file to the application root and set values for `MYSQL_USERNAME`, `MYSQL_PASSWORD`, `MYSQL_DATABASE`, and `SECRET_KEY`.
-
-Make sure the database is created. Then enter the python (`python`) and run the following to create the database tables:
+### Database
+Make sure the database is created in PostgreSQL. Then enter the python interpreter (`python`) and run the following to create the database tables:
 
 ``` python
 from app import db
 db.create_all()
+```
+
+### Database Migrations
+
+```
+(env) $ flask db migrate
+(env) $ flask db upgrade
 ```
 
 ### Testing
@@ -56,13 +68,4 @@ db.create_all()
 Run the test suite:
 ```
 (env) $ python -m unittest discover
-```
-
-### Database Migrations
-
-#### Locally
-
-```
-(env) $ flask db migrate
-(env) $ flask db upgrade
 ```
