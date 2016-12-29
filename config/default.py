@@ -1,4 +1,4 @@
-# This is the default configuration if HATCH_CONFIG is not set
+# This is the default configuration if SEEDBASE_CONFIG is not set
 
 # Define the application directory
 import os
