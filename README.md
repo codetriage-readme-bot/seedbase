@@ -5,6 +5,8 @@ Seedbase.io
 
 A data generation platform with a RESTful API connector built on Python, Flask, React, and PostgreSQL. Designed to test APIs by generating random data and POSTing to endpoints. Follow the [Trello Board](https://trello.com/b/8zS0QPeR/seedbase) for the product roadmap and visit the [wiki](https://github.com/rosendin/seedbase/wiki) for further reading.
 
+![alt tag](https://raw.githubusercontent.com/rosendin/seedbase/master/demo2.png)
+
 ## Development
 
 The Seedbase tech stack consists of a Python back-end on the Flask microframework and a ReactJS front-end.
@@ -35,6 +37,8 @@ Install NPM development modules:
 ```
 (env) $ npm install
 ```
+
+*Note*: To compile React's JSX, you will need to run `webpack --watch` in a separate tab in your shell.
 
 Export the `SEEDBASE_CONFIG` environment variable (You may have to restart your shell after exporting the environment variable):
 ```
