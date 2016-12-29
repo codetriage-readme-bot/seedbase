@@ -16,7 +16,7 @@ Clone the repository:
 $ git clone https://github.com/rosendin/seedbase.git
 ```
 
-Create a virtual environment:
+Then `cd seedbase` and create a virtual environment:
 ```
 $ virtualenv env
 ```
