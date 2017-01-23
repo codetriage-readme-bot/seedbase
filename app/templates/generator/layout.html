@@ -43,7 +43,6 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             <li class="active visible-md-block visible-lg-block"><a href="/generator/models">Generator</a></li>
-            <li class="hidden-md hidden-lg"><a href="/generator/data-types">Custom Data Types</a></li>
             <li class="hidden-md hidden-lg"><a href="/generator/models">Models</a></li>
             <li class="hidden-md hidden-lg"><a href="/generator/connector">Connector</a></li>
             <li><a href="/docs">Documentation</a></li>
@@ -53,7 +52,6 @@
               <li {%- if request.path == "/signup" %} class="active"{% endif %}><a href="/signup">Create Account</a></li>
               <li {%- if request.path == "/login" %} class="active"{% endif %}><a href="/login">Login</a></li>
             {% else %}
-              <li><a href="/account">Account</a></li>
               <li><a href="/logout">Logout</a></li>
             {% endif %}
           </ul>
@@ -68,12 +66,6 @@
             <div class="collapse nav-toggleable-sm" id="nav-toggleable-sm">
               <ul class="nav nav-pills nav-stacked">
                 <li class="nav-header">Seedbase Generator</li>
-                <li {%- if request.path == "/generator/dashboard" %} class="active"{% endif %}>
-                  <a href="/generator/dashboard">Dashboard</a>
-                </li>
-                <li {%- if request.path == "/generator/data-types" %} class="active"{% endif %}>
-                  <a href="/generator/data-types">Custom Data Types</a>
-                </li>
                 <li {%- if request.path == "/generator/models" %} class="active"{% endif %}>
                   <a href="/generator/models">Models</a>
                 </li>

@@ -23,15 +23,6 @@
       </ul>
     </li>
     <li><a href="#generate" id="markdown-toc-generate">Generate</a></li>
-    <li><a href="#custom-data-types" id="markdown-toc-custom-data-types">Custom Data Types</a>
-      <ul>
-        <li><a href="#list-custom-data-types" id="markdown-toc-list-custom-data-types">List Custom Data Types</a></li>
-        <li><a href="#show-custom-data-types" id="markdown-toc-show-custom-data-type">Show Custom Data Types</a></li>
-        <li><a href="#create-custom-data-types" id="markdown-toc-create-custom-data-type">Create Custom Data Types</a></li>
-        <li><a href="#update-custom-data-types" id="markdown-toc-update-custom-data-type">Update Custom Data Types</a></li>
-        <li><a href="#delete-custom-data-types" id="markdown-toc-delete-custom-data-type">Delete Custom Data Types</a></li>
-      </ul>
-    </li>
     <li><a href="#models" id="markdown-toc-models">Models</a>
       <ul>
         <li><a href="#list-models" id="markdown-toc-list-models">List Models</a></li>
@@ -56,27 +47,7 @@
   <figure class="highlight"><pre><code class="language-bash" data-lang="bash">curl -u jsmith@example.com/token:940gLf8Ceeo41eSmD6c5B43YPmc9et2m https://seedbase.io/api/models.json</code></pre></figure>
   <p>Don't forget to url-encode the slash character if you're authenticating over HTTP!</p>
   <h2 id="rate-limits">Rate Limits</h2>
-  <p>The API has a specific rate limit per month depending on your plan. See the table below:</p>
-  <div class="table-responsive">
-    <table class="table">
-      <tr>
-        <th>Plan</th>
-        <th>Requests per month</th>
-      </tr>
-      <tr>
-        <td>No Plan</td>
-        <td>1,000</td>
-      </tr>
-      <tr>
-        <td>Personal</td>
-        <td>10,000</td>
-      </tr>
-      <tr>
-        <td>Business</td>
-        <td>100,000</td>
-      </tr>
-    </table>
-  </div>
+  <p>The API has a rate limit of 1,000 requests/month.</p>
   <h2 id="request-format">Request Format</h2>
   <p>Since the Seedbase Data API is a JSON API, you must supply a <code class="highlighter-rouge">Content-Type: application/json</code> header in <code class="highlighter-rouge">PUT</code> and <code class="highlighter-rouge">POST</code> requests and set an <code class="highlighter-rouge">Accept: application/json</code> header on all requests.</p>
   <h2 id="response-format">Response Format</h2>
@@ -94,18 +65,6 @@
 }</code></pre></figure>
   <h1 id="generate">Generate</h1>
   <p><code class="highlighter-rouge">POST https://seedbase.io/api/generate</code></p>
-
-  <h1 id="custom-data-types">Custom Data Types</h1>
-  <h2 id="list-custom-data-types">List Custom Data Types</h2>
-  <p><code class="highlighter-rouge">GET https://seedbase.io/api/custom-data-types</code></p>
-  <h2 id="show-custom-data-type">Show Custom Data Type</h2>
-  <p><code class="highlighter-rouge">GET https://seedbase.io/api/custom-data-type/{id}</code></p>
-  <h2 id="create-custom-data-type">Create Custom Data Type</h2>
-  <p><code class="highlighter-rouge">POST https://seedbase.io/api/custom-data-types</code></p>
-  <h2 id="update-custom-data-type">Update Custom Data Type</h2>
-  <p><code class="highlighter-rouge">PUT https://seedbase.io/api/custom-data-type/{id}</code></p>
-  <h2 id="delete-custom-data-type">Delete Custom Data Type</h2>
-  <p><code class="highlighter-rouge">DELETE https://seedbase.io/api/custom-data-type/{id}</code></p>
 
   <h1 id="models">Models</h1>
   <h2 id="list-models">List Models</h2>
