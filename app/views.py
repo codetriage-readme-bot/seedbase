@@ -34,9 +34,10 @@ def terms_of_service():
 def privacy_policy():
   return render_template('home/privacy_policy.html')
 
-@app.route('/account', methods=['GET'])
-def account():
-  return render_template('user/account.html')
+# A user account page is on the to-do list.
+# @app.route('/account', methods=['GET'])
+# def account():
+#   return render_template('user/account.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -96,9 +97,10 @@ def logout():
 def dashboard():
   return render_template('generator/dashboard.html')
 
-@app.route('/generator/data-types', methods=['GET', 'POST'])
-def data_types():
-  return render_template('generator/data-types.html')
+# Custom data types is on the to-do list.
+# @app.route('/generator/data-types', methods=['GET', 'POST'])
+# def data_types():
+#   return render_template('generator/data-types.html')
 
 @app.route('/generator/models', methods=['GET'])
 @login_required
