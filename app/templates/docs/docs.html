@@ -1,6 +1,5 @@
 {% extends "docs/layout.html" %}
 {% block content %}
-
 <div class="docs-header" id="content">
   <div class="container">
     <h1>Documentation</h1>
@@ -8,9 +7,7 @@
   </div>
 </div>
 <div class="container docs-content">
-
   <h1 id="contents">Contents</h1>
-
   <ul id="markdown-toc">
     <li><a href="#contents" id="markdown-toc-contents">Contents</a></li>
     <li><a href="#introduction" id="markdown-toc-intro">Introduction</a>
@@ -32,7 +29,6 @@
       </ul>
     </li>
   </ul>
-
   <h1 id="intro">Introduction</h1>
   <p>Hey there! Welcome to the Seedbase documentation. Let’s dive in.</p>
   <h2 id="the-api">The API</h2>
@@ -70,8 +66,6 @@
   <p><code class="highlighter-rouge">PUT https://seedbase.io/api/models/{id}</code></p>
   <h2 id="delete-model">Delete Model</h2>
   <p><code class="highlighter-rouge">DELETE https://seedbase.io/api/models/{id}</code></p>
-
   <a class="docs-top" style="display: none" href="#">Back to top</a>
 </div>
-
 {% endblock %}

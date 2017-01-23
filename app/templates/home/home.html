@@ -1,6 +1,5 @@
 {% extends "home/layout.html" %}
 {% block content %}
-
 <div class="stage-shelf stage-shelf-right hidden" id="sidebar">
 	<ul class="nav nav-bordered nav-stacked">
 		<li class="nav-header">Generator</li>
@@ -15,7 +14,6 @@
 		</li>
 	</ul>
 </div>
-
 <div class="stage" id="stage">
 	<div class="block block-inverse block-fill-height app-header" style="background-image: url({{ url_for('static', filename='img/cover.png') }});">
 		<nav class="navbar navbar-transparent navbar-fixed-top navbar-padded app-navbar p-t-md">
@@ -72,7 +70,6 @@
 			</div>
 		</div>
 	</div>
-
 	<div class="block block-secondary app-iphone-block">
 		<div class="container">
 			<div class="row app-align-center">
@@ -97,7 +94,6 @@
 			</div>
 	  </div>
 	</div>
-
 	<div class="block block-secondary app-block-marketing-grid" id="features">
 		<div class="container text-center">
 			<div class="row m-b-lg">
@@ -159,5 +155,4 @@
 		</div>
 	</div>
 </div>
-
 {% endblock %}

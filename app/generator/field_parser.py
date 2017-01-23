@@ -4,6 +4,8 @@ from gen_boolean import get_random_boolean
 from gen_number import get_random_integer
 
 def create_dict(fields):
+	""" Creates a dictionary out of user's model fields."""
+
 	result = []
 	parse_fields(fields, u'{\xa0}', result)
 	result.append('}')
