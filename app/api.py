@@ -6,11 +6,14 @@ from flask_login import login_required, current_user
 from app import app, db
 from app.models import User, Model, Field, CustomDataType, ModelSchema, CustomDataTypeSchema
 import sqlalchemy.exc
+from app.generator.gen_boolean import get_random_boolean
+from app.generator.gen_number import get_random_integer
+from app.generator.gen_string import get_random_string
 
 limiter = Limiter(
   app,
   key_func=get_remote_address,
-  global_limits=["200 per day", "50 per hour"]
+  global_limits=["200 per day", "50 per hour", "1000 per month"]
 )
 
 def requires_auth(f):
@@ -140,7 +143,24 @@ def delete_model(model_id):
     db.session.rollback()
     return jsonify({"error": str(e)}), 401
 
-# CUSTOM DATA TYPES =================================================
+# GENERATOR =================================================================
+
+@app.route('/api/generator/string', methods=['GET'])
+@requires_auth
+def get_random_string():
+  return jsonify({ "string": get_random_string() }), 200
+
+@app.route('/api/generator/integer', methods=['GET'])
+@requires_auth
+def get_random_integer():
+  return jsonify({ "integer": get_random_integer() }), 200
+
+@app.route('/api/generator/boolean', methods=['GET'])
+@requires_auth
+def get_random_boolean():
+  return jsonify({ "boolean": get_random_boolean() }), 200
+
+# CUSTOM DATA TYPES [NOT IMPLEMENTED] =======================================
 
 @app.route('/api/custom-data-types', methods=['GET'])
 @requires_auth

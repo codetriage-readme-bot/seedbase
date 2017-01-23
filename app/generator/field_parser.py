@@ -56,10 +56,9 @@ def parse_fields(data, parent_node, result):
 			if ele['data_type'] == 'Boolean':
 				result.append(repr(str(get_random_boolean())))
 			elif ele['data_type'] == 'Number':
-				result.append(repr(str(get_random_number())))
+				result.append(repr(str(get_random_integer())))
 			elif ele['data_type'] == 'String':
 				result.append(repr(str(get_random_string())))
 
 def parse_json(result):
 	return ''.join(result).replace('\'\'', '\',\'').replace('}\'', '},\'').replace('\'', '"')
-
