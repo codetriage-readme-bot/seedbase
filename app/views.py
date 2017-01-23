@@ -7,6 +7,11 @@ from app.models import User
 from app.generator.http_connector import HTTPConnector
 import requests
 
+@login_manager.unauthorized_handler
+def unauthorized_callback():
+  flash('You must be logged in first.', 'info')
+  return redirect('/login')
+
 @login_manager.user_loader
 def load_user(email):
   return User.query.filter_by(email=email).first()
@@ -96,10 +101,12 @@ def data_types():
   return render_template('generator/data-types.html')
 
 @app.route('/generator/models', methods=['GET'])
+@login_required
 def models():
   return render_template('generator/models.html')
 
 @app.route('/generator/connector', methods=['GET', 'POST'])
+@login_required
 def connector():
   models = current_user.models
   form = ConnectorForm()
