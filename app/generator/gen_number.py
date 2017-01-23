@@ -1,4 +1,9 @@
-# https://docs.python.org/2/library/random.html
+"""
+Generate random numbers (integers and floats).
+
+https://docs.python.org/2/library/random.html
+"""
+
 import random
 
 def get_random_integer(low=0, high=10):

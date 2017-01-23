@@ -110,6 +110,10 @@ def models():
 @app.route('/generator/connector', methods=['GET', 'POST'])
 @login_required
 def connector():
+  """
+  It may be worth it to create a background job for this method when generating
+  large amounts of data.
+  """
   models = current_user.models
   form = ConnectorForm()
 
