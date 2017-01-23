@@ -7,7 +7,7 @@ from app import app, db
 from app.models import User, Model, Field, CustomDataType, ModelSchema, CustomDataTypeSchema
 import sqlalchemy.exc
 from app.generator.gen_boolean import get_random_boolean
-from app.generator.gen_number import get_random_integer
+from app.generator.gen_number import get_random_integer, get_random_float
 from app.generator.gen_string import get_random_string
 
 limiter = Limiter(
@@ -153,7 +153,14 @@ def get_random_string():
 @app.route('/api/generator/integer', methods=['GET'])
 @requires_auth
 def get_random_integer():
+  """To do: Allow url parameters to determine high/low for random integer. """
   return jsonify({ "integer": get_random_integer() }), 200
+
+@app.route('/api/generator/float', methods=['GET'])
+@requires_auth
+def get_random_float():
+  """To do: Allow url parameters to determine high/low for random float. """
+  return jsonify({ "float": get_random_float() }), 200
 
 @app.route('/api/generator/boolean', methods=['GET'])
 @requires_auth

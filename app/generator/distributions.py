@@ -45,3 +45,5 @@ Use https://docs.python.org/2/library/random.html for reference:
         Weibull distribution. alpha is the scale parameter and beta is the shape
         parameter.
 """
+
+import random
