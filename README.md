@@ -3,7 +3,7 @@ Seedbase.io
 
 [![Code Triagers Badge](https://www.codetriage.com/rosendin/seedbase/badges/users.svg)](https://www.codetriage.com/rosendin/seedbase)
 
-A data generation platform with a RESTful API connector built on Python, Flask, React, and PostgreSQL. Designed to test APIs by generating random data and POSTing to endpoints. Follow the [Trello Board](https://trello.com/b/8zS0QPeR/seedbase) for the product roadmap and visit the [wiki](https://github.com/rosendin/seedbase/wiki) for further reading.
+A data generation platform with a RESTful API connector built on Python, Flask, React, and MySQL. Designed to test APIs by generating random data and POSTing to endpoints. Follow the [Trello Board](https://trello.com/b/8zS0QPeR/seedbase) for the product roadmap and visit the [wiki](https://github.com/rosendin/seedbase/wiki) for further reading.
 
 ![alt tag](https://raw.githubusercontent.com/rosendin/seedbase/master/demo2.png)
 
@@ -45,7 +45,7 @@ Export the `SEEDBASE_CONFIG` environment variable (You may have to restart your 
 (env) $ export SEEDBASE_CONFIG=config.default
 ```
 
-Also add a `.env` file to the application root and set values for `PG_USERNAME`, `PG_PASSWORD`, `PG_DATABASE`, and `SECRET_KEY`. Make sure to have PostgreSQL installed on your system. You can just set `PG_USERNAME=root` and the other values to empty strings if you want to setup the database later.
+Also add a `.env` file to the application root and set values for `MYSQL_USERNAME`, `MYSQL_PASSWORD`, `MYSQL_DATABASE`, and `SECRET_KEY`. Make sure to have PostgreSQL installed on your system. You can just set `MYSQL_USERNAME=root` and the other values to empty strings if you want to setup the database later.
 
 Finally, run the application:
 ```
@@ -53,7 +53,7 @@ Finally, run the application:
 ```
 
 ### Database
-Make sure the database is created in PostgreSQL. Then enter the python interpreter (`python`) and run the following to create the database tables:
+Make sure the database is created in MySQL. Then enter the python interpreter (`python`) and run the following to create the database tables:
 
 ``` python
 from app import db
